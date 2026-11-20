@@ -23,6 +23,18 @@
 .ch-grid{grid-template-columns:minmax(0,1fr)}.ch-world{width:100%;min-width:0;min-height:0;aspect-ratio:auto;height:clamp(300px,48vh,460px);background:linear-gradient(115deg,#101e29,#14212c 40%,#09131c)}.ch-main-glow{mix-blend-mode:screen}.ch-world.main-on .ch-main-glow{opacity:.53}.ch-world.aux-on .ch-aux-glow{opacity:.68}.ch-door{opacity:1!important}.ch-footer{min-width:0}.ch-header>span{overflow-wrap:anywhere}.ch-header>div{min-width:0}.ch-header>span{min-width:0}.ch-console{min-width:0}.ch-controls,.ch-controller{min-width:0}.ch-primary:focus-visible,.ch-secondary:focus-visible,.ch-switch:focus-visible,.ch-module:focus-visible{outline:2px solid #ffc36c;outline-offset:3px}.ch-secondary:disabled{opacity:.45}
 @media(max-width:730px){.ch-world{height:auto;min-height:0;display:flex;flex-direction:column;aspect-ratio:auto}.ch-room-art{position:relative;inset:auto;width:100%;height:auto;aspect-ratio:900/470;order:2}.ch-objective{position:relative;left:auto;top:auto;margin:10px 10px 0;max-width:none;order:1}.ch-world-labels{z-index:2;bottom:8px}.ch-door-label{z-index:2;bottom:8px}.ch-header>span{max-width:32%;text-align:right}.ch-footer>span{flex:1 0 100%}.ch-footer .ch-primary{padding:10px 12px}.ch-module{padding:10px 7px}}
 
+ 
+/* Chapter 02: scene-first airlock, responsive, no network assets. */
+#airScene[hidden]{display:none!important}
+.air-board{border:1px solid #465563;border-radius:15px;overflow:hidden;background:linear-gradient(165deg,#263947,#101c25 57%,#080f17);box-shadow:0 15px 38px #0006;position:relative;padding:18px;min-width:0}
+.air-title{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:13px}.air-title h1{font-size:26px;margin:4px 0}.air-title p{margin:0;color:#b9c8d0;font-size:13px}.air-title small{color:#ffc36c;font-weight:700;letter-spacing:.12em}
+.air-art{display:block;width:100%;height:clamp(205px,34vh,360px);background:radial-gradient(ellipse at center,#37414a,#111f29 60%,#09151e);border:1px solid #50606b;border-radius:10px}
+.air-door{transform-box:fill-box;transition:transform .55s ease}.air-inner-open .ai-left,.air-outer-open .ao-left{transform:translateX(-76px)}.air-inner-open .ai-right,.air-outer-open .ao-right{transform:translateX(76px)}
+.air-low .air-gauge{stroke:#69ebd7}.air-low .air-needle{transform:rotate(-115deg)}.air-needle{transform-origin:450px 170px;transition:transform .55s ease}.air-inner-open .ai-lamp,.air-outer-open .ao-lamp{fill:#70f3d5}
+.air-status-row,.air-control-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:10px}.air-status-row span{background:#0c1924;border:1px solid #435260;border-radius:7px;padding:8px;text-align:center;font-size:13px}.air-status-row span.good{color:#8af4d2;border-color:#3f8a7b}
+.air-controls{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:12px}.air-console{padding:14px;border:1px solid #455762;border-radius:12px;background:linear-gradient(145deg,#22303b,#111c24);min-width:0}.air-console h2{font-size:15px;margin:0 0 8px}.air-console p{font-size:12px;color:#c3d1d7;margin:6px 0}.air-action{min-width:0;min-height:76px;padding:10px 5px;border:1px solid #687783;border-radius:8px;background:linear-gradient(#293b46,#111a22);color:#eaf0f2;font-weight:700}.air-action span{display:block;color:#acc5cc;font-size:11px;font-weight:400;margin-top:3px}.air-action:hover{border-color:#78e5d2}.air-gates{display:flex;gap:8px;margin-top:10px}.air-gates button{flex:1;min-width:0;min-height:44px;border:1px solid #687783;border-radius:8px;background:#101c25;font:800 18px monospace}.air-gates button[aria-pressed=true]{border-color:#ffc36c;color:#ffc36c;background:#392e20}.air-signals{display:flex;flex-wrap:wrap;gap:6px}.air-signals span{border:1px solid #52616b;border-radius:6px;padding:5px 8px;color:#acbfc6;font-size:12px}.air-signals span.good{border-color:#489d88;color:#87f4d5}.air-notice{min-height:44px;border-left:3px solid #ffc36c;padding:11px 13px;background:#101b25;color:#e8d5aa;border-radius:4px;font-size:13px}.air-notice.done{border-color:#78efd4;color:#a8ffe6}.air-title>button{align-self:flex-start}.air-footer{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.air-footer>span{flex:1;color:#b0c2c8;font-size:12px}.air-footer .ch-primary{margin-left:auto}.air-helper{font-size:12px;color:#aebfc7}
+@media(max-width:730px){.air-board{padding:10px}.air-title h1{font-size:21px}.air-title{gap:8px}.air-art{height:auto;aspect-ratio:900/270}.air-controls{grid-template-columns:1fr}.air-status-row span{font-size:11px;padding:6px}.air-console{padding:11px}.air-title p{font-size:12px}.air-footer>span{flex:1 0 100%;order:-1}.air-action{min-height:64px}.air-title>button{white-space:normal}}
+@media(prefers-reduced-motion:reduce){.air-door,.air-needle{transition:none}}
 </style></head><body><section id="chapterScene" class="chapter" hidden aria-label="第一关：最后一盏灯">
   <header class="ch-header"><div><strong>错位电路</strong><small>OFFSET CIRCUIT / 01</small></div><span id="chSave" role="status">离线模式</span><button id="chLab" class="ch-secondary">完整工作台 ↗</button></header>
   <main class="ch-grid">
@@ -50,6 +62,16 @@
   </main>
 </section>
 
+<section id="airScene" class="chapter" hidden aria-label="第二关：沉默的气闸">
+<header class="ch-header"><div><strong>错位电路</strong><small>OFFSET CIRCUIT / 02</small></div><span id="airSave" role="status"></span><button class="ch-secondary" id="airLab">完整工作台 ↗</button></header>
+<main class="ch-grid">
+<section class="air-board"><div class="air-title"><div><small>02 / 黑暗中的空间站</small><h1>沉默的气闸</h1><p>隔离两侧舱室，修复开门联锁，然后安全通过。</p></div><button id="airBack" class="ch-secondary">返回第一关</button></div>
+<svg id="airArt" class="air-art" viewBox="0 0 900 270" role="img" aria-label="内门、气压仪表和外门"><defs><clipPath id="airIC"><path d="M18 222V95L50 59H208L240 95V222Z"/></clipPath><clipPath id="airOC"><path d="M18 222V95L50 59H208L240 95V222Z"/></clipPath></defs><path d="M0 250H900M0 15H900" stroke="#465862" stroke-width="12"/><path d="M319 0V44H581V0M320 250V210M580 250V210" fill="none" stroke="#967449" stroke-width="8"/><g transform="translate(45 0)"><path d="M0 232V90L38 42H220L258 90V232Z" fill="#12222d" stroke="#71808b" stroke-width="8"/><path d="M18 222V95L50 59H208L240 95V222Z" fill="#061019" stroke="#a17641" stroke-width="3"/><g clip-path="url(#airIC)"><g class="air-door ai-left"><path d="M18 222V95L50 59H129V222Z" fill="#40515c" stroke="#182630" stroke-width="4"/><path d="M43 108L104 149V202H43Z" fill="#293b45" stroke="#63727a" stroke-width="3"/></g><g class="air-door ai-right"><path d="M240 222V95L208 59H129V222Z" fill="#40515c" stroke="#182630" stroke-width="4"/><path d="M215 108L154 149V202H215Z" fill="#293b45" stroke="#63727a" stroke-width="3"/></g></g><rect x="92" y="26" width="74" height="9" rx="4" fill="#674e33"/><rect class="ai-lamp" x="98" y="28" width="62" height="5" rx="2" fill="#efa950"/><path d="M18 238H240" stroke="#c0914a" stroke-width="5" stroke-dasharray="17 10"/></g><g transform="translate(597 0)"><path d="M0 232V90L38 42H220L258 90V232Z" fill="#12222d" stroke="#71808b" stroke-width="8"/><path d="M18 222V95L50 59H208L240 95V222Z" fill="#061019" stroke="#a17641" stroke-width="3"/><g clip-path="url(#airOC)"><g class="air-door ao-left"><path d="M18 222V95L50 59H129V222Z" fill="#40515c" stroke="#182630" stroke-width="4"/><path d="M43 108L104 149V202H43Z" fill="#293b45" stroke="#63727a" stroke-width="3"/></g><g class="air-door ao-right"><path d="M240 222V95L208 59H129V222Z" fill="#40515c" stroke="#182630" stroke-width="4"/><path d="M215 108L154 149V202H215Z" fill="#293b45" stroke="#63727a" stroke-width="3"/></g></g><rect x="92" y="26" width="74" height="9" rx="4" fill="#674e33"/><rect class="ao-lamp" x="98" y="28" width="62" height="5" rx="2" fill="#efa950"/><path d="M18 238H240" stroke="#c0914a" stroke-width="5" stroke-dasharray="17 10"/></g><rect x="345" y="75" width="210" height="142" rx="14" fill="#101e27" stroke="#6c7b83" stroke-width="5"/><path class="air-gauge" d="M386 170 A64 64 0 0 1 514 170" fill="none" stroke="#ffbf62" stroke-width="12" stroke-linecap="round"/><path class="air-needle" d="M450 170L498 137" stroke="#f3e7c9" stroke-width="4" stroke-linecap="round"/><circle cx="450" cy="170" r="6" fill="#bfcdd4"/><text id="airGaugeText" x="450" y="196" font-size="20" font-weight="700" text-anchor="middle" fill="#c2e8e6">101 kPa</text><text x="174" y="19" text-anchor="middle" fill="#e2edf0" font-size="14">内门 / DOCK</text><text x="726" y="19" text-anchor="middle" fill="#e2edf0" font-size="14">外门 / VACUUM</text></svg>
+<div class="air-status-row"><span id="airInnerStatus"></span><span id="airPressureStatus"></span><span id="airOuterStatus"></span></div></section>
+<section class="air-controls"><div class="air-console"><h2>操作设备</h2><div class="air-control-row"><button class="air-action" id="airInner">关闭内门<span>对接舱</span></button><button class="air-action" id="airPump">降压<span>均压泵</span></button><button class="air-action" id="airOuter">打开外门<span>联锁控制</span></button></div><p class="air-helper">安全制动会拦截危险动作，不扣分、不重开。</p></div>
+<div class="air-console"><h2>开门联锁</h2><div class="air-signals"><span id="airSensorA"></span><span id="airSensorB"></span><span id="airPermit"></span></div><div class="air-gates" role="group" aria-label="更换联锁模块"><button data-air-gate="OR" aria-label="OR 任一条件">OR</button><button data-air-gate="XOR" aria-label="XOR 恰好一个条件">XOR</button><button data-air-gate="AND" aria-label="AND 两个条件">AND</button></div><p id="airGateLegend"></p></div></section>
+<div id="airNotice" class="air-notice" aria-live="polite"></div>
+<footer class="air-footer"><button id="airHint" class="ch-secondary">提示</button><button id="airUndo" class="ch-secondary">撤销</button><button id="airReset" class="ch-secondary">重置</button><span id="airProgress" role="status"></span><button class="ch-primary" id="airNext" hidden>返回工作台 →</button></footer></main></section>
 <div class="app-shell">
 <header class="topbar">
   <div class="brand">
@@ -59,7 +81,7 @@
   <div class="header-right"><div class="live-chip" id="saveStatus" role="status">SYSTEM ONLINE</div><div class="progress"><span>已修复</span><b id="progress">0</b><span>/ 06</span></div></div>
 </header>
 <div class="app-grid">
-  <aside class="rail"><button class="btn ch-entry" id="chapterEntry">进入剧情 · 最后一盏灯</button>
+  <aside class="rail"><button class="btn ch-entry" id="chapterEntry">进入剧情 · 最后一盏灯</button><button class="btn ch-entry" id="airEntry">继续剧情 · 沉默的气闸</button>
     <div class="tim-entry"><button class="btn primary" id="timOpen">∿ 门延迟实验室 / NEW</button></div><nav class="panel sidebar" id="nav" aria-label="关卡导航"></nav>
     <section class="panel side-card info-card"><h3><span>▤</span>关卡信息</h3><div class="side-meta"><span>当前关卡</span><b id="currentLevel">信号唤醒</b></div><div class="side-meta"><span>实验类型</span><b>组合逻辑诊断</b></div><div class="side-meta"><span>核心目标</span><b>定位错位逻辑门</b></div><div class="side-meta"><span>难度等级</span><b id="sideDifficulty">入门</b></div></section>
     <section class="panel side-card fault-card"><h3><span>⚠</span>故障类型</h3><div class="fault-row"><span class="fault-tag">0</span><div><b>Stuck-at-0</b><small>输出恒定为 0</small></div></div><div class="fault-row"><span class="fault-tag">1</span><div><b>Stuck-at-1</b><small>输出恒定为 1</small></div></div><div class="fault-row"><span class="fault-tag">∿</span><div><b>Inversion</b><small>输出逻辑反相</small></div></div></section>
@@ -320,4 +342,53 @@ const ChapterOne=(()=>{
  return {open,close};
 })();
 
+
+// Chapter 2 is an independent, safe discrete-state campaign puzzle; original lab levels unchanged.
+function initialAirlock(){return {inner:true,outer:false,low:false,gate:"OR",done:false};}
+function airSignal(g,a,b){return g==="AND"?a&&b:g==="OR"?a||b:a!==b;}
+function airValid(s){return !!s&&["AND","OR","XOR"].includes(s.gate)&&["inner","outer","low","done"].every(k=>typeof s[k]==="boolean")&&!(s.inner&&(s.outer||s.low))&&!(s.outer&&!s.low)&&(!s.done||(s.outer&&s.low&&!s.inner&&s.gate==="AND"));}
+function airStep(s,action){
+ const fail=message=>({state:s,message,changed:false});
+ if(!airValid(s))return fail("状态异常，请重置气闸。");
+ let n={...s},message="";
+ if(["AND","OR","XOR"].includes(action)){if(s.done)return fail("已完成。本次通行记录已保存，可撤销或重置。");if(action===s.gate)return fail("该模块已安装。");n.gate=action;message="联锁模块已更换。观察两盏条件指示灯。";}
+ else if(action==="inner"){if(s.done)return fail("已通过气闸，可撤销或重置。");if(s.inner){n.inner=false;message="内门关闭。现在可以均压。";}else{if(s.outer||s.low)return fail("安全制动：先关闭外门，再恢复舱内气压。");n.inner=true;message="内门打开。";}}
+ else if(action==="pressure"){if(s.done)return fail("已通过气闸，可撤销或重置。");if(s.inner||s.outer)return fail("均压泵拒绝启动：两扇门必须关闭。");n.low=!s.low;message=n.low?"气压已与真空侧平衡。":"气压已恢复到对接舱水平。";}
+ else if(action==="outer"){if(s.done)return fail("已通过气闸，可撤销或重置。");if(s.outer){n.outer=false;message="外门关闭。";}else{const a=!s.inner,b=s.low;if(!airSignal(s.gate,a,b))return fail("控制器未发出开门许可。检查条件指示与逻辑模块。");if(!a||!b)return fail("独立安全制动拦截了错误许可：内门未关闭或气压未均衡。");if(s.gate!=="AND")return fail("自检发现联锁在其他工况会误发许可。请安装能同时要求两项条件的模块。");n.outer=true;n.done=true;message="外门打开。安全联锁通过，通行完成。";}}
+ else return fail("未知操作。");
+ if(!airValid(n))throw Error("unsafe airlock transition");
+ return {state:n,message,changed:true};
+}
+const ChapterTwo=(()=>{
+ const key="offset-airlock-v1",scene=$("airScene");let state=initialAirlock(),undo=[],active=false,resume=false,warning="",hint=0,notice="试着操作设备：观察指示灯和控制器是否给出正确许可。";
+ try{const v=JSON.parse(localStorage.getItem(key)||"null");if(v!==null){if(v.version!==1||!airValid(v.state)||!Array.isArray(v.undo)||v.undo.length>80||!v.undo.every(airValid))throw Error("invalid save");state=v.state;undo=v.undo;resume=v.active===true;}}catch{warning="旧气闸存档异常，已恢复初始状态";}
+ function save(){try{localStorage.setItem(key,JSON.stringify({version:1,state,undo,active}));$("airSave").textContent=warning||"进度已保存";warning="";}catch{$("airSave").textContent="无法保存 · 本次会话有效";}}
+ function display(){
+  const a=!state.inner,b=state.low,p=airSignal(state.gate,a,b),art=$("airArt");
+  art.classList.toggle("air-inner-open",state.inner);art.classList.toggle("air-outer-open",state.outer);art.classList.toggle("air-low",state.low);
+  $("airGaugeText").textContent=state.low?"0 kPa":"101 kPa";
+  function status(id,on,label){const el=$(id);el.textContent=label;el.classList.toggle("good",on);}
+  status("airInnerStatus",a,"内门 · "+(a?"关闭":"打开"));status("airPressureStatus",b,state.low?"低压 · 已均衡":"高压 · 未均衡");status("airOuterStatus",state.outer,"外门 · "+(state.outer?"打开":"关闭"));
+  status("airSensorA",a,"内门关闭 "+(a?"1":"0"));status("airSensorB",b,"低压 "+(b?"1":"0"));status("airPermit",p,"许可 "+(p?"1":"0"));
+  $("airInner").firstChild.textContent=state.inner?"关闭内门":"打开内门";$("airPump").firstChild.textContent=state.low?"增压":"降压";$("airOuter").firstChild.textContent=state.outer?"关闭外门":"打开外门";
+  document.querySelectorAll("[data-air-gate]").forEach(el=>{el.setAttribute("aria-pressed",String(el.dataset.airGate===state.gate));el.disabled=state.done;});
+  ["airInner","airPump","airOuter"].forEach(id=>$(id).disabled=state.done);
+  $("airGateLegend").textContent=state.gate==="AND"?"AND：两项条件同时成立":state.gate==="OR"?"OR：任一条件成立":"XOR：恰好一项条件成立";
+  $("airNotice").textContent=notice;$("airNotice").classList.toggle("done",state.done);$("airUndo").disabled=!undo.length;$("airNext").hidden=!state.done;
+  $("airProgress").textContent=state.done?"第二关完成 · 通行安全":a&&b?"均压完成 · 检查开门许可":"气闸尚未就绪";
+ }
+ function action(name){const r=airStep(state,name);if(r.changed){undo.push({...state});if(undo.length>80)undo.shift();state=r.state;save();}notice=r.message;display();}
+ function open(){if(!Object.hasOwn(saved,0)){say("请先完成第一关。","bad");return;}if(!$("chapterScene").hidden)ChapterOne.close();active=true;scene.hidden=false;document.body.classList.add("chapter-active");notice=state.done?"安全通行已完成，可重玩或返回工作台。":"观察气压、两扇门与联锁许可。";display();save();window.scrollTo(0,0);$("airInner").focus({preventScroll:true});}
+ function close(){active=false;scene.hidden=true;document.body.classList.remove("chapter-active");save();window.scrollTo(0,0);$("airEntry").focus({preventScroll:true});}
+ $("airInner").onclick=()=>action("inner");$("airPump").onclick=()=>action("pressure");$("airOuter").onclick=()=>action("outer");
+ document.querySelectorAll("[data-air-gate]").forEach(el=>el.onclick=()=>action(el.dataset.airGate));
+ $("airUndo").onclick=()=>{if(undo.length){state=undo.pop();notice="已撤销上一步。";save();display();}};
+ $("airReset").onclick=()=>{if(!confirm("重新开始第二关？第一关和工作台进度不会受影响。"))return;state=initialAirlock();undo=[];hint=0;notice="气闸已恢复初始状态。";save();display();};
+ $("airHint").onclick=()=>{const hints=["观察许可灯：关闭内门但保持高压，此时是否会错误允许开门？","外门必须同时满足两个条件。比较 OR、XOR、AND。","关闭内门、降压、安装 AND，再打开外门。"];notice=state.done?"已经安全通过气闸。":hints[Math.min(hint++,2)];display();};
+ $("airLab").onclick=close;$("airNext").onclick=close;$("airBack").onclick=()=>{close();ChapterOne.open();};
+ $("airEntry").onclick=open;
+ const go=$("chNext").onclick;$("chNext").onclick=()=>{if(!verified||!C.evalCircuit(l,layout,bits).out.every(Boolean))return;go();open();};
+ if(resume&&Object.hasOwn(saved,0))open();
+ return {open,close};
+})();
 </script></body></html>
