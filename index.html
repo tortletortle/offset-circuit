@@ -383,7 +383,7 @@ const ChapterTwo=(()=>{
  $("airInner").onclick=()=>action("inner");$("airPump").onclick=()=>action("pressure");$("airOuter").onclick=()=>action("outer");
  document.querySelectorAll("[data-air-gate]").forEach(el=>el.onclick=()=>action(el.dataset.airGate));
  $("airUndo").onclick=()=>{if(undo.length){state=undo.pop();notice="已撤销上一步。";save();display();}};
- $("airReset").onclick=()=>{if(!confirm("重新开始第二关？第一关和工作台进度不会受影响。"))return;state=initialAirlock();undo=[];hint=0;notice="气闸已恢复初始状态。";save();display();};
+ $("airReset").onclick=()=>{undo.push({...state});if(undo.length>80)undo.shift();state=initialAirlock();hint=0;notice="已重置气闸；如果是误触，可立即撤销。";save();display();};
  $("airHint").onclick=()=>{const hints=["观察许可灯：关闭内门但保持高压，此时是否会错误允许开门？","外门必须同时满足两个条件。比较 OR、XOR、AND。","关闭内门、降压、安装 AND，再打开外门。"];notice=state.done?"已经安全通过气闸。":hints[Math.min(hint++,2)];display();};
  $("airLab").onclick=close;$("airNext").onclick=close;$("airBack").onclick=()=>{close();ChapterOne.open();};
  $("airEntry").onclick=open;
