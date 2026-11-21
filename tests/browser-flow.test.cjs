@@ -115,7 +115,18 @@ test('robot arm command sequence enforces safety, supports undo and resumes',asy
   const route=['GRIP','LIFT','MOVE','LOWER','RELEASE','LIFT','HOME'];
   for(const action of route)await page.locator('[data-robot-add="'+action+'"]').click();
   assert.equal(await page.locator('#robotCounter').innerText(),'程序 0 / 7');
-  for(let i=0;i<route.length;i++)await page.locator('#robotStep').click();
+  const startX=await page.locator('#robotTrolley').evaluate(el=>el.getBoundingClientRect().x);
+  const startY=await page.locator('#robotGripper').evaluate(el=>el.getBoundingClientRect().y);
+  await page.locator('#robotStep').click(); // grip
+  await page.locator('#robotStep').click(); // lift
+  await page.waitForTimeout(700);
+  const liftedY=await page.locator('#robotGripper').evaluate(el=>el.getBoundingClientRect().y);
+  assert.ok(liftedY<startY-25,'gripper must visibly lift: '+startY+' -> '+liftedY);
+  await page.locator('#robotStep').click(); // move
+  await page.waitForTimeout(700);
+  const movedX=await page.locator('#robotTrolley').evaluate(el=>el.getBoundingClientRect().x);
+  assert.ok(movedX>startX+100,'trolley must visibly move to B: '+startX+' -> '+movedX);
+  for(let i=3;i<route.length;i++)await page.locator('#robotStep').click();
   await page.locator('#robotFinish').waitFor({state:'visible'});
   assert.match(await page.locator('#robotArmStatus').innerText(),/待机位/);
   assert.match(await page.locator('#robotCargoStatus').innerText(),/B 点/);
