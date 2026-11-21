@@ -33,7 +33,7 @@ test('chapter saves are isolated and all safety/timing engines are present',()=>
  for(const key of ['offset-drafts-v1','offset-airlock-v1','offset-robot-v1','offset-hazard-v1'])assert.ok(html.includes(key),key);
  assert.match(html,/function robotStep\(s,action\)/);
  assert.match(html,/function airStep\(s,action\)/);
- assert.match(html,/const Timing=\(\(\)=>/);
+ assert.ok(html.includes('const Timing=(()=>'),'event-driven timing engine must be present');
  assert.match(html,/if\(s\.inner\|\|s\.outer\)return fail/);
  assert.match(html,/if\(!a\|\|!b\)return fail/);
 });
