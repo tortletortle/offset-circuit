@@ -99,7 +99,7 @@
 <div class="hazard-readout"><span id="hazardPulseCount">毛刺：待检测</span><span id="hazardDirectionReadout">A：1 → 0</span><span id="hazardRedundancy">BC 冗余通路：未安装</span></div>
 </section>
 <section class="hazard-controls">
-<div class="hazard-panel"><h2>输入工况 / TEST VECTOR</h2><div class="hazard-facts"><span>A：可切换</span><span>B：1</span><span>C：1</span><span>目标输出 Y：始终为 1</span></div><p>两条逻辑路径的传播延迟不同。改变 A 时，检查输出是否在路径交接期间短暂跌落。</p><button id="hazardDirection" class="hazard-action">反向切换 A（1 → 0）</button><button id="hazardRun" class="hazard-action">重新运行波形</button></div>
+<div class="hazard-panel"><h2>输入工况 / TEST VECTOR</h2><div class="hazard-facts"><span>A：可切换</span><span>B：1</span><span>C：1</span><span>目标输出 Y：始终为 1</span></div><p>两条逻辑路径的传播延迟不同。改变 A 时，检查输出是否在路径交接期间短暂跌落。</p><button id="hazardDirection" class="hazard-action">当前方向 A：1 → 0（点击反向）</button><button id="hazardRun" class="hazard-action">重新运行波形</button></div>
 <div class="hazard-panel"><h2>修复方案 / CONSENSUS PATH</h2><p>寻找一条在 A 改变时仍然成立的冗余逻辑通路。</p><button id="hazardFix" class="hazard-action" aria-pressed="false">安装 BC 保持通路</button><p id="hazardFormula">当前：Y = AB + A̅C</p><button id="hazardVerify" class="hazard-action">验证两个方向与延迟扰动</button></div>
 </section>
 <div id="hazardNotice" class="hazard-notice" aria-live="polite">先观察原始电路的输出波形，再尝试修复。</div>
@@ -535,7 +535,7 @@ const ChapterFour=(()=>{
   $("hazardDirectionReadout").textContent="A："+(state.from?"1 → 0":"0 → 1");
   $("hazardRedundancy").textContent="BC 冗余通路："+(state.consensus?"已安装":"未安装");
   $("hazardFix").setAttribute("aria-pressed",String(state.consensus));$("hazardFix").textContent=state.consensus?"已安装 BC 保持通路 · 点击移除":"安装 BC 保持通路";
-  $("hazardDirection").textContent="切换方向 A（"+(state.from?"1 → 0":"0 → 1")+"）";
+  $("hazardDirection").textContent="当前方向 A："+(state.from?"1 → 0":"0 → 1")+"（点击反向）";
   $("hazardFormula").textContent=state.consensus?"当前：Y = AB + A̅C + BC":"当前：Y = AB + A̅C";
   $("hazardVerify").disabled=!state.consensus||!state.observedHazard||state.verified;
   $("hazardNext").hidden=!state.verified;
