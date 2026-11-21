@@ -10,9 +10,20 @@ test('single-file game has unique element IDs and all chapter controls',()=>{
  const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
  const duplicates=ids.filter((id,i)=>ids.indexOf(id)!==i);
  assert.deepEqual(duplicates,[]);
- for(const id of ['chapterScene','chapterEntry','chNext','airScene','airEntry','airInner','airPump','airOuter','airUndo','airReset','airNext','airNotice','robotScene','robotEntry','robotStep','robotUndo','robotReset','robotFinish','hazardScene','hazardEntry','hazardRun','hazardFix','hazardVerify','hazardUndo','hazardNext','sensorScene','sensorEntry','sensorToggle','sensorRecord','sensorConfigure','sensorVerify','sensorUndo','sensorReset','sensorNext','sensorNotice','commsScene','commsEntry','commsAckBeam','commsGroundBeacon','commsGroundAckText','commsPowerTest','commsPowerTable','commsAirCheck','commsSensorCheck','commsObserve','commsFix','commsVerifyTiming','commsTransmit','commsAck','commsReadyAirlock','commsUndo','commsReset','commsNext','commsNotice']) {
+ for(const id of ['chapterScene','chapterEntry','chNext','airScene','airEntry','airInner','airPump','airOuter','airUndo','airReset','airNext','airNotice','robotScene','robotEntry','robotTutorialProgress','robotTutorialBar','robotTutorialPhase','robotTutorialTitle','robotTutorialText','robotTutorialTip','robotCounter','robotProgram','robotProgramHelp','robotStep','robotUndo','robotReset','robotFinish','hazardScene','hazardEntry','hazardRun','hazardFix','hazardVerify','hazardUndo','hazardNext','sensorScene','sensorEntry','sensorToggle','sensorRecord','sensorConfigure','sensorVerify','sensorUndo','sensorReset','sensorNext','sensorNotice','commsScene','commsEntry','commsAckBeam','commsGroundBeacon','commsGroundAckText','commsPowerTest','commsPowerTable','commsAirCheck','commsSensorCheck','commsObserve','commsFix','commsVerifyTiming','commsTransmit','commsAck','commsReadyAirlock','commsUndo','commsReset','commsNext','commsNotice']) {
   assert.equal(ids.filter(x=>x===id).length,1,'expected exactly one #'+id);
  }
+});
+
+test('robot chapter teaches actions through scene hotspots instead of a permanent command deck',()=>{
+ assert.match(html,/id="robotTutorialProgress"/);
+ assert.match(html,/id="robotTutorialText"/);
+ assert.doesNotMatch(html,/data-robot-add=/,'permanent command buttons must be removed');
+ assert.doesNotMatch(html,/class="robot-command-deck"/,'command deck must not occupy the scene');
+ for(const action of ['GRIP','LIFT','MOVE','LOWER','RELEASE','HOME']) {
+  assert.match(html,new RegExp('data-robot-hotspot="'+action+'"'),'missing scene hotspot '+action);
+ }
+ assert.match(html,/const tutorialSteps=\[[\s\S]*?action:"GRIP"[\s\S]*?action:"LIFT"[\s\S]*?action:"MOVE"[\s\S]*?action:"LOWER"[\s\S]*?action:"RELEASE"[\s\S]*?action:"LIFT"[\s\S]*?action:"HOME"/,'tutorial must preserve the seven-action safety sequence');
 });
 
 test('inline JavaScript parses without syntax errors',()=>{
