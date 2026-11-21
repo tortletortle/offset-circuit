@@ -1,0 +1,95 @@
+const {test}=require('node:test');
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
+const http=require('node:http');
+const {chromium}=require('playwright');
+
+const html=fs.readFileSync(path.join(__dirname,'..','index.html'),'utf8');
+
+async function launchPage(initScript,viewport={width:1280,height:900}) {
+ const server=http.createServer((req,res)=>{
+  res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+  res.end(html);
+ });
+ await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
+ const address=server.address();
+ const browser=await chromium.launch({headless:true});
+ const context=await browser.newContext({viewport});
+ if(initScript)await context.addInitScript(initScript);
+ const page=await context.newPage();
+ const errors=[];
+ page.on('pageerror',error=>errors.push(error.message));
+ await page.goto('http://127.0.0.1:'+address.port,{waitUntil:'load'});
+ return {server,browser,context,page,errors};
+}
+async function cleanup(env){
+ await env.context.close();
+ await env.browser.close();
+ await new Promise(resolve=>env.server.close(resolve));
+}
+
+test('airlock chapter plays safely, saves, resumes and fits mobile viewport',async()=>{
+ const env=await launchPage(()=>localStorage.setItem('offset-v1','{"0":1}'));
+ try {
+  const {page,errors}=env;
+  await page.locator('#chapterScene:not([hidden])').waitFor();
+  await page.locator('#chLab').click();
+  await page.locator('#airEntry').click();
+  await page.locator('#airScene:not([hidden])').waitFor();
+
+  await page.locator('#airPump').click();
+  assert.match(await page.locator('#airNotice').innerText(),/均压泵拒绝启动/);
+  await page.locator('#airInner').click();
+  assert.match(await page.locator('#airInnerStatus').innerText(),/内门 · 关闭/);
+  await page.locator('#airOuter').click();
+  assert.match(await page.locator('#airNotice').innerText(),/安全制动/);
+  await page.locator('#airPump').click();
+  assert.match(await page.locator('#airPressureStatus').innerText(),/低压 · 已均衡/);
+  await page.locator('#airOuter').click();
+  assert.match(await page.locator('#airNotice').innerText(),/自检发现联锁/);
+
+  await page.locator('[data-air-gate="AND"]').click();
+  await page.locator('#airOuter').click();
+  await page.locator('#airNext').waitFor({state:'visible'});
+  assert.match(await page.locator('#airOuterStatus').innerText(),/外门 · 打开/);
+
+  await page.locator('#airUndo').click();
+  await page.locator('#airNext').waitFor({state:'hidden'});
+  assert.match(await page.locator('#airOuterStatus').innerText(),/外门 · 关闭/);
+  await page.locator('#airOuter').click();
+  await page.locator('#airNext').waitFor({state:'visible'});
+
+  await page.reload({waitUntil:'load'});
+  await page.locator('#airScene:not([hidden])').waitFor();
+  await page.locator('#airNext').waitFor({state:'visible'});
+  await page.setViewportSize({width:390,height:844});
+  const dimensions=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));
+  assert.ok(dimensions.scroll<=dimensions.width,'mobile page must not overflow horizontally: '+JSON.stringify(dimensions));
+  assert.deepEqual(errors,[]);
+ } finally {await cleanup(env);}
+});
+
+test('corrupt and unavailable storage do not crash the chapter',async()=>{
+ const env=await launchPage(()=>{
+  localStorage.setItem('offset-v1','{"0":1}');
+  localStorage.setItem('offset-airlock-v1','not-json');
+  const original=Storage.prototype.setItem;
+  Storage.prototype.setItem=function(key,value){
+   if(key==='offset-airlock-v1')throw new DOMException('quota exceeded','QuotaExceededError');
+   return original.call(this,key,value);
+  };
+ });
+ try {
+  const {page,errors}=env;
+  await page.locator('#chapterScene:not([hidden])').waitFor();
+  await page.locator('#chLab').click();
+  await page.locator('#airEntry').click();
+  await page.locator('#airScene:not([hidden])').waitFor();
+  assert.match(await page.locator('#airSave').innerText(),/无法保存/);
+  assert.match(await page.locator('#airNotice').innerText(),/观察气压/);
+  await page.locator('#airInner').click();
+  assert.match(await page.locator('#airInnerStatus').innerText(),/内门 · 关闭/);
+  assert.deepEqual(errors,[]);
+ } finally {await cleanup(env);}
+});
