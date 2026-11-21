@@ -208,3 +208,46 @@ test('first chapter solves its real truth table and transitions into the airlock
   assert.deepEqual(errors,[]);
  } finally {await cleanup(env);}
 });
+
+
+test('complete campaign flows from chapter one through chapter four without seeded progress',async()=>{
+ const env=await launchPage(null);
+ try {
+  const {page,errors}=env;
+  await page.locator('#chapterScene:not([hidden])').waitFor();
+  await page.locator('#chGate0').click();
+  await page.locator('#chGate1').click();
+  await page.locator('#chPowerA').click();
+  await page.locator('#chNext').waitFor({state:'visible'});
+  await page.locator('#chNext').click();
+  await page.locator('#airScene:not([hidden])').waitFor();
+
+  await page.locator('#airInner').click();
+  await page.locator('#airOuter').click();
+  assert.match(await page.locator('#airNotice').innerText(),/安全制动/);
+  await page.locator('#airPump').click();
+  await page.locator('#airOuter').click();
+  assert.match(await page.locator('#airNotice').innerText(),/自检发现联锁/);
+  await page.locator('[data-air-gate="AND"]').click();
+  await page.locator('#airOuter').click();
+  await page.locator('#airNext').waitFor({state:'visible'});
+  await page.locator('#airNext').click();
+  await page.locator('#robotScene:not([hidden])').waitFor();
+
+  for(const action of ['GRIP','LIFT','MOVE','LOWER','RELEASE','LIFT','HOME'])await page.locator('[data-robot-add="'+action+'"]').click();
+  for(let i=0;i<7;i++)await page.locator('#robotStep').click();
+  await page.locator('#robotFinish').waitFor({state:'visible'});
+  await page.locator('#robotFinish').click();
+  await page.locator('#hazardScene:not([hidden])').waitFor();
+
+  assert.match(await page.locator('#hazardResult').innerText(),/5 ns/);
+  await page.locator('#hazardFix').click();
+  await page.locator('#hazardVerify').click();
+  await page.locator('#hazardNext').waitFor({state:'visible'});
+
+  await page.reload({waitUntil:'load'});
+  await page.locator('#hazardScene:not([hidden])').waitFor();
+  await page.locator('#hazardNext').waitFor({state:'visible'});
+  assert.deepEqual(errors,[]);
+ } finally {await cleanup(env);}
+});
