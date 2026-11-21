@@ -93,3 +93,46 @@ test('corrupt and unavailable storage do not crash the chapter',async()=>{
   assert.deepEqual(errors,[]);
  } finally {await cleanup(env);}
 });
+
+
+test('robot arm command sequence enforces safety, supports undo and resumes',async()=>{
+ const env=await launchPage(()=>{
+  localStorage.setItem('offset-v1','{"0":1}');
+  localStorage.setItem('offset-airlock-v1',JSON.stringify({version:1,state:{inner:false,outer:true,low:true,gate:'AND',done:true},undo:[],active:false}));
+ });
+ try {
+  const {page,errors}=env;
+  await page.locator('#chapterScene:not([hidden])').waitFor();
+  await page.locator('#chLab').click();
+  await page.locator('#robotEntry').click();
+  await page.locator('#robotScene:not([hidden])').waitFor();
+
+  await page.locator('[data-robot-add="MOVE"]').click();
+  await page.locator('#robotStep').click();
+  assert.match(await page.locator('#robotNotice').innerText(),/平移互锁/);
+  await page.locator('[data-robot-step="0"]').click();
+
+  const route=['GRIP','LIFT','MOVE','LOWER','RELEASE','LIFT','HOME'];
+  for(const action of route)await page.locator('[data-robot-add="'+action+'"]').click();
+  assert.match(await page.locator('#robotCounter').innerText(),/程序 0 \\/ 7/);
+  for(let i=0;i<route.length;i++)await page.locator('#robotStep').click();
+  await page.locator('#robotFinish').waitFor({state:'visible'});
+  assert.match(await page.locator('#robotArmStatus').innerText(),/待机位/);
+  assert.match(await page.locator('#robotCargoStatus').innerText(),/B 点/);
+
+  await page.locator('#robotUndo').click();
+  await page.locator('#robotFinish').waitFor({state:'hidden'});
+  await page.locator('#robotReset').click();
+  await page.locator('#robotUndo').click();
+  await page.locator('#robotStep').click();
+  await page.locator('#robotFinish').waitFor({state:'visible'});
+
+  await page.reload({waitUntil:'load'});
+  await page.locator('#robotScene:not([hidden])').waitFor();
+  await page.locator('#robotFinish').waitFor({state:'visible'});
+  await page.setViewportSize({width:390,height:844});
+  const dimensions=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));
+  assert.ok(dimensions.scroll<=dimensions.width,'mobile page must not overflow horizontally: '+JSON.stringify(dimensions));
+  assert.deepEqual(errors,[]);
+ } finally {await cleanup(env);}
+});
