@@ -184,3 +184,27 @@ test('timing chapter reproduces the glitch, fixes it and verifies delay robustne
   assert.deepEqual(errors,[]);
  } finally {await cleanup(env);}
 });
+
+
+test('first chapter solves its real truth table and transitions into the airlock',async()=>{
+ const env=await launchPage(null);
+ try {
+  const {page,errors}=env;
+  await page.locator('#chapterScene:not([hidden])').waitFor();
+  await page.setViewportSize({width:390,height:844});
+  const dimensions=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));
+  assert.ok(dimensions.scroll<=dimensions.width,'chapter one must fit mobile viewport: '+JSON.stringify(dimensions));
+
+  await page.locator('#chGate0').click();
+  await page.locator('#chGate1').click();
+  assert.match(await page.locator('#chControllerState').innerText(),/已修复/);
+  await page.locator('#chPowerA').click();
+  await page.locator('#chNext').waitFor({state:'visible'});
+  assert.match(await page.locator('#chDoorState').innerText(),/通道已打开/);
+  await page.locator('#chNext').click();
+  await page.locator('#airScene:not([hidden])').waitFor();
+  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('offset-v1')||'{}'));
+  assert.ok(Object.hasOwn(saved,0),'chapter one completion must persist its unlock');
+  assert.deepEqual(errors,[]);
+ } finally {await cleanup(env);}
+});
