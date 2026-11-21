@@ -35,6 +35,8 @@ test('airlock chapter plays safely, saves, resumes and fits mobile viewport',asy
   const {page,errors}=env;
   await page.locator('#chapterScene:not([hidden])').waitFor();
   await page.locator('#chLab').click();
+  await page.locator('#commsEntry').waitFor();
+  assert.equal(await page.locator('#commsEntry').isDisabled(),true,'final mission must remain locked before chapter five');
   await page.locator('#airEntry').click();
   await page.locator('#airScene:not([hidden])').waitFor();
 
@@ -210,7 +212,7 @@ test('first chapter solves its real truth table and transitions into the airlock
 });
 
 
-test('complete campaign flows from chapter one through chapter four without seeded progress',async()=>{
+test('complete campaign flows from chapter one through final SOS without seeded progress',async()=>{
  const env=await launchPage(null);
  try {
   const {page,errors}=env;
@@ -244,10 +246,45 @@ test('complete campaign flows from chapter one through chapter four without seed
   await page.locator('#hazardFix').click();
   await page.locator('#hazardVerify').click();
   await page.locator('#hazardNext').waitFor({state:'visible'});
-
   await page.reload({waitUntil:'load'});
   await page.locator('#hazardScene:not([hidden])').waitFor();
   await page.locator('#hazardNext').waitFor({state:'visible'});
+  await page.locator('#hazardNext').click();
+  await page.locator('#sensorScene:not([hidden])').waitFor();
+
+  await page.locator('#sensorRecord').click();
+  await page.locator('#sensorToggle').click();
+  await page.locator('#sensorRecord').click();
+  await page.locator('#sensorSelectors [data-sensor-select="2"]').click();
+  await page.locator('#sensorConfigure').click();
+  await page.locator('#sensorVerify').click();
+  await page.locator('#sensorNext').waitFor({state:'visible'});
+  await page.locator('#sensorNext').click();
+  await page.locator('#commsScene:not([hidden])').waitFor();
+  assert.equal(await page.locator('#commsEntry').isDisabled(),false);
+
+  await page.locator('[data-comms-gate="OR"]').click();
+  await page.locator('#commsPowerTest').click();
+  for(const action of ['RAISE','RETRACT','LOCK'])await page.locator('[data-comms-arm="'+action+'"]').click();
+  await page.locator('#commsAirCheck').click();
+  await page.locator('#commsSensorCheck').click();
+  for(const action of ['UNLOCK','DEPLOY','ALIGN','LATCH'])await page.locator('[data-comms-antenna="'+action+'"]').click();
+  await page.locator('#commsObserve').click();
+  assert.match(await page.locator('#commsTimingStatus').innerText(),/5 ns/);
+  await page.locator('#commsFix').click();
+  await page.locator('#commsVerifyTiming').click();
+  assert.match(await page.locator('#commsTimingStatus').innerText(),/54\/54/);
+  await page.locator('#commsTransmit').click();
+  await page.locator('#commsAck').waitFor({state:'visible'});
+  assert.match(await page.locator('#commsHeroStatus').innerText(),/WAITING ACK/);
+  await page.locator('#commsAck').click();
+  await page.locator('#commsNext').waitFor({state:'visible'});
+  assert.match(await page.locator('#commsHeroStatus').innerText(),/ACK RECEIVED/);
+  assert.match(await page.locator('#commsGroundAckText').evaluate(el=>el.textContent),/ACK · RECEIVED/);
+  assert.ok((await page.locator('#commsSceneArt').getAttribute('class')).includes('acknowledged'));
+  await page.reload({waitUntil:'load'});
+  await page.locator('#commsScene:not([hidden])').waitFor();
+  await page.locator('#commsNext').waitFor({state:'visible'});
   assert.deepEqual(errors,[]);
  } finally {await cleanup(env);}
 });
@@ -303,6 +340,45 @@ test('three-backup chapter calibrates, isolates the faulty sensor, saves and res
   await page.setViewportSize({width:390,height:844});
   const dimensions=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));
   assert.ok(dimensions.scroll<=dimensions.width,'chapter five must fit mobile viewport: '+JSON.stringify(dimensions));
+
+  // The sixth chapter is reached only after the fifth chapter is complete.
+  await page.locator('#sensorNext').click();
+  await page.locator('#commsScene:not([hidden])').waitFor();
+  await page.locator('#commsPowerTest').click();
+  assert.match(await page.locator('#commsPowerStatus').innerText(),/不符/);
+  await page.locator('[data-comms-gate="XOR"]').click();
+  await page.locator('#commsPowerTest').click();
+  assert.match(await page.locator('#commsPowerStatus').innerText(),/不符/);
+  await page.locator('[data-comms-gate="OR"]').click();
+  await page.locator('#commsPowerTest').click();
+  assert.match(await page.locator('#commsPowerStatus').innerText(),/四组真值全部通过/);
+
+  for(const action of ['RAISE','RETRACT','LOCK'])await page.locator('[data-comms-arm="'+action+'"]').click();
+  await page.locator('#commsAirCheck').click();
+  await page.locator('#commsSensorCheck').click();
+  for(const action of ['UNLOCK','DEPLOY','ALIGN','LATCH'])await page.locator('[data-comms-antenna="'+action+'"]').click();
+  await page.locator('#commsObserve').click();
+  assert.match(await page.locator('#commsTimingStatus').innerText(),/5 ns/);
+  await page.locator('#commsFix').click();
+  await page.locator('#commsVerifyTiming').click();
+  assert.match(await page.locator('#commsTimingStatus').innerText(),/54\/54/);
+  await page.locator('#commsTransmit').click();
+  await page.locator('#commsAck').waitFor({state:'visible'});
+  assert.match(await page.locator('#commsHeroStatus').innerText(),/WAITING ACK/);
+  await page.locator('#commsAck').click();
+  await page.locator('#commsNext').waitFor({state:'visible'});
+  assert.match(await page.locator('#commsHeroStatus').innerText(),/ACK RECEIVED/);
+  assert.match(await page.locator('#commsGroundAckText').evaluate(el=>el.textContent),/ACK · RECEIVED/);
+  assert.ok((await page.locator('#commsSceneArt').getAttribute('class')).includes('acknowledged'));
+
+  await page.locator('#commsUndo').click();
+  await page.locator('#commsNext').waitFor({state:'hidden'});
+  await page.locator('#commsAck').click();
+  await page.reload({waitUntil:'load'});
+  await page.locator('#commsScene:not([hidden])').waitFor();
+  await page.locator('#commsNext').waitFor({state:'visible'});
+  const finalDimensions=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));
+  assert.ok(finalDimensions.scroll<=finalDimensions.width,'chapter six must fit mobile viewport: '+JSON.stringify(finalDimensions));
   assert.deepEqual(errors,[]);
  } finally {await cleanup(env);}
 });
