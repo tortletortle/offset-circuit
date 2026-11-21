@@ -35,6 +35,8 @@ test('airlock chapter plays safely, saves, resumes and fits mobile viewport',asy
   const {page,errors}=env;
   await page.locator('#chapterScene:not([hidden])').waitFor();
   await page.locator('#chLab').click();
+  await page.locator('#commsEntry').waitFor();
+  assert.equal(await page.locator('#commsEntry').isDisabled(),true,'final mission must remain locked before chapter five');
   await page.locator('#airEntry').click();
   await page.locator('#airScene:not([hidden])').waitFor();
 
