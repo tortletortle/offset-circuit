@@ -276,6 +276,9 @@ test('three-backup chapter calibrates, isolates the faulty sensor, saves and res
   assert.match(await page.locator('#sensorTable tbody tr:nth-child(1)').innerText(),/正常 · 2\/2/);
   assert.match(await page.locator('#sensorTable tbody tr:nth-child(2)').innerText(),/正常 · 2\/2/);
   assert.match(await page.locator('#sensorTable tbody tr:nth-child(3)').innerText(),/异常 · 0\/2/);
+  assert.match(await page.locator('#sensorReadings [data-sensor-select="2"]').innerText(),/响应异常/);
+  assert.ok((await page.locator('#sensorPod2').getAttribute('class')).includes('fault'));
+  assert.equal(await page.locator('#sensorNeedle').getAttribute('transform'),'rotate(-60 0 48)');
 
   await page.locator('#sensorSelectors [data-sensor-select="0"]').click();
   await page.locator('#sensorConfigure').click();
