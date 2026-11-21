@@ -35,7 +35,7 @@ test('chapter saves are isolated and all safety/timing engines are present',()=>
  assert.match(html,/function airStep\(s,action\)/);
  assert.ok(html.includes('const Timing=(()=>'),'event-driven timing engine must be present');
  assert.match(html,/function sensorApply\(s,action,value\)/);
- assert.match(html,/function commsApply\(s,action,value\)/);
+ assert.match(html,/function commsApply\(s,action,value,prerequisites\)/);
  assert.match(html,/if\(s\.inner\|\|s\.outer\)return fail/);
  assert.match(html,/if\(!a\|\|!b\)return fail/);
 });
