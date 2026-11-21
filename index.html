@@ -373,6 +373,73 @@ body.chapter-active{
  .ch-primary,.ch-secondary,.robot-command,.robot-art,.robot-statuses span{transition:none!important}
 }
 
+
+/* Guided interaction redesign: tutorial + scene hotspots replace the permanent command deck */
+.robot-board{position:relative;padding:18px}
+.robot-title-tag{flex:none;padding:7px 10px;border:1px solid rgba(114,216,206,.25);border-radius:999px;background:rgba(17,46,49,.5);color:#9ce6dc;font:700 10px ui-monospace,monospace;letter-spacing:.1em}
+.robot-stage-layout{display:grid;grid-template-columns:minmax(220px,260px) minmax(0,1fr);gap:14px;align-items:stretch}
+.robot-tutorial-panel{display:flex;flex-direction:column;justify-content:center;min-width:0;padding:18px;border:1px solid rgba(242,183,101,.4);border-left:3px solid var(--amber);border-radius:13px;background:linear-gradient(150deg,rgba(37,45,44,.97),rgba(12,22,29,.98));box-shadow:0 14px 32px rgba(0,0,0,.25),inset 0 0 24px rgba(242,183,101,.035)}
+.robot-tutorial-head{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#d4c29f;font-size:11px;font-weight:800;letter-spacing:.1em}
+.robot-tutorial-head b{color:var(--amber);font:800 12px ui-monospace,monospace;white-space:nowrap}
+.robot-tutorial-track{height:4px;margin:13px 0 18px;overflow:hidden;border-radius:99px;background:#293a40}
+.robot-tutorial-track i{display:block;width:0;height:100%;border-radius:99px;background:linear-gradient(90deg,#c98a43,#ffe0a2);box-shadow:0 0 12px rgba(242,183,101,.45);transition:width .25s ease}
+.robot-tutorial-panel>small{color:var(--amber);font:700 10px ui-monospace,monospace;letter-spacing:.12em}
+.robot-tutorial-panel h2{margin:8px 0 9px;color:#f5eee1;font-size:22px;letter-spacing:.02em}
+.robot-tutorial-panel p{margin:0;color:#c2ced0;font-size:13px;line-height:1.8}
+.robot-tutorial-tip{margin-top:16px;padding:11px 12px;border:1px solid rgba(242,183,101,.25);border-radius:9px;background:rgba(91,64,31,.2);color:#f0d4a7;font-size:12px;line-height:1.65}
+.robot-scene-column{min-width:0;display:flex;flex-direction:column;justify-content:center}
+.robot-art{height:clamp(290px,38vh,410px);border-radius:13px;border-color:#60747d;background:#0b1720;box-shadow:inset 0 0 45px rgba(0,0,0,.18),0 14px 32px rgba(0,0,0,.2)}
+.robot-statuses{margin-top:10px;gap:8px}
+.robot-statuses span{padding:9px 5px;border-color:rgba(119,150,158,.28);background:linear-gradient(180deg,#152833,#0d1b24);font-size:12px}
+.robot-sequence-panel{margin-top:14px;padding:14px 16px;border:1px solid rgba(126,151,160,.3);border-radius:13px;background:linear-gradient(145deg,rgba(26,42,51,.98),rgba(9,19,27,.98));box-shadow:0 14px 34px rgba(0,0,0,.25)}
+.robot-sequence-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+.robot-sequence-head small{display:block;color:var(--amber);font:700 9px ui-monospace,monospace;letter-spacing:.15em}
+.robot-sequence-head h2{margin:3px 0 0;color:#eef0e9;font-size:16px}
+.robot-sequence-head>b{color:#d8c29c;font:700 12px ui-monospace,monospace}
+.robot-program{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;min-height:70px;padding:8px;border:1px dashed #526873;border-radius:10px;background:rgba(5,15,22,.58)}
+.robot-step,.robot-slot{display:flex;min-width:0;min-height:64px;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:6px 3px;border:1px solid #4a626e;border-radius:8px;background:linear-gradient(155deg,#1c303a,#101e27);color:#e4ece8;text-align:center}
+.robot-step{cursor:pointer}
+.robot-step small,.robot-slot small{color:#91a7ae;font:700 9px ui-monospace,monospace}
+.robot-step b,.robot-slot b{font-size:13px}
+.robot-step em{color:#9fb1b6;font-size:9px;font-style:normal}
+.robot-step[aria-current=true]{border-color:var(--amber);background:linear-gradient(155deg,#3a3022,#1d292d);box-shadow:inset 0 0 0 1px rgba(242,183,101,.25),0 0 14px rgba(242,183,101,.08)}
+.robot-step.executed{border-color:#438e80;background:#12322f;color:#a9f2e2}
+.robot-slot{border-style:dashed;color:#70848b;background:rgba(14,28,36,.5)}
+.robot-slot.current{border-color:var(--amber);color:#ffd18d;background:rgba(87,61,29,.2);box-shadow:inset 0 0 0 1px rgba(242,183,101,.12)}
+.robot-sequence-panel>p{margin:9px 0 0;color:#9fb2b8;font-size:11px;line-height:1.55}
+.robot-hotspot{opacity:0;pointer-events:none;cursor:pointer;transition:opacity .18s ease}
+.robot-hotspot.active{opacity:1;pointer-events:auto;filter:drop-shadow(0 0 9px rgba(255,190,98,.55))}
+.robot-hotspot-hit{fill:rgba(242,183,101,.09);stroke:transparent;stroke-width:2}
+.robot-hotspot-ring{fill:rgba(242,183,101,.08);stroke:#ffd08a;stroke-width:3;stroke-dasharray:7 4;animation:robotHotspotPulse 1.5s ease-in-out infinite}
+.robot-hotspot-mark{fill:none;stroke:#ffe0a2;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.robot-hotspot text{fill:#ffe1a9;font-size:13px;font-weight:800;paint-order:stroke;stroke:#1a2225;stroke-width:4px;stroke-linejoin:round}
+.robot-hotspot:focus-visible .robot-hotspot-ring{stroke:#fff;stroke-width:4}
+@keyframes robotHotspotPulse{0%,100%{opacity:.72;stroke-width:2}50%{opacity:1;stroke-width:4}}
+.robot-notice{margin-top:12px}
+.robot-footer{margin-top:10px}
+@media(max-width:980px){
+ .robot-stage-layout{grid-template-columns:1fr}
+ .robot-tutorial-panel{padding:13px 15px}
+ .robot-tutorial-track{margin:9px 0 12px}
+ .robot-tutorial-panel h2{font-size:19px;margin:5px 0}
+ .robot-tutorial-tip{margin-top:9px;padding:8px 10px}
+ .robot-art{height:clamp(240px,36vh,340px)}
+}
+@media(max-width:730px){
+ .robot-board{padding:11px}
+ .robot-stage-layout{gap:9px}
+ .robot-art{height:220px;min-height:220px}
+ .robot-statuses{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .robot-sequence-panel{padding:11px;margin-top:9px}
+ .robot-program{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding:6px}
+ .robot-step,.robot-slot{min-height:54px}
+ .robot-title-tag{display:none}
+ .robot-footer{gap:7px}
+}
+@media(prefers-reduced-motion:reduce){
+ .robot-tutorial-track i,.robot-hotspot,.robot-hotspot-ring{transition:none!important;animation:none!important}
+}
+
 </style></head><body><section id="chapterScene" class="chapter" hidden aria-label="第一关：最后一盏灯">
   <header class="ch-header"><div><strong>错位电路</strong><small>OFFSET CIRCUIT / 01</small></div><span id="chSave" role="status">离线模式</span><button id="chLab" class="ch-secondary">完整工作台 ↗</button></header>
   <main class="ch-grid">
@@ -504,7 +571,17 @@ body.chapter-active{
 </main></section>
 <section id="robotScene" class="chapter" hidden aria-label="第三关：失控的机械臂">
 <header class="ch-header"><div><strong>错位电路</strong><small>OFFSET CIRCUIT / 03</small></div><span id="robotSave" role="status"></span><button id="robotBack" class="ch-secondary">返回气闸</button></header>
-<main class="ch-grid"><section class="robot-board"><div class="robot-title"><div><small>03 / 货运舱 · 自动化控制</small><h1>失控的机械臂</h1><p>把货箱从 A 点送到 B 点，再让机械臂安全回到待机位。</p></div><span id="robotCounter" class="ch-secondary">程序 0 / 12</span></div>
+<main class="ch-grid"><section class="robot-board"><div class="robot-title"><div><small>03 / 货运舱 · 自动化控制</small><h1>失控的机械臂</h1><p>把货箱从 A 点送到 B 点，再让机械臂安全回到待机位。</p></div><span class="robot-title-tag">TUTORIAL CONTROL / 03</span></div>
+<div class="robot-stage-layout">
+<aside class="robot-tutorial-panel" aria-live="polite" aria-label="机械臂操作教程">
+  <div class="robot-tutorial-head"><span>操作教程 / TUTORIAL</span><b id="robotTutorialProgress">01 / 07</b></div>
+  <div class="robot-tutorial-track"><i id="robotTutorialBar"></i></div>
+  <small id="robotTutorialPhase">STEP 01 · PICK</small>
+  <h2 id="robotTutorialTitle">夹取货箱</h2>
+  <p id="robotTutorialText">先确认机械臂位于 A 点低位，夹爪张开。点击场景中高亮的夹爪区域，将夹取动作加入程序。</p>
+  <div id="robotTutorialTip" class="robot-tutorial-tip">观察夹爪与货箱的相对位置，再进行操作。</div>
+</aside>
+<div class="robot-scene-column">
 <svg id="robotArt" class="robot-art" viewBox="0 0 1200 340" preserveAspectRatio="xMidYMid meet" role="img" aria-label="空间站货运舱中的龙门式机械臂、起点货箱和目标货台">
 <defs>
  <linearGradient id="robotWall" x2="0" y2="1"><stop stop-color="#243744"/><stop offset=".55" stop-color="#14242e"/><stop offset="1" stop-color="#09131c"/></linearGradient>
@@ -607,8 +684,46 @@ body.chapter-active{
     <rect x="171" y="211" width="58" height="46" rx="5" fill="url(#robotCargo)" stroke="#f5c982" stroke-width="3"/>
     <path d="M200 211V257M171 234H229" stroke="#5f3d22" stroke-width="4"/>
    </g>
+
+   <g class="robot-hotspot" data-robot-hotspot="GRIP" role="button" tabindex="-1" aria-label="点击夹爪，加入夹取动作">
+    <circle class="robot-hotspot-hit" cx="200" cy="215" r="31"/>
+    <circle class="robot-hotspot-ring" cx="200" cy="215" r="24"/>
+    <path class="robot-hotspot-mark" d="M185 215H215M200 200V230"/>
+    <text x="200" y="253" text-anchor="middle">夹取</text>
+   </g>
+   <g class="robot-hotspot" data-robot-hotspot="RELEASE" role="button" tabindex="-1" aria-label="点击夹爪，加入释放动作">
+    <circle class="robot-hotspot-hit" cx="200" cy="215" r="31"/>
+    <circle class="robot-hotspot-ring" cx="200" cy="215" r="24"/>
+    <path class="robot-hotspot-mark" d="M185 215H215M200 200V230"/>
+    <text x="200" y="253" text-anchor="middle">释放</text>
+   </g>
+  </g>
+  <g class="robot-hotspot" data-robot-hotspot="LIFT" role="button" tabindex="-1" aria-label="点击升降杆，加入升高动作">
+   <circle class="robot-hotspot-hit" cx="200" cy="132" r="27"/>
+   <circle class="robot-hotspot-ring" cx="200" cy="132" r="21"/>
+   <path class="robot-hotspot-mark" d="M200 145V119M192 127L200 119L208 127"/>
+   <text x="238" y="136">升高</text>
+  </g>
+  <g class="robot-hotspot" data-robot-hotspot="LOWER" role="button" tabindex="-1" aria-label="点击升降杆，加入下降动作">
+   <circle class="robot-hotspot-hit" cx="200" cy="183" r="27"/>
+   <circle class="robot-hotspot-ring" cx="200" cy="183" r="21"/>
+   <path class="robot-hotspot-mark" d="M200 170V196M192 188L200 196L208 188"/>
+   <text x="238" y="187">下降</text>
   </g>
  </g>
+ <g class="robot-hotspot" data-robot-hotspot="MOVE" role="button" tabindex="-1" aria-label="点击滑台，加入平移动作">
+  <circle class="robot-hotspot-hit" cx="200" cy="47" r="28"/>
+  <circle class="robot-hotspot-ring" cx="200" cy="47" r="22"/>
+  <path class="robot-hotspot-mark" d="M184 47H216M190 40L183 47L190 54M210 40L217 47L210 54"/>
+  <text x="200" y="15" text-anchor="middle">平移</text>
+ </g>
+ <g class="robot-hotspot" data-robot-hotspot="HOME" role="button" tabindex="-1" aria-label="点击滑台，加入归位动作">
+  <circle class="robot-hotspot-hit" cx="200" cy="80" r="28"/>
+  <circle class="robot-hotspot-ring" cx="200" cy="80" r="22"/>
+  <path class="robot-hotspot-mark" d="M188 80L200 69L212 80V91H204V83H196V91H188Z"/>
+  <text x="238" y="84">归位</text>
+ </g>
+
 </g>
 <g opacity=".9">
  <path d="M200 86V104M920 86V104" stroke="#8debd8" stroke-width="2" stroke-dasharray="4 5"/>
@@ -617,9 +732,14 @@ body.chapter-active{
  <text x="248" y="48" fill="#d6e1e2" font-size="11" letter-spacing="2">A-03 / GANTRY MANIPULATOR</text>
 </g>
 </svg>
-<div class="robot-statuses"><span id="robotArmStatus"></span><span id="robotHeightStatus"></span><span id="robotGripStatus"></span><span id="robotCargoStatus"></span></div></section>
-<section class="robot-console"><div class="robot-panel"><h2>指令库 / COMMAND DECK</h2><div class="robot-command-deck"><button class="robot-command" data-robot-add="GRIP">夹取<span>夹紧货箱</span></button><button class="robot-command" data-robot-add="LIFT">升高<span>抬离平台</span></button><button class="robot-command" data-robot-add="MOVE">平移<span>沿导轨移动</span></button><button class="robot-command" data-robot-add="LOWER">下降<span>放到目标位</span></button><button class="robot-command" data-robot-add="RELEASE">释放<span>松开货箱</span></button><button class="robot-command" data-robot-add="HOME">归位<span>返回待机点</span></button></div><p>点按指令即可加入程序，不需要拖拽。执行到一半也可以撤销，再修改后续指令。</p></div>
-<div class="robot-panel"><h2>控制程序 / SEQUENCE</h2><div id="robotProgram" class="robot-program" aria-label="已编排指令"><span class="robot-empty">点击左侧指令，开始编排。</span></div><p id="robotProgramHelp">每次执行一步，观察机械臂反馈。错误指令会被安全互锁拦截。</p></div></section>
+<div class="robot-statuses"><span id="robotArmStatus"></span><span id="robotHeightStatus"></span><span id="robotGripStatus"></span><span id="robotCargoStatus"></span></div>
+</div></div>
+<section class="robot-sequence-panel" aria-label="机械臂控制程序">
+ <div class="robot-sequence-head"><div><small>PROGRAM EDITOR</small><h2>程序序列</h2></div><b id="robotCounter">程序 0 / 7</b></div>
+ <div id="robotProgram" class="robot-program" aria-label="已编排指令"><span class="robot-slot current"><small>01</small><b>＋</b></span></div>
+ <p id="robotProgramHelp">点击场景中高亮的机械臂部件，将当前动作加入程序。完成七步编排后即可逐步执行。</p>
+</section>
+</section>
 <div id="robotNotice" class="robot-notice" aria-live="polite">先编排动作顺序。机械臂不会执行违反安全条件的指令。</div><footer class="robot-footer"><button id="robotHint" class="ch-secondary">提示</button><button id="robotUndo" class="ch-secondary">撤销 / 移除</button><button id="robotReset" class="ch-secondary">重置</button><span id="robotProgress" role="status"></span><button id="robotStep" class="ch-primary">执行一步 →</button><button id="robotFinish" class="ch-primary" hidden>返回工作台 →</button></footer></main></section><section id="airScene" class="chapter" hidden aria-label="第二关：沉默的气闸">
 <header class="ch-header"><div><strong>错位电路</strong><small>OFFSET CIRCUIT / 02</small></div><span id="airSave" role="status"></span><button class="ch-secondary" id="airLab">完整工作台 ↗</button></header>
 <main class="ch-grid">
@@ -978,6 +1098,15 @@ function robotStep(s,action){
 }
 const ChapterThree=(()=>{
  const key="offset-robot-v1",scene=$("robotScene"),actions=["GRIP","LIFT","MOVE","LOWER","RELEASE","HOME"],labels={GRIP:"夹取",LIFT:"升高",MOVE:"平移",LOWER:"下降",RELEASE:"释放",HOME:"归位"};
+ const tutorialSteps=[
+  {action:"GRIP",phase:"STEP 01 · PICK",title:"夹取货箱",text:"机械臂当前位于 A 点低位，夹爪张开。先夹紧货箱，确认货物已被稳定抓取。",tip:"点击场景中高亮的夹爪区域，将「夹取」加入程序。"},
+  {action:"LIFT",phase:"STEP 02 · LIFT",title:"抬升货箱",text:"货箱夹稳后，先沿竖直方向抬升。只有到达安全高度，机械臂才能横向移动。",tip:"点击高亮的升降杆，加入第一次「升高」。"},
+  {action:"MOVE",phase:"STEP 03 · MOVE",title:"平移至 B 点",text:"保持货箱处于高位，沿顶部导轨把机械臂移动到 B 点上方。",tip:"点击高亮的滑台，加入「平移」。"},
+  {action:"LOWER",phase:"STEP 04 · LOWER",title:"下降至目标平台",text:"机械臂到达 B 点后，再将货箱下降到目标平台高度。",tip:"点击高亮的升降杆下段，加入「下降」。"},
+  {action:"RELEASE",phase:"STEP 05 · RELEASE",title:"释放货箱",text:"确认货箱位于 B 点平台后，张开夹爪，让货箱留在目标位置。",tip:"点击高亮的夹爪，加入「释放」。"},
+  {action:"LIFT",phase:"STEP 06 · CLEARANCE",title:"再次抬升",text:"货箱已经放稳。机械臂需要先空载升高，确保回到待机位时不会扫过货箱。",tip:"再次点击升降杆，加入第二次「升高」。"},
+  {action:"HOME",phase:"STEP 07 · HOME",title:"返回待机位",text:"确认货箱留在 B 点且机械臂处于高位后，让滑台沿导轨返回待机位。",tip:"点击高亮的滑台，加入最后一步「归位」。"}
+ ];
  let state=initialRobot(),program=[],cursor=0,history=[],active=false,resume=false,warning="",notice="先编排动作顺序。机械臂不会执行违反安全条件的指令。",failedIndex=-1;
  const clone=x=>JSON.parse(JSON.stringify(x));
  function validProgram(p){return Array.isArray(p)&&p.length<=12&&p.every(a=>actions.includes(a));}
@@ -990,23 +1119,61 @@ const ChapterThree=(()=>{
   $("cargoSource").style.opacity=state.cargo==="source"?"1":"0";$("cargoTarget").style.opacity=state.cargo==="target"?"1":"0";$("cargoHeld").style.opacity=state.cargo==="gripper"?"1":"0";
   const set=(id,text,good)=>{const e=$(id);e.textContent=text;e.classList.toggle("good",!!good);};
   set("robotArmStatus","位置 · "+({source:"A 点",target:"B 点",home:"待机位"}[state.arm]),state.arm!=="source");set("robotHeightStatus","高度 · "+(state.z==="high"?"高位":"低位"),state.z==="high");set("robotGripStatus","夹爪 · "+(state.gripper==="closed"?"夹紧":"张开"),state.gripper==="closed");set("robotCargoStatus","货箱 · "+({source:"A 点",gripper:"夹持中",target:"B 点"}[state.cargo]),state.cargo==="target");
-  $("robotCounter").textContent="程序 "+cursor+" / "+program.length;
-  $("robotProgram").innerHTML=program.length?program.map((a,i)=>'<button class="robot-step '+(i<cursor?"executed":"")+'" data-robot-step="'+i+'" aria-current="'+(i===cursor)+'" '+(i<cursor?"disabled":"")+'>'+String(i+1).padStart(2,"0")+' · '+labels[a]+(i===failedIndex?" · !":"")+'</button>').join(""):'<span class="robot-empty">点击左侧指令，开始编排。</span>';
-  document.querySelectorAll("[data-robot-step]").forEach(el=>el.onclick=()=>{const i=+el.dataset.robotStep;if(i>=cursor){history.push(snapshot());if(history.length>80)history.shift();program.splice(i,1);failedIndex=-1;notice="已移除未执行指令；可撤销恢复。";save();display();}});
-  $("robotNotice").textContent=notice;$("robotNotice").classList.toggle("done",state.done);$("robotUndo").disabled=!history.length;
+
+  const mismatchIndex=program.findIndex((action,index)=>!tutorialSteps[index]||tutorialSteps[index].action!==action);
+  const prefixValid=mismatchIndex<0;
+  const step=tutorialSteps[Math.min(program.length,tutorialSteps.length)]||null;
+  const tutorialDone=prefixValid&&program.length>=tutorialSteps.length;
+  const activeStep=mismatchIndex>=0?null:step;
+  const tutorialProgress=mismatchIndex>=0?mismatchIndex:Math.min(program.length,tutorialSteps.length);
+  $("robotTutorialProgress").textContent=mismatchIndex>=0?("需校正 · "+String(mismatchIndex+1).padStart(2,"0")+" / 07"):(tutorialDone?"07 / 07 · 完成":String(program.length+1).padStart(2,"0")+" / 07");
+  $("robotTutorialBar").style.width=(tutorialProgress/tutorialSteps.length*100)+"%";
+  $("robotTutorialPhase").textContent=mismatchIndex>=0?"SEQUENCE CHECK":(activeStep?activeStep.phase:"TUTORIAL COMPLETE");
+  $("robotTutorialTitle").textContent=mismatchIndex>=0?"检查动作顺序":(activeStep?activeStep.title:"教程完成");
+  $("robotTutorialText").textContent=mismatchIndex>=0?("第 "+(mismatchIndex+1)+" 步与本关安全流程不一致。请移除该步及后续未执行指令，再按照场景高亮重新编排。"):(activeStep?activeStep.text:"七步程序已按安全顺序编排。现在可以逐步执行，观察机械臂与货箱状态变化。");
+  $("robotTutorialTip").textContent=mismatchIndex>=0?("点击程序序列中的第 "+(mismatchIndex+1)+" 步，可移除该步及后续指令。"):(activeStep?activeStep.tip:"教程已结束。执行过程中仍可撤销未完成的操作。");
+
+  document.querySelectorAll("[data-robot-hotspot]").forEach(el=>{
+   const enabled=!!activeStep&&prefixValid&&el.dataset.robotHotspot===activeStep.action;
+   el.classList.toggle("active",enabled);el.setAttribute("tabindex",enabled?"0":"-1");el.setAttribute("aria-hidden",enabled?"false":"true");el.setAttribute("aria-disabled",enabled?"false":"true");
+  });
+
+  const slotCount=Math.max(tutorialSteps.length,program.length);
+  $("robotProgram").innerHTML=Array.from({length:slotCount},(_,i)=>{
+   const action=program[i];
+   if(action)return '<button class="robot-step '+(i<cursor?"executed":"")+'" data-robot-step="'+i+'" aria-current="'+(i===cursor)+'" '+(i<cursor?"disabled":"")+'><small>'+String(i+1).padStart(2,"0")+'</small><b>'+labels[action]+'</b><em>'+(i<cursor?"已执行":"点此移除")+'</em></button>';
+   return '<span class="robot-slot '+(i===program.length?"current":"")+'"><small>'+String(i+1).padStart(2,"0")+'</small><b>'+(i===program.length?"＋":"—")+'</b></span>';
+  }).join("");
+  document.querySelectorAll("[data-robot-step]").forEach(el=>el.onclick=()=>{
+   const i=+el.dataset.robotStep;if(i>=cursor){history.push(snapshot());if(history.length>80)history.shift();program.splice(i);failedIndex=-1;notice="已移除该步及后续未执行指令；教程会从这里重新引导。";save();display();}
+  });
+  $("robotCounter").textContent="程序 "+program.length+" / 7";
+  $("robotProgramHelp").textContent=mismatchIndex>=0?"当前程序顺序需要校正。移除出错步骤及其后续指令，再跟随高亮热点重新编排。":(tutorialDone?"七步程序已编排。可执行一步，逐条观察机械臂状态变化。":"点击场景中唯一高亮的交互热点，将当前动作加入程序；教程会自动进入下一步。");
+  $("robotNotice").textContent=notice;$("robotNotice").classList.toggle("done",state.done);
+  $("robotUndo").disabled=!history.length;
   $("robotReset").disabled=state.arm==="source"&&state.z==="low"&&state.gripper==="open"&&state.cargo==="source"&&!program.length&&!cursor;
   $("robotStep").disabled=state.done||cursor>=program.length;$("robotFinish").hidden=!state.done;
-  $("robotProgress").textContent=state.done?"货箱已送达 · 机械臂待机":"下一步建议："+expected()+" · 可执行 "+(program.length-cursor)+" 条指令";
-  document.querySelectorAll("[data-robot-add]").forEach(el=>el.disabled=state.done||program.length>=12);
+  $("robotProgress").textContent=state.done?"货箱已送达 · 机械臂待机":(tutorialDone?"程序已就绪 · 已执行 "+cursor+" / 7":"教程进度 "+program.length+" / 7 · 按高亮提示编排动作");
+ } function snapshot(){return {state:clone(state),program:program.slice(),cursor};}
+ function add(action){
+  if(state.done)return;
+  if(program.length>=tutorialSteps.length){notice="七步程序已经编排完成。可以开始执行。";display();return;}
+  const expectedAction=tutorialSteps[program.length].action;
+  if(action!==expectedAction){notice="教程提示：当前需要「"+labels[expectedAction]+"」。请点击场景中高亮的部件。";display();return;}
+  history.push(snapshot());if(history.length>80)history.shift();program.push(action);failedIndex=-1;
+  notice=program.length===tutorialSteps.length?"七步动作已按安全顺序编排。现在可以逐步执行。":"已加入「"+labels[action]+"」。教程将引导你完成下一步。";
+  save();display();
  }
- function snapshot(){return {state:clone(state),program:program.slice(),cursor};}
- function add(action){if(state.done||program.length>=12)return;history.push(snapshot());if(history.length>80)history.shift();program.push(action);failedIndex=-1;notice="已加入「"+labels[action]+"」。可继续编排或执行下一步。";save();display();}
  function step(){if(cursor>=program.length){notice="程序队列为空。先添加需要的动作。";display();return;}const action=program[cursor],r=robotStep(state,action);if(!r.changed){failedIndex=cursor;notice="安全互锁已拦截「"+labels[action]+"」： "+r.message+" 你可以点选该指令移除，或调整后续顺序。";display();return;}history.push(snapshot());if(history.length>80)history.shift();state=r.state;cursor++;failedIndex=-1;notice=r.message;save();display();}
  function undo(){if(history.length){const h=history.pop();state=h.state;program=h.program;cursor=h.cursor;failedIndex=-1;notice="已撤销上一步操作。";save();display();return;}notice="当前没有可撤销的操作。";display();}
  function reset(){history.push(snapshot());if(history.length>80)history.shift();state=initialRobot();program=[];cursor=0;failedIndex=-1;notice="机械臂和程序已重置；可撤销恢复刚才的状态。";save();display();}
  function open(){if(!ChapterTwo.isComplete()){say("请先完成第二关。","bad");return;}if(!$("chapterScene").hidden)ChapterOne.close();if(!$("airScene").hidden)ChapterTwo.close();active=true;scene.hidden=false;document.body.classList.add("chapter-active");display();save();window.scrollTo(0,0);$("robotStep").focus({preventScroll:true});}
  function close(){active=false;scene.hidden=true;document.body.classList.remove("chapter-active");save();window.scrollTo(0,0);$("robotEntry").focus({preventScroll:true});}
- document.querySelectorAll("[data-robot-add]").forEach(el=>el.onclick=()=>add(el.dataset.robotAdd));$("robotStep").onclick=step;$("robotUndo").onclick=undo;$("robotReset").onclick=reset;$("robotHint").onclick=()=>{notice=state.done?"任务已经完成。":"提示：下一步应该是「"+expected()+"」。";display();};
+ document.querySelectorAll("[data-robot-hotspot]").forEach(el=>{
+  el.addEventListener("click",()=>{if(el.classList.contains("active"))add(el.dataset.robotHotspot);});
+  el.addEventListener("keydown",event=>{if((event.key==="Enter"||event.key===" ")&&el.classList.contains("active")){event.preventDefault();add(el.dataset.robotHotspot);}});
+ });
+ $("robotStep").onclick=step;$("robotUndo").onclick=undo;$("robotReset").onclick=reset;$("robotHint").onclick=()=>{const current=tutorialSteps[program.length];notice=state.done?"任务已经完成。":current?("提示："+current.text):"七步程序已编排完成，可以执行。";display();};
  $("robotBack").onclick=()=>{close();ChapterTwo.open();};$("robotFinish").onclick=close;$("robotEntry").onclick=open;
  const previousNext=$("airNext").onclick;$("airNext").onclick=()=>{if(!ChapterTwo.isComplete())return;previousNext();open();};
  if(resume&&ChapterTwo.isComplete())open();
