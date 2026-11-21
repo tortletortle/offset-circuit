@@ -280,6 +280,8 @@ test('complete campaign flows from chapter one through final SOS without seeded 
   await page.locator('#commsAck').click();
   await page.locator('#commsNext').waitFor({state:'visible'});
   assert.match(await page.locator('#commsHeroStatus').innerText(),/ACK RECEIVED/);
+  assert.match(await page.locator('#commsGroundAckText').innerText(),/ACK · RECEIVED/);
+  assert.ok((await page.locator('#commsSceneArt').getAttribute('class')).includes('acknowledged'));
   await page.reload({waitUntil:'load'});
   await page.locator('#commsScene:not([hidden])').waitFor();
   await page.locator('#commsNext').waitFor({state:'visible'});
@@ -366,6 +368,8 @@ test('three-backup chapter calibrates, isolates the faulty sensor, saves and res
   await page.locator('#commsAck').click();
   await page.locator('#commsNext').waitFor({state:'visible'});
   assert.match(await page.locator('#commsHeroStatus').innerText(),/ACK RECEIVED/);
+  assert.match(await page.locator('#commsGroundAckText').innerText(),/ACK · RECEIVED/);
+  assert.ok((await page.locator('#commsSceneArt').getAttribute('class')).includes('acknowledged'));
 
   await page.locator('#commsUndo').click();
   await page.locator('#commsNext').waitFor({state:'hidden'});
