@@ -10,7 +10,7 @@ test('single-file game has unique element IDs and all chapter controls',()=>{
  const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
  const duplicates=ids.filter((id,i)=>ids.indexOf(id)!==i);
  assert.deepEqual(duplicates,[]);
- for(const id of ['chapterScene','chapterEntry','chNext','airScene','airEntry','airInner','airPump','airOuter','airUndo','airReset','airNext','airNotice','robotScene','robotEntry','robotStep','robotUndo','robotReset','robotFinish','hazardScene','hazardEntry','hazardRun','hazardFix','hazardVerify','hazardUndo','hazardNext']) {
+ for(const id of ['chapterScene','chapterEntry','chNext','airScene','airEntry','airInner','airPump','airOuter','airUndo','airReset','airNext','airNotice','robotScene','robotEntry','robotStep','robotUndo','robotReset','robotFinish','hazardScene','hazardEntry','hazardRun','hazardFix','hazardVerify','hazardUndo','hazardNext','sensorScene','sensorEntry','sensorToggle','sensorRecord','sensorConfigure','sensorVerify','sensorUndo','sensorReset','sensorNext','sensorNotice']) {
   assert.equal(ids.filter(x=>x===id).length,1,'expected exactly one #'+id);
  }
 });
@@ -30,10 +30,11 @@ test('game remains offline-first and has mobile/reduced-motion styling',()=>{
 });
 
 test('chapter saves are isolated and all safety/timing engines are present',()=>{
- for(const key of ['offset-drafts-v1','offset-airlock-v1','offset-robot-v1','offset-hazard-v1'])assert.ok(html.includes(key),key);
+ for(const key of ['offset-drafts-v1','offset-airlock-v1','offset-robot-v1','offset-hazard-v1','offset-sensor-v1'])assert.ok(html.includes(key),key);
  assert.match(html,/function robotStep\(s,action\)/);
  assert.match(html,/function airStep\(s,action\)/);
  assert.ok(html.includes('const Timing=(()=>'),'event-driven timing engine must be present');
+ assert.match(html,/function sensorApply\(s,action,value\)/);
  assert.match(html,/if\(s\.inner\|\|s\.outer\)return fail/);
  assert.match(html,/if\(!a\|\|!b\)return fail/);
 });
