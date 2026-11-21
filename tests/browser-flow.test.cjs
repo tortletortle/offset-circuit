@@ -266,6 +266,7 @@ test('complete campaign flows from chapter one through final SOS without seeded 
   await page.locator('[data-comms-gate="OR"]').click();
   await page.locator('#commsPowerTest').click();
   for(const action of ['RAISE','RETRACT','LOCK'])await page.locator('[data-comms-arm="'+action+'"]').click();
+  await page.locator('#commsAirCheck').click();
   await page.locator('#commsSensorCheck').click();
   for(const action of ['UNLOCK','DEPLOY','ALIGN','LATCH'])await page.locator('[data-comms-antenna="'+action+'"]').click();
   await page.locator('#commsObserve').click();
@@ -274,6 +275,9 @@ test('complete campaign flows from chapter one through final SOS without seeded 
   await page.locator('#commsVerifyTiming').click();
   assert.match(await page.locator('#commsTimingStatus').innerText(),/54\/54/);
   await page.locator('#commsTransmit').click();
+  await page.locator('#commsAck').waitFor({state:'visible'});
+  assert.match(await page.locator('#commsHeroStatus').innerText(),/WAITING ACK/);
+  await page.locator('#commsAck').click();
   await page.locator('#commsNext').waitFor({state:'visible'});
   assert.match(await page.locator('#commsHeroStatus').innerText(),/ACK RECEIVED/);
   await page.reload({waitUntil:'load'});
@@ -348,6 +352,7 @@ test('three-backup chapter calibrates, isolates the faulty sensor, saves and res
   assert.match(await page.locator('#commsPowerStatus').innerText(),/四组真值全部通过/);
 
   for(const action of ['RAISE','RETRACT','LOCK'])await page.locator('[data-comms-arm="'+action+'"]').click();
+  await page.locator('#commsAirCheck').click();
   await page.locator('#commsSensorCheck').click();
   for(const action of ['UNLOCK','DEPLOY','ALIGN','LATCH'])await page.locator('[data-comms-antenna="'+action+'"]').click();
   await page.locator('#commsObserve').click();
@@ -356,12 +361,15 @@ test('three-backup chapter calibrates, isolates the faulty sensor, saves and res
   await page.locator('#commsVerifyTiming').click();
   assert.match(await page.locator('#commsTimingStatus').innerText(),/54\/54/);
   await page.locator('#commsTransmit').click();
+  await page.locator('#commsAck').waitFor({state:'visible'});
+  assert.match(await page.locator('#commsHeroStatus').innerText(),/WAITING ACK/);
+  await page.locator('#commsAck').click();
   await page.locator('#commsNext').waitFor({state:'visible'});
   assert.match(await page.locator('#commsHeroStatus').innerText(),/ACK RECEIVED/);
 
   await page.locator('#commsUndo').click();
   await page.locator('#commsNext').waitFor({state:'hidden'});
-  await page.locator('#commsTransmit').click();
+  await page.locator('#commsAck').click();
   await page.reload({waitUntil:'load'});
   await page.locator('#commsScene:not([hidden])').waitFor();
   await page.locator('#commsNext').waitFor({state:'visible'});
