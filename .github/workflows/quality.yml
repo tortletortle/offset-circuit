@@ -1,0 +1,27 @@
+name: Game quality checks
+
+on:
+  push:
+    branches:
+      - main
+      - "polish/**"
+  pull_request:
+    branches:
+      - "**"
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: Logic and UI smoke tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run regression tests
+        run: npm test
