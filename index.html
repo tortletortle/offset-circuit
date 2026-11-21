@@ -459,7 +459,7 @@ const ChapterThree=(()=>{
   $("robotCounter").textContent="程序 "+cursor+" / "+program.length;
   $("robotProgram").innerHTML=program.length?program.map((a,i)=>'<button class="robot-step '+(i<cursor?"executed":"")+'" data-robot-step="'+i+'" aria-current="'+(i===cursor)+'" '+(i<cursor?"disabled":"")+'>'+String(i+1).padStart(2,"0")+' · '+labels[a]+(i===failedIndex?" · !":"")+'</button>').join(""):'<span class="robot-empty">点击左侧指令，开始编排。</span>';
   document.querySelectorAll("[data-robot-step]").forEach(el=>el.onclick=()=>{const i=+el.dataset.robotStep;if(i>=cursor){history.push(snapshot());if(history.length>80)history.shift();program.splice(i,1);failedIndex=-1;notice="已移除未执行指令；可撤销恢复。";save();display();}});
-  $("robotNotice").textContent=notice;$("robotNotice").classList.toggle("done",state.done);$("robotUndo").disabled=!history.length&&cursor>=program.length&&!program.length;
+  $("robotNotice").textContent=notice;$("robotNotice").classList.toggle("done",state.done);$("robotUndo").disabled=!history.length;
   $("robotReset").disabled=state.arm==="source"&&state.z==="low"&&state.gripper==="open"&&state.cargo==="source"&&!program.length&&!cursor;
   $("robotStep").disabled=state.done||cursor>=program.length;$("robotFinish").hidden=!state.done;
   $("robotProgress").textContent=state.done?"货箱已送达 · 机械臂待机":"下一步建议："+expected()+" · 可执行 "+(program.length-cursor)+" 条指令";
