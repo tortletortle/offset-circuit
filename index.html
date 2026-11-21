@@ -109,6 +109,270 @@
 .comms-footer{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:11px}.comms-footer>span{flex:1;color:#b7c9cf;font-size:12px}.comms-footer .ch-primary{margin-left:auto}
 @media(max-width:730px){.comms-hero-head{padding:12px 12px 7px;gap:8px}.comms-hero-head h1{font-size:21px}.comms-hero-head p{font-size:11px}.comms-hero-status{font-size:9px;padding:6px 8px}.comms-art{min-height:150px}.comms-scene-caption{left:8px;bottom:7px;font-size:9px;padding:6px 7px}.comms-stage-grid{grid-template-columns:1fr;gap:9px}.comms-stage{padding:11px}.comms-progress-list{gap:5px}.comms-progress-item{font-size:10px;padding:6px}.comms-ready{gap:5px}.comms-ready-item{padding:7px 3px}.comms-transmit{padding:12px}.comms-transmit-row{align-items:stretch}.comms-transmit-button{width:100%}.comms-sos{font-size:17px;text-align:center}.comms-footer>span{flex:1 0 100%;order:-1}}
 @media(prefers-reduced-motion:reduce){.comms-scene.transmitting .comms-beam{animation:none}.comms-beam{transition:none}}
+
+/* VISUAL REFRESH · art direction based on the generated game-screen concept */
+:root{
+ --bg:#070d13;--bg2:#0c151d;--panel:#121e28;--panel2:#192833;
+ --line:#354b58;--line2:#526b77;--muted:#a1b0b7;--muted2:#71838d;
+ --text:#f2f0e9;--cyan:#72d8ce;--cyan2:#a5f3e7;--teal:#43b8a7;
+ --amber:#f2b765;--red:#ff8b79;--shadow:0 20px 54px rgba(0,0,0,.38)
+}
+html{background:#070d13}
+body:not(.chapter-active){
+ background:
+  radial-gradient(ellipse at 72% -12%,rgba(52,112,120,.16),transparent 42%),
+  radial-gradient(ellipse at 8% 30%,rgba(201,139,68,.07),transparent 32%),
+  linear-gradient(145deg,#080f16 0%,#0b151e 52%,#060b11 100%)
+}
+.app-shell{max-width:1720px;padding:0 clamp(12px,2.2vw,34px) 30px}
+.topbar{min-height:84px;border-bottom-color:rgba(151,174,180,.18)}
+.topbar:after{width:38%;background:linear-gradient(90deg,var(--amber),rgba(242,183,101,0))}
+.brand-mark{border-color:rgba(242,183,101,.48);border-radius:13px;background:linear-gradient(145deg,#273943,#111c24);color:var(--amber);box-shadow:0 0 22px rgba(242,183,101,.12),inset 0 0 18px rgba(242,183,101,.06)}
+.brand-kicker{color:#9be2d9}
+.brand h1{letter-spacing:.08em}
+.brand h1 small{color:#d2ae78}
+.live-chip{border-color:rgba(114,216,206,.28);background:rgba(19,48,53,.55);color:#9ce5db}
+.live-chip:before{background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
+.progress b{color:var(--amber)}
+.app-grid{gap:22px;padding-top:22px}
+.panel{border-color:rgba(105,133,145,.25);border-radius:15px;background:linear-gradient(150deg,rgba(23,37,47,.97),rgba(10,19,27,.98));box-shadow:var(--shadow)}
+.sidebar{padding:15px 13px}
+.label{color:#d1dce0}
+.level{border-radius:9px;background:rgba(14,29,38,.56);padding:11px 10px;color:#c2d0d4}
+.level:hover{border-color:rgba(242,183,101,.48);background:#1a2c36}
+.level.active{border-color:rgba(242,183,101,.55);background:linear-gradient(90deg,rgba(151,99,41,.24),rgba(25,48,56,.75));box-shadow:inset 3px 0 var(--amber),0 0 18px rgba(242,183,101,.07)}
+.num{border-color:#526873;background:#172833;color:#b5c5c9}
+.level.active .num{color:var(--amber);border-color:var(--amber);background:#3b3022}
+.side-card h3{color:#f0e8d9}
+.side-meta b{color:#e6e9e5}
+.fault-tag{border-color:#4b7e86;background:#142f37;color:var(--cyan)}
+.generator select,.generator input{background:#0c1821;border-color:#465d69}
+.page-heading{min-height:78px}
+.heading-accent{background:linear-gradient(180deg,var(--amber),#9d6a36);box-shadow:0 0 16px rgba(242,183,101,.2)}
+.eyebrow{color:var(--amber)}
+.page-heading h2{font-size:28px;letter-spacing:.025em}
+.stat{border-color:rgba(123,149,158,.25);background:rgba(13,28,38,.7)}
+.stat b{color:var(--amber)}
+.panel-head{background:linear-gradient(90deg,rgba(42,55,62,.78),rgba(13,26,35,.58));border-bottom-color:rgba(125,149,156,.2)}
+.panel-head-title{color:#c6d3d5}
+.panel-head-title:before{color:var(--amber)}
+.live-state{color:#9bded5}
+.board{border-color:#344f5b;background-color:#08151e;background-image:radial-gradient(rgba(119,159,166,.19) .8px,transparent .8px),linear-gradient(145deg,rgba(18,39,50,.72),rgba(5,14,22,.92));box-shadow:inset 0 0 55px rgba(47,122,128,.08)}
+.wire.high{stroke:var(--cyan);filter:drop-shadow(0 0 3px rgba(114,216,206,.55))}
+.wire.low{stroke:#526a76}
+.wire.bridge{stroke:#09151e}
+.gate rect.outer{fill:#1b2c36!important;stroke:#617984!important}
+.gate.selected rect.outer{fill:#3c3528!important;stroke:var(--amber)!important;filter:drop-shadow(0 0 10px rgba(242,183,101,.25))}
+.gate.hint rect.outer,.gate.probing rect.outer{stroke:var(--amber)!important}
+.btn{min-height:38px;border-color:#4a606b;border-radius:8px;background:linear-gradient(180deg,#1b303a,#101f29);color:#e1e8e7}
+.btn:hover{border-color:var(--amber);background:#263640}
+.btn.primary{border-color:#f5c77e;background:linear-gradient(135deg,#f7cc87,#dfa04f);color:#2b1b0b;box-shadow:0 7px 20px rgba(201,137,62,.16)}
+.btn.primary:hover{background:#ffdda5;box-shadow:0 9px 25px rgba(201,137,62,.22)}
+.message{border-left-color:var(--amber);background:rgba(44,36,25,.45);color:#c8d1cf}
+.message.good{border-color:var(--cyan);color:#a4eee0}
+.message.bad{border-color:var(--amber);color:#ffd39a}
+.success{border-color:#438f80;background:rgba(17,62,55,.72);color:#a6f2df}
+.success button{background:var(--cyan);color:#08201f}
+.diagnostic{border-color:#a27a43;background:linear-gradient(145deg,rgba(59,43,25,.6),rgba(11,25,34,.97))}
+.diagtools select{border-color:#7f6846}
+.diagtools .primary{background:linear-gradient(135deg,#f8d18e,#e3a64f);border-color:#f5c77e;color:#2b1b0b}
+.bottom{gap:16px}
+.sub{padding:17px}
+.card-icon{color:var(--amber);background:rgba(151,103,49,.18);border-color:rgba(242,183,101,.25)}
+.sub h3{color:#f0ede4}
+.switch{border-color:#405b67;background:#0d1d27;color:#b8c8cb}
+.switch.on{border-color:#4b9b8e;background:#123a38;color:#a9f1e3}
+.switch.on:after{background:var(--cyan);box-shadow:0 0 8px rgba(114,216,206,.35)}
+.outbox{border-color:#3c5b68;background:rgba(8,22,31,.78)}
+.outbox b{color:var(--cyan)}
+.outbox.fail b{color:var(--amber)}
+.monitor-box,.tablewrap{border-color:#385361;background:rgba(7,20,29,.82)}
+th{background:#1b303b;color:#c2d1d3}
+tr[data-row]:hover,tr.current{background:rgba(91,117,112,.2)}
+footer{color:#80949b}
+
+/* Shared chapter frame */
+body.chapter-active{
+ min-height:100vh;
+ background:
+  radial-gradient(ellipse at 52% -18%,rgba(54,107,116,.2),transparent 44%),
+  radial-gradient(ellipse at 92% 24%,rgba(191,128,62,.09),transparent 28%),
+  linear-gradient(145deg,#070d13,#0b151d 55%,#060b11)
+}
+.chapter{max-width:1600px;padding:0 28px 28px;color:#f0f1ed}
+.ch-header{
+ position:sticky;top:0;z-index:40;min-height:76px;gap:16px;
+ margin:0 -28px;padding:0 28px;
+ border-bottom:1px solid rgba(163,183,185,.18);
+ background:rgba(7,14,20,.82);backdrop-filter:blur(18px);
+ box-shadow:0 12px 32px rgba(0,0,0,.16)
+}
+.ch-header>div{align-items:center;gap:12px}
+.ch-header>div:before{
+ content:"";display:block;flex:0 0 34px;width:34px;height:34px;
+ border:1px solid rgba(242,183,101,.55);border-radius:10px;
+ background:linear-gradient(145deg,#38464a,#17252d);
+ box-shadow:inset 0 0 14px rgba(242,183,101,.1),0 0 16px rgba(242,183,101,.08)
+}
+.ch-header strong{font-size:21px;letter-spacing:.08em;color:#f4f0e7}
+.ch-header small,.ch-kicker{color:#d2b17e;font-size:10px;letter-spacing:.16em}
+.ch-header>span{padding:6px 10px;border:1px solid rgba(114,216,206,.25);border-radius:999px;background:rgba(18,50,52,.42);color:#a6e6dc;font:10px ui-monospace,monospace}
+.ch-grid{gap:16px;margin-top:18px}
+.ch-primary,.ch-secondary{min-height:42px;padding:10px 15px;border-radius:8px;font-weight:750;transition:transform .16s,border-color .16s,background .16s,box-shadow .16s}
+.ch-secondary{border:1px solid #4b606b;background:linear-gradient(180deg,#21333d,#14232c);color:#e0e8e6}
+.ch-secondary:hover{border-color:#d4a65e;background:#293a41;transform:translateY(-1px)}
+.ch-primary{border:1px solid #f6ce8b;background:linear-gradient(135deg,#f6ce8b,#e3a24f);color:#2a1b0c;box-shadow:0 7px 20px rgba(210,148,70,.18)}
+.ch-primary:hover{background:#ffdda6;box-shadow:0 9px 25px rgba(210,148,70,.24);transform:translateY(-1px)}
+.ch-footer{gap:10px;padding:12px 14px;border:1px solid rgba(103,132,143,.24);border-radius:12px;background:rgba(13,25,34,.8)}
+.ch-footer>span{color:#d5c29f}
+.ch-world{border-color:#586a70;border-radius:16px;box-shadow:0 22px 54px rgba(0,0,0,.42),inset 0 0 60px rgba(0,0,0,.16)}
+.ch-objective{background:rgba(11,21,29,.9);border-color:rgba(242,183,101,.6);box-shadow:0 12px 30px rgba(0,0,0,.25);backdrop-filter:blur(10px)}
+.ch-objective small{color:var(--amber)}
+.ch-world-labels span,.ch-door-label{border-color:#687b82;background:rgba(12,24,32,.86)}
+.ch-world-labels span.on,.ch-door-label.open{border-color:var(--amber);color:#ffe0ad}
+
+/* Chapter cards share one material language */
+.air-board,.robot-board,.hazard-board,.sensor-board,.comms-hero,.comms-stage,.robot-panel,.hazard-panel{
+ border-color:rgba(126,151,160,.3);
+ background:linear-gradient(150deg,rgba(29,44,53,.98),rgba(10,19,27,.98) 72%);
+ box-shadow:0 18px 48px rgba(0,0,0,.34),inset 0 1px rgba(255,255,255,.035);
+ border-radius:15px
+}
+.air-title h1,.robot-title h1,.hazard-title h1,.sensor-title h1,.comms-hero-head h1{color:#f4f0e7;letter-spacing:.015em}
+.air-title small,.robot-title small,.hazard-title small,.sensor-title small,.comms-hero-head small{color:var(--amber)}
+.air-title p,.robot-title p,.hazard-title p,.sensor-title p,.comms-hero-head p{color:#bdc9ca;line-height:1.65}
+.air-art,.robot-art,.sensor-art,.comms-art,.hazard-wave{
+ border:1px solid rgba(129,153,160,.35);border-radius:12px;
+ box-shadow:inset 0 0 35px rgba(0,0,0,.18),0 12px 28px rgba(0,0,0,.18)
+}
+.air-art{background:linear-gradient(180deg,#172a34,#0a151e)}
+.air-status-row span{border-color:#435d68;background:#101f29;color:#d4dfde;border-radius:8px}
+.air-status-row span.good{border-color:#4a9b8a;color:#a5f1df}
+.air-console{border-color:#405a65;background:linear-gradient(145deg,#1a303b,#0e1c25)}
+.air-action{border-color:#526b75;border-radius:9px;background:linear-gradient(180deg,#243a43,#14232c);color:#e9efec}
+.air-action:hover,.air-gates button:hover{border-color:var(--amber)}
+.air-gates button{border-color:#516975;background:#12232d}
+.air-gates button[aria-pressed=true]{border-color:var(--amber);color:#ffd28e;background:#3b3021}
+.robot-board{padding:18px;overflow:hidden;position:relative}
+.robot-title{margin-bottom:14px;align-items:center}
+.robot-title h1{font-size:29px}
+.robot-title p{max-width:780px}
+.robot-art{height:clamp(280px,39vh,390px);border-color:#526b75;background:#0b1720}
+#robotTrolley{filter:drop-shadow(0 8px 8px rgba(0,0,0,.45))}
+#robotLift{filter:drop-shadow(0 3px 3px rgba(0,0,0,.35))}
+#cargoSource,#cargoTarget,#cargoHeld{filter:drop-shadow(0 5px 6px rgba(0,0,0,.38))}
+.robot-statuses{gap:9px;margin-top:12px}
+.robot-statuses span{padding:10px 8px;border-color:#405a65;border-radius:9px;background:linear-gradient(180deg,#172a34,#0d1c25);color:#c7d4d4}
+.robot-statuses span.good{border-color:#4b9a8b;color:#a8f1e1;background:#12312f}
+.robot-console{gap:14px}
+.robot-panel{padding:16px}
+.robot-panel h2{font-size:14px;letter-spacing:.04em;color:#f1eadb}
+.robot-panel p{color:#b6c5c8;line-height:1.6}
+.robot-command-deck{gap:9px}
+.robot-command{min-height:72px;border-color:#526873;border-radius:9px;background:linear-gradient(155deg,#263b45,#14242e);color:#f0eee6;box-shadow:inset 0 1px rgba(255,255,255,.04)}
+.robot-command span{color:#aebfc2}
+.robot-command:hover{border-color:var(--amber);background:linear-gradient(155deg,#443a2a,#1e2b31);transform:translateY(-1px)}
+.robot-program{min-height:84px;padding:11px;border-color:#526873;border-radius:9px;background:rgba(6,16,24,.7)}
+.robot-step{border-color:#536d77;border-radius:8px;background:#1b3039;color:#e1e9e6}
+.robot-step[aria-current=true]{border-color:var(--amber);color:#ffdda7;background:#3b3022;box-shadow:0 0 14px rgba(242,183,101,.1)}
+.robot-step.executed{border-color:#4d9a8c;color:#a5eddf;background:#12332f}
+.robot-notice{border-color:#b18b53;border-radius:8px;background:rgba(55,41,24,.58);color:#f0d7ad}
+.robot-notice.done{border-color:#54b59f;background:rgba(17,62,55,.6);color:#b0f5e5}
+.robot-footer{gap:9px;padding:12px 14px;border:1px solid rgba(103,132,143,.24);border-radius:12px;background:rgba(13,25,34,.82)}
+.robot-footer>span{color:#d4c29f;line-height:1.5}
+.robot-footer .ch-primary{margin-left:auto}
+.hazard-lamp-row{border-color:#4c626c;border-radius:12px;background:linear-gradient(110deg,#172c35,#0c1a23)}
+.hazard-lamp-copy span{color:#bdc9ca}
+.hazard-panel{padding:16px}
+.hazard-panel h2{color:#f1eadb}
+.hazard-panel p{color:#b8c6c8;line-height:1.65}
+.hazard-action{border-color:#536c76;border-radius:9px;background:linear-gradient(150deg,#253a43,#13232c);color:#edf0e9}
+.hazard-action:hover{border-color:var(--amber)}
+.hazard-notice{border-color:#b18b53;border-radius:8px;background:rgba(55,41,24,.58);color:#f0d7ad}
+.hazard-notice.done{border-color:#54b59f;background:rgba(17,62,55,.6);color:#b0f5e5}
+.sensor-scene{border-color:#526a75;border-radius:13px;background:radial-gradient(ellipse at 50% 45%,#344a52,#0a1720 72%)}
+.sensor-overlay{border-color:rgba(242,183,101,.65);background:rgba(10,20,28,.9);backdrop-filter:blur(8px)}
+.sensor-card,.sensor-panel{border-color:#435c67;background:linear-gradient(150deg,#203640,#101e27)}
+.sensor-action{border-color:#526a75;border-radius:9px;background:linear-gradient(150deg,#243a43,#14232b);color:#edf0e9}
+.sensor-action:hover{border-color:var(--amber)}
+.sensor-notice{border-color:#b18b53;border-radius:8px;background:rgba(55,41,24,.58);color:#f0d7ad}
+.sensor-notice.done{border-color:#54b59f;background:rgba(17,62,55,.6);color:#b0f5e5}
+.comms-hero-head h1{font-size:30px}
+.comms-hero-head p{max-width:920px}
+.comms-scene{border-color:#526b75;border-radius:13px}
+.comms-stage{padding:16px}
+.comms-stage-head h2{color:#f1eadb}
+.comms-stage p{color:#b8c7c9}
+.comms-action{border-color:#536c76;border-radius:8px;background:#172b35;color:#e8efeb}
+.comms-action:hover{border-color:var(--amber)}
+.comms-action[aria-pressed=true],.comms-action.primary{border-color:#58bda8;background:#153c36;color:#b2f5e5}
+.comms-stage-result{border-radius:7px;background:#101e27}
+.comms-transmit{border-color:#9b794b;border-radius:12px;background:linear-gradient(120deg,#2c332f,#17262d)}
+.comms-transmit-button{border-color:#f4c77f;background:linear-gradient(135deg,#f4ca87,#d99a4b);color:#2b1b0a}
+.comms-ack-button{border-color:#61cdb5;background:#153c36;color:#b0f5e5}
+.story-panel{border-color:rgba(114,216,206,.24);background:linear-gradient(120deg,#172d37,#0d1a23 72%)}
+.story-node{border-color:#3b5661;background:#0d1d27}
+.story-node.current{border-color:var(--amber);box-shadow:inset 0 0 16px rgba(242,183,101,.1)}
+.story-node.done{border-color:#4a9a8b}
+.ops-panel{border-color:#435d68;background:linear-gradient(145deg,#1d333d,#0e1c25)}
+.ops-module,.ops-switch{border-color:#405a65;background:#10222c}
+.ops-notice{border-color:#a17b49;background:#2b281f}
+
+/* Responsive: preserve scene focus and keep every control reachable */
+@media(max-width:980px){
+ .app-grid{grid-template-columns:220px minmax(0,1fr);gap:15px}
+ .ch-header{padding-left:20px;padding-right:20px;margin-left:-20px;margin-right:-20px}
+}
+@media(max-width:730px){
+ .app-shell{padding:0 10px 18px}
+ .topbar{min-height:72px}
+ .brand-mark{width:46px;height:46px}
+ .brand-mark svg{width:32px;height:32px}
+ .brand h1{font-size:20px}
+ .app-grid{grid-template-columns:1fr;gap:12px;padding-top:12px}
+ .chapter{padding:0 12px 18px}
+ .ch-header{position:relative;top:auto;min-height:62px;margin:0;padding:9px 0;gap:8px;flex-wrap:wrap}
+ .ch-header>div{gap:8px}
+ .ch-header>div:before{width:28px;height:28px;flex-basis:28px}
+ .ch-header strong{font-size:18px}
+ .ch-header small{display:none}
+ .ch-header>span{font-size:9px;padding:5px 7px}
+ .ch-header button{padding:8px 10px;white-space:normal}
+ .ch-grid{gap:10px;margin-top:12px}
+ .robot-board,.air-board,.hazard-board,.sensor-board{padding:12px}
+ .robot-title,.air-title,.hazard-title,.sensor-title{gap:9px;flex-wrap:wrap}
+ .robot-title h1,.air-title h1,.hazard-title h1,.sensor-title h1{font-size:21px}
+ .robot-art{height:auto;min-height:0;aspect-ratio:1200/340}
+ .robot-console{grid-template-columns:1fr;gap:10px}
+ .robot-panel,.hazard-panel{padding:12px}
+ .robot-command{min-height:62px}
+ .robot-statuses{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .robot-footer{gap:7px;padding:10px}
+ .robot-footer>span{flex:1 0 100%;order:-1}
+ .robot-footer .ch-primary{margin-left:auto}
+ .ch-footer{padding:10px;gap:7px}
+ .ch-footer>span{flex:1 0 100%;order:-1}
+ .ch-footer .ch-primary{margin-left:auto}
+ .comms-hero-head{gap:9px;flex-wrap:wrap}
+ .comms-hero-head h1{font-size:22px}
+ .comms-stage-grid{grid-template-columns:1fr}
+ .comms-stage{padding:12px}
+ .comms-footer>span{flex:1 0 100%;order:-1}
+ .comms-footer .ch-primary{margin-left:auto}
+ .story-map{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:420px){
+ .robot-command-deck{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .robot-footer .ch-secondary,.robot-footer .ch-primary{flex:1 1 auto;padding:9px 10px}
+ .ch-header>span{max-width:100%;overflow-wrap:anywhere}
+ .ch-header button{margin-left:auto}
+ .comms-ready{grid-template-columns:1fr}
+ .comms-transmit-row{gap:8px}
+}
+@media(prefers-reduced-motion:reduce){
+ .ch-primary,.ch-secondary,.robot-command,.robot-art,.robot-statuses span{transition:none!important}
+}
+
 </style></head><body><section id="chapterScene" class="chapter" hidden aria-label="第一关：最后一盏灯">
   <header class="ch-header"><div><strong>错位电路</strong><small>OFFSET CIRCUIT / 01</small></div><span id="chSave" role="status">离线模式</span><button id="chLab" class="ch-secondary">完整工作台 ↗</button></header>
   <main class="ch-grid">
@@ -241,11 +505,118 @@
 <section id="robotScene" class="chapter" hidden aria-label="第三关：失控的机械臂">
 <header class="ch-header"><div><strong>错位电路</strong><small>OFFSET CIRCUIT / 03</small></div><span id="robotSave" role="status"></span><button id="robotBack" class="ch-secondary">返回气闸</button></header>
 <main class="ch-grid"><section class="robot-board"><div class="robot-title"><div><small>03 / 货运舱 · 自动化控制</small><h1>失控的机械臂</h1><p>把货箱从 A 点送到 B 点，再让机械臂安全回到待机位。</p></div><span id="robotCounter" class="ch-secondary">程序 0 / 12</span></div>
-<svg id="robotArt" class="robot-art" viewBox="0 0 900 340" role="img" aria-label="沿顶部导轨移动的机械臂、起点货箱和目标货台"><defs><linearGradient id="robotMetal" x2="0" y2="1"><stop stop-color="#91a5af"/><stop offset="1" stop-color="#344b59"/></linearGradient><linearGradient id="robotCargo" x2="0" y2="1"><stop stop-color="#d69a4b"/><stop offset="1" stop-color="#76502b"/></linearGradient></defs>
-<path d="M0 0H900V340H0Z" fill="#0c1923"/><path d="M0 270H900M0 310H900" stroke="#344b56" stroke-width="2"/><g opacity=".18" stroke="#90a4ae" stroke-width="1"><path d="M50 0V270M150 0V270M250 0V270M350 0V270M450 0V270M550 0V270M650 0V270M750 0V270M850 0V270"/><path d="M0 90H900M0 170H900"/></g><path class="robot-rail" d="M80 53H820"/><path class="robot-rail-light" d="M80 43H820"/>
-<g><rect x="90" y="270" width="180" height="24" rx="5" fill="#354956" stroke="#70818a" stroke-width="3"/><rect x="630" y="270" width="180" height="24" rx="5" fill="#354956" stroke="#70818a" stroke-width="3"/><path d="M110 294V318M250 294V318M650 294V318M790 294V318" stroke="#697d87" stroke-width="8"/><text x="180" y="255" text-anchor="middle" fill="#e6c28b" font-size="17" font-weight="700">A / 取货位</text><text x="720" y="255" text-anchor="middle" fill="#8ee7d2" font-size="17" font-weight="700">B / 交付位</text></g>
-<g id="cargoSource"><rect x="151" y="224" width="58" height="45" rx="4" fill="url(#robotCargo)" stroke="#f0c17a" stroke-width="3"/><path d="M180 224V269M151 246H209" stroke="#654624" stroke-width="3"/><text x="180" y="252" fill="#fff0cf" text-anchor="middle" font-size="17" font-weight="800">A</text></g><g id="cargoTarget" style="opacity:0"><rect x="691" y="224" width="58" height="45" rx="4" fill="url(#robotCargo)" stroke="#f0c17a" stroke-width="3"/><path d="M720 224V269M691 246H749" stroke="#654624" stroke-width="3"/><text x="720" y="252" fill="#fff0cf" text-anchor="middle" font-size="17" font-weight="800">B</text></g>
-<g id="robotTrolley"><rect x="150" y="30" width="60" height="34" rx="7" fill="url(#robotMetal)" stroke="#c2d0d4" stroke-width="3"/><circle cx="164" cy="48" r="7" fill="#0c1820" stroke="#d0dadd" stroke-width="2"/><circle cx="196" cy="48" r="7" fill="#0c1820" stroke="#d0dadd" stroke-width="2"/><g id="robotLift"><path d="M180 64V197" stroke="#b8c6cc" stroke-width="13"/><path d="M180 65V196" stroke="#425c69" stroke-width="5"/><rect x="157" y="185" width="46" height="17" rx="5" fill="#637985" stroke="#c0cdd1" stroke-width="2"/><g id="robotGripper"><path class="jaw-left" d="M164 198L153 219L164 224" fill="none" stroke="#e1b76e" stroke-width="9" stroke-linejoin="round"/><path class="jaw-right" d="M196 198L207 219L196 224" fill="none" stroke="#e1b76e" stroke-width="9" stroke-linejoin="round"/><g id="cargoHeld" style="opacity:0"><rect x="151" y="224" width="58" height="45" rx="4" fill="url(#robotCargo)" stroke="#f0c17a" stroke-width="3"/><path d="M180 224V269M151 246H209" stroke="#654624" stroke-width="3"/></g></g></g></g><g opacity=".8"><circle cx="180" cy="53" r="4" fill="#8cf1d8"/><circle cx="720" cy="53" r="4" fill="#8cf1d8"/><path d="M180 80V95M720 80V95" stroke="#8cf1d8" stroke-width="2" stroke-dasharray="4 5"/></g></svg>
+<svg id="robotArt" class="robot-art" viewBox="0 0 1200 340" preserveAspectRatio="xMidYMid meet" role="img" aria-label="空间站货运舱中的龙门式机械臂、起点货箱和目标货台">
+<defs>
+ <linearGradient id="robotWall" x2="0" y2="1"><stop stop-color="#243744"/><stop offset=".55" stop-color="#14242e"/><stop offset="1" stop-color="#09131c"/></linearGradient>
+ <linearGradient id="robotMetal" x2="0" y2="1"><stop stop-color="#d6e0df"/><stop offset=".45" stop-color="#718994"/><stop offset="1" stop-color="#344b58"/></linearGradient>
+ <linearGradient id="robotGold" x2="0" y2="1"><stop stop-color="#ffd58a"/><stop offset=".35" stop-color="#d78e38"/><stop offset="1" stop-color="#70421e"/></linearGradient>
+ <linearGradient id="robotCargo" x2="0" y2="1"><stop stop-color="#e5ad61"/><stop offset=".5" stop-color="#a66b31"/><stop offset="1" stop-color="#5b3921"/></linearGradient>
+ <radialGradient id="robotPlanet"><stop stop-color="#a9e0ee"/><stop offset=".66" stop-color="#3d829d"/><stop offset="1" stop-color="#17374b"/></radialGradient>
+ <linearGradient id="robotGlass" x2="0" y2="1"><stop stop-color="#17364a"/><stop offset="1" stop-color="#07131d"/></linearGradient>
+ <filter id="robotGlow"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <pattern id="robotFloorGrid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#8297a0" stroke-opacity=".13" stroke-width="1"/></pattern>
+ <clipPath id="robotWindowClip"><rect x="885" y="32" width="260" height="150" rx="14"/></clipPath>
+</defs>
+<rect width="1200" height="340" fill="url(#robotWall)"/>
+<path d="M0 0H1200V230L1080 205H110L0 238Z" fill="#152631"/>
+<path d="M0 0L105 30H1090L1200 0M0 230L120 198H1080L1200 230" fill="none" stroke="#405660" stroke-width="10"/>
+<g opacity=".32" stroke="#8ea0a6" stroke-width="2" fill="none">
+ <path d="M40 0V222M120 0V222M1080 0V222M1160 0V222M0 78H1200M0 158H1200"/>
+ <path d="M42 22H155V52H42M1040 22H1155V52H1040"/>
+ <path d="M34 205H115M1080 205H1170"/>
+</g>
+<g opacity=".7">
+ <rect x="34" y="28" width="225" height="128" rx="12" fill="#081722" stroke="#536b77" stroke-width="5"/>
+ <rect x="44" y="38" width="205" height="108" rx="8" fill="url(#robotGlass)"/>
+ <path d="M45 125Q100 88 155 115T249 105" fill="none" stroke="#5ba8c1" stroke-width="3" opacity=".5"/>
+ <g fill="#d9edf2"><circle cx="78" cy="58" r="1.5"/><circle cx="122" cy="80" r="1"/><circle cx="180" cy="57" r="1.2"/><circle cx="220" cy="92" r="1.4"/></g>
+ <text x="56" y="179" fill="#a9c0c8" font-size="13" letter-spacing="2">CARGO BAY / A-03</text>
+</g>
+<g>
+ <rect x="885" y="32" width="260" height="150" rx="14" fill="#07131d" stroke="#60747d" stroke-width="8"/>
+ <g clip-path="url(#robotWindowClip)">
+  <rect x="885" y="32" width="260" height="150" fill="#07131d"/>
+  <circle cx="1084" cy="174" r="128" fill="url(#robotPlanet)"/>
+  <path d="M934 108Q1024 69 1137 111M921 144Q1030 112 1154 149" fill="none" stroke="#b8e4f0" stroke-width="5" opacity=".22"/>
+  <g fill="#dff5fa" opacity=".85"><circle cx="918" cy="61" r="1.6"/><circle cx="972" cy="82" r="1"/><circle cx="1030" cy="50" r="1.4"/><circle cx="1120" cy="62" r="1.2"/></g>
+ </g>
+ <path d="M885 32H1145V182" fill="none" stroke="#8da1a9" stroke-width="2" opacity=".5"/>
+ <text x="902" y="204" fill="#a9c0c8" font-size="12" letter-spacing="2">ORBITAL VIEW</text>
+</g>
+<g opacity=".85">
+ <path d="M278 0V76M314 0V76M814 0V76M850 0V76" stroke="#6e7f84" stroke-width="8"/>
+ <rect x="250" y="22" width="90" height="10" rx="5" fill="#ffb85d" filter="url(#robotGlow)"/>
+ <rect x="770" y="22" width="90" height="10" rx="5" fill="#ffb85d" filter="url(#robotGlow)"/>
+ <path d="M30 188H280M920 214H1170" stroke="#b08a54" stroke-width="7" stroke-dasharray="18 12" opacity=".7"/>
+</g>
+<g>
+ <rect x="0" y="246" width="1200" height="94" fill="#111d25"/>
+ <rect x="0" y="246" width="1200" height="94" fill="url(#robotFloorGrid)"/>
+ <path d="M0 247H1200M0 318H1200" stroke="#647983" stroke-width="5"/>
+ <path d="M0 272H1200M0 300H1200" stroke="#364d58" stroke-width="2"/>
+ <path d="M35 330L145 247M245 340L335 247M455 340L545 247M665 340L755 247M875 340L965 247M1085 340L1175 247" stroke="#62747a" stroke-width="2" opacity=".4"/>
+</g>
+<g>
+ <rect x="105" y="257" width="190" height="30" rx="6" fill="#344b56" stroke="#85979d" stroke-width="3"/>
+ <rect x="815" y="257" width="190" height="30" rx="6" fill="#344b56" stroke="#85979d" stroke-width="3"/>
+ <path d="M120 287V316M280 287V316M830 287V316M990 287V316" stroke="#72848a" stroke-width="9"/>
+ <path d="M120 263H280M830 263H990" stroke="#c3d0d1" stroke-width="3" opacity=".45"/>
+ <g fill="#1a2b34" stroke="#87979c" stroke-width="2">
+  <circle cx="138" cy="272" r="8"/><circle cx="174" cy="272" r="8"/><circle cx="210" cy="272" r="8"/><circle cx="246" cy="272" r="8"/>
+  <circle cx="848" cy="272" r="8"/><circle cx="884" cy="272" r="8"/><circle cx="920" cy="272" r="8"/><circle cx="956" cy="272" r="8"/>
+ </g>
+ <path d="M300 273H800" stroke="#e0a95e" stroke-width="4" stroke-dasharray="18 12" opacity=".7"/>
+ <path d="M395 286L414 286L405 278M785 286L804 286L795 278" stroke="#e9b76b" stroke-width="3" fill="none"/>
+ <text x="200" y="238" text-anchor="middle" fill="#f1c98e" font-size="16" font-weight="700" letter-spacing="1">A / PICKUP</text>
+ <text x="920" y="238" text-anchor="middle" fill="#83e6d3" font-size="16" font-weight="700" letter-spacing="1">B / DELIVERY</text>
+</g>
+<g opacity=".8">
+ <rect x="44" y="208" width="66" height="38" rx="5" fill="#273a43" stroke="#617780" stroke-width="2"/>
+ <path d="M54 218H100M54 229H100" stroke="#82969c" stroke-width="2"/>
+ <rect x="1090" y="209" width="68" height="37" rx="5" fill="#273a43" stroke="#617780" stroke-width="2"/>
+ <path d="M1100 219H1148M1100 230H1148" stroke="#82969c" stroke-width="2"/>
+</g>
+<g id="cargoSource">
+ <rect x="171" y="211" width="58" height="46" rx="5" fill="url(#robotCargo)" stroke="#f5c982" stroke-width="3"/>
+ <path d="M200 211V257M171 234H229" stroke="#5f3d22" stroke-width="4"/>
+ <path d="M178 217H222M178 251H222" stroke="#f4d29b" stroke-width="2" opacity=".55"/>
+ <text x="200" y="241" fill="#fff1d1" text-anchor="middle" font-size="17" font-weight="900">A</text>
+</g>
+<g id="cargoTarget" style="opacity:0">
+ <rect x="891" y="211" width="58" height="46" rx="5" fill="url(#robotCargo)" stroke="#f5c982" stroke-width="3"/>
+ <path d="M920 211V257M891 234H949" stroke="#5f3d22" stroke-width="4"/>
+ <path d="M898 217H942M898 251H942" stroke="#f4d29b" stroke-width="2" opacity=".55"/>
+ <text x="920" y="241" fill="#fff1d1" text-anchor="middle" font-size="17" font-weight="900">B</text>
+</g>
+<g id="robotTrolley">
+ <rect x="170" y="27" width="60" height="39" rx="8" fill="url(#robotGold)" stroke="#ffe0a7" stroke-width="3"/>
+ <rect x="178" y="34" width="44" height="12" rx="4" fill="#50351f" opacity=".8"/>
+ <path d="M180 53H220" stroke="#ffe2aa" stroke-width="3" opacity=".65"/>
+ <circle cx="184" cy="67" r="9" fill="#17232a" stroke="#c0ccd0" stroke-width="4"/>
+ <circle cx="216" cy="67" r="9" fill="#17232a" stroke="#c0ccd0" stroke-width="4"/>
+ <circle cx="184" cy="67" r="3" fill="#f2c16f"/><circle cx="216" cy="67" r="3" fill="#f2c16f"/>
+ <g id="robotLift">
+  <path d="M200 68V191" stroke="#c4d0d1" stroke-width="15"/>
+  <path d="M200 68V191" stroke="#526b75" stroke-width="6"/>
+  <path d="M193 76V183M207 76V183" stroke="#d9e2df" stroke-width="1.5" opacity=".7"/>
+  <rect x="175" y="183" width="50" height="18" rx="5" fill="url(#robotMetal)" stroke="#d3dfe0" stroke-width="2"/>
+  <g id="robotGripper">
+   <path class="jaw-left" d="M184 198L174 215L184 220" fill="none" stroke="#f1b85f" stroke-width="9" stroke-linejoin="round"/>
+   <path class="jaw-right" d="M216 198L226 215L216 220" fill="none" stroke="#f1b85f" stroke-width="9" stroke-linejoin="round"/>
+   <g id="cargoHeld" style="opacity:0">
+    <rect x="171" y="211" width="58" height="46" rx="5" fill="url(#robotCargo)" stroke="#f5c982" stroke-width="3"/>
+    <path d="M200 211V257M171 234H229" stroke="#5f3d22" stroke-width="4"/>
+   </g>
+  </g>
+ </g>
+</g>
+<g opacity=".9">
+ <path d="M200 86V104M920 86V104" stroke="#8debd8" stroke-width="2" stroke-dasharray="4 5"/>
+ <circle cx="200" cy="87" r="4" fill="#8debd8" filter="url(#robotGlow)"/>
+ <circle cx="920" cy="87" r="4" fill="#8debd8" filter="url(#robotGlow)"/>
+ <text x="248" y="48" fill="#d6e1e2" font-size="11" letter-spacing="2">A-03 / GANTRY MANIPULATOR</text>
+</g>
+</svg>
 <div class="robot-statuses"><span id="robotArmStatus"></span><span id="robotHeightStatus"></span><span id="robotGripStatus"></span><span id="robotCargoStatus"></span></div></section>
 <section class="robot-console"><div class="robot-panel"><h2>指令库 / COMMAND DECK</h2><div class="robot-command-deck"><button class="robot-command" data-robot-add="GRIP">夹取<span>夹紧货箱</span></button><button class="robot-command" data-robot-add="LIFT">升高<span>抬离平台</span></button><button class="robot-command" data-robot-add="MOVE">平移<span>沿导轨移动</span></button><button class="robot-command" data-robot-add="LOWER">下降<span>放到目标位</span></button><button class="robot-command" data-robot-add="RELEASE">释放<span>松开货箱</span></button><button class="robot-command" data-robot-add="HOME">归位<span>返回待机点</span></button></div><p>点按指令即可加入程序，不需要拖拽。执行到一半也可以撤销，再修改后续指令。</p></div>
 <div class="robot-panel"><h2>控制程序 / SEQUENCE</h2><div id="robotProgram" class="robot-program" aria-label="已编排指令"><span class="robot-empty">点击左侧指令，开始编排。</span></div><p id="robotProgramHelp">每次执行一步，观察机械臂反馈。错误指令会被安全互锁拦截。</p></div></section>
