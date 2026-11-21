@@ -251,3 +251,55 @@ test('complete campaign flows from chapter one through chapter four without seed
   assert.deepEqual(errors,[]);
  } finally {await cleanup(env);}
 });
+
+
+test('three-backup chapter calibrates, isolates the faulty sensor, saves and resumes',async()=>{
+ const env=await launchPage(()=>{
+  localStorage.setItem('offset-v1','{"0":1}');
+  localStorage.setItem('offset-airlock-v1',JSON.stringify({version:1,state:{inner:false,outer:true,low:true,gate:'AND',done:true},undo:[],active:false}));
+  localStorage.setItem('offset-robot-v1',JSON.stringify({version:1,state:{arm:'home',z:'high',gripper:'open',cargo:'target',done:true},program:['GRIP','LIFT','MOVE','LOWER','RELEASE','LIFT','HOME'],cursor:7,history:[],active:false}));
+  localStorage.setItem('offset-hazard-v1',JSON.stringify({version:1,state:{consensus:true,from:1,observedHazard:true,verified:true},history:[],active:false}));
+ });
+ try {
+  const {page,errors}=env;
+  await page.locator('#chapterScene:not([hidden])').waitFor();
+  await page.locator('#chLab').click();
+  await page.locator('#hazardEntry').click();
+  await page.locator('#hazardScene:not([hidden])').waitFor();
+  await page.locator('#hazardNext').waitFor({state:'visible'});
+  await page.locator('#hazardNext').click();
+  await page.locator('#sensorScene:not([hidden])').waitFor();
+
+  await page.locator('#sensorRecord').click(); // high reference = 1
+  await page.locator('#sensorToggle').click(); // low reference = 0
+  await page.locator('#sensorRecord').click();
+  assert.match(await page.locator('#sensorTable tbody tr:nth-child(1)').innerText(),/正常 · 2\/2/);
+  assert.match(await page.locator('#sensorTable tbody tr:nth-child(2)').innerText(),/正常 · 2\/2/);
+  assert.match(await page.locator('#sensorTable tbody tr:nth-child(3)').innerText(),/异常 · 0\/2/);
+
+  await page.locator('#sensorSelectors [data-sensor-select="0"]').click();
+  await page.locator('#sensorConfigure').click();
+  assert.match(await page.locator('#sensorOutput').innerText(),/冲突/);
+  await page.locator('#sensorVerify').click();
+  assert.match(await page.locator('#sensorNotice').innerText(),/冲突/);
+
+  await page.locator('#sensorSelectors [data-sensor-select="2"]').click();
+  await page.locator('#sensorConfigure').click();
+  await page.locator('#sensorVerify').click();
+  await page.locator('#sensorNext').waitFor({state:'visible'});
+  assert.match(await page.locator('#sensorOutput').innerText(),/0/);
+
+  await page.locator('#sensorUndo').click();
+  await page.locator('#sensorNext').waitFor({state:'hidden'});
+  await page.locator('#sensorVerify').click();
+  await page.locator('#sensorNext').waitFor({state:'visible'});
+
+  await page.reload({waitUntil:'load'});
+  await page.locator('#sensorScene:not([hidden])').waitFor();
+  await page.locator('#sensorNext').waitFor({state:'visible'});
+  await page.setViewportSize({width:390,height:844});
+  const dimensions=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));
+  assert.ok(dimensions.scroll<=dimensions.width,'chapter five must fit mobile viewport: '+JSON.stringify(dimensions));
+  assert.deepEqual(errors,[]);
+ } finally {await cleanup(env);}
+});
