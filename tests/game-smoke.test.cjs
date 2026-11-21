@@ -10,7 +10,7 @@ test('single-file game has unique element IDs and all chapter controls',()=>{
  const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
  const duplicates=ids.filter((id,i)=>ids.indexOf(id)!==i);
  assert.deepEqual(duplicates,[]);
- for(const id of ['chapterScene','chapterEntry','chNext','airScene','airEntry','airInner','airPump','airOuter','airUndo','airReset','airNext','airNotice']) {
+ for(const id of ['chapterScene','chapterEntry','chNext','airScene','airEntry','airInner','airPump','airOuter','airUndo','airReset','airNext','airNotice','robotScene','robotEntry','robotStep','robotUndo','robotReset','robotFinish']) {
   assert.equal(ids.filter(x=>x===id).length,1,'expected exactly one #'+id);
  }
 });
@@ -29,9 +29,11 @@ test('game remains offline-first and has mobile/reduced-motion styling',()=>{
  assert.match(html,/@media\s*\(prefers-reduced-motion:\s*reduce\)/);
 });
 
-test('chapter saves are isolated and unsafe airlock actions are guarded',()=>{
+test('chapter saves are isolated and unsafe airlock and robot actions are guarded',()=>{
  assert.match(html,/offset-drafts-v1/);
  assert.match(html,/offset-airlock-v1/);
+ assert.match(html,/offset-robot-v1/);
+ assert.match(html,/function robotStep\(s,action\)/);
  assert.match(html,/function airStep\(s,action\)/);
  assert.match(html,/if\(s\.inner\|\|s\.outer\)return fail/);
  assert.match(html,/if\(!a\|\|!b\)return fail/);

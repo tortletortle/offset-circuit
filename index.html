@@ -35,6 +35,19 @@
 .air-controls{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:12px}.air-console{padding:14px;border:1px solid #455762;border-radius:12px;background:linear-gradient(145deg,#22303b,#111c24);min-width:0}.air-console h2{font-size:15px;margin:0 0 8px}.air-console p{font-size:12px;color:#c3d1d7;margin:6px 0}.air-action{min-width:0;min-height:76px;padding:10px 5px;border:1px solid #687783;border-radius:8px;background:linear-gradient(#293b46,#111a22);color:#eaf0f2;font-weight:700}.air-action span{display:block;color:#acc5cc;font-size:11px;font-weight:400;margin-top:3px}.air-action:hover{border-color:#78e5d2}.air-gates{display:flex;gap:8px;margin-top:10px}.air-gates button{flex:1;min-width:0;min-height:44px;border:1px solid #687783;border-radius:8px;background:#101c25;font:800 18px monospace}.air-gates button[aria-pressed=true]{border-color:#ffc36c;color:#ffc36c;background:#392e20}.air-signals{display:flex;flex-wrap:wrap;gap:6px}.air-signals span{border:1px solid #52616b;border-radius:6px;padding:5px 8px;color:#acbfc6;font-size:12px}.air-signals span.good{border-color:#489d88;color:#87f4d5}.air-notice{min-height:44px;border-left:3px solid #ffc36c;padding:11px 13px;background:#101b25;color:#e8d5aa;border-radius:4px;font-size:13px}.air-notice.done{border-color:#78efd4;color:#a8ffe6}.air-title>button{align-self:flex-start}.air-footer{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.air-footer>span{flex:1;color:#b0c2c8;font-size:12px}.air-footer .ch-primary{margin-left:auto}.air-helper{font-size:12px;color:#aebfc7}
 @media(max-width:730px){.air-board{padding:10px}.air-title h1{font-size:21px}.air-title{gap:8px}.air-art{height:auto;aspect-ratio:900/270}.air-controls{grid-template-columns:1fr}.air-status-row span{font-size:11px;padding:6px}.air-console{padding:11px}.air-title p{font-size:12px}.air-footer>span{flex:1 0 100%;order:-1}.air-action{min-height:64px}.air-title>button{white-space:normal}}
 @media(prefers-reduced-motion:reduce){.air-door,.air-needle{transition:none}}
+
+#robotScene[hidden]{display:none!important}.robot-board{border:1px solid #425664;border-radius:15px;padding:16px;background:linear-gradient(155deg,#233743,#111e29 58%,#09131c);box-shadow:0 15px 40px #0006;min-width:0}
+.robot-title{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:12px}.robot-title h1{font-size:26px;margin:4px 0}.robot-title p{font-size:13px;color:#bdcbd1;margin:0}.robot-title small{font:700 10px ui-monospace,monospace;letter-spacing:.12em;color:#ffc36c}
+.robot-art{display:block;width:100%;height:clamp(220px,34vh,350px);border:1px solid #51636c;border-radius:10px;background:linear-gradient(180deg,#111e28,#182a35 68%,#26343b)}
+#robotTrolley{transform-box:view-box;transform-origin:0 0;transition:transform .62s cubic-bezier(.2,.75,.25,1)}#robotLift{transform-box:view-box;transform-origin:0 0;transition:transform .48s cubic-bezier(.2,.75,.25,1)}
+#robotGripper .jaw-left,#robotGripper .jaw-right{transition:transform .22s ease}#robotGripper.closed .jaw-left{transform:translateX(8px)}#robotGripper.closed .jaw-right{transform:translateX(-8px)}#cargoSource,#cargoTarget,#cargoHeld{transition:opacity .22s ease}
+.robot-statuses{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:10px}.robot-statuses span{padding:8px 6px;text-align:center;border:1px solid #52616b;border-radius:7px;background:#101c25;color:#c0cdd3;font-size:12px;min-width:0}.robot-statuses span.good{color:#8ff2d5;border-color:#418e7d}
+.robot-console{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:12px}.robot-panel{padding:14px;border:1px solid #455762;border-radius:12px;background:linear-gradient(145deg,#22313c,#111c24);min-width:0}.robot-panel h2{font-size:15px;margin:0 0 9px}.robot-panel p{font-size:12px;color:#bdcbd1;margin:8px 0 0}
+.robot-command-deck{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.robot-command{min-height:66px;padding:9px 5px;border:1px solid #657681;border-radius:8px;background:linear-gradient(#2a3d48,#111b23);font-weight:750;color:#e9f1f3}.robot-command span{display:block;margin-top:3px;font-size:11px;color:#a9c0c8;font-weight:400}.robot-command:hover{border-color:#83e7d2}.robot-command:disabled{opacity:.4}
+.robot-program{display:flex;flex-wrap:wrap;gap:7px;min-height:70px;padding:9px;border:1px dashed #526571;border-radius:8px;background:#0b1720;align-content:flex-start}.robot-step{border:1px solid #536571;border-radius:7px;background:#1b2a34;color:#dce7eb;padding:7px 9px;font-size:12px}.robot-step[aria-current=true]{border-color:#ffc36c;color:#ffe0a5;box-shadow:inset 0 0 0 1px #ffc36c}.robot-step.executed{border-color:#438d7d;color:#91e9d1}.robot-step:disabled{opacity:.65}.robot-empty{color:#8fa4ae;font-size:12px;padding:8px}
+.robot-notice{min-height:44px;padding:11px 13px;border-left:3px solid #ffc36c;border-radius:4px;background:#101b25;color:#e8d5aa;font-size:13px}.robot-notice.done{border-color:#78efd4;color:#a8ffe6}.robot-footer{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.robot-footer>span{flex:1;color:#b7c6cc;font-size:12px}.robot-footer .ch-primary{margin-left:auto}
+@media(max-width:730px){.robot-board{padding:10px}.robot-title h1{font-size:21px}.robot-title{gap:8px}.robot-art{height:auto;aspect-ratio:900/340}.robot-console{grid-template-columns:1fr;gap:9px}.robot-panel{padding:11px}.robot-command-deck{grid-template-columns:repeat(3,minmax(0,1fr))}.robot-statuses{grid-template-columns:repeat(2,minmax(0,1fr))}.robot-footer>span{flex:1 0 100%;order:-1}}
+@media(prefers-reduced-motion:reduce){#robotTrolley,#robotLift,#robotGripper .jaw-left,#robotGripper .jaw-right,#cargoSource,#cargoTarget,#cargoHeld{transition:none}}
 </style></head><body><section id="chapterScene" class="chapter" hidden aria-label="第一关：最后一盏灯">
   <header class="ch-header"><div><strong>错位电路</strong><small>OFFSET CIRCUIT / 01</small></div><span id="chSave" role="status">离线模式</span><button id="chLab" class="ch-secondary">完整工作台 ↗</button></header>
   <main class="ch-grid">
@@ -62,7 +75,18 @@
   </main>
 </section>
 
-<section id="airScene" class="chapter" hidden aria-label="第二关：沉默的气闸">
+<section id="robotScene" class="chapter" hidden aria-label="第三关：失控的机械臂">
+<header class="ch-header"><div><strong>错位电路</strong><small>OFFSET CIRCUIT / 03</small></div><span id="robotSave" role="status"></span><button id="robotBack" class="ch-secondary">返回气闸</button></header>
+<main class="ch-grid"><section class="robot-board"><div class="robot-title"><div><small>03 / 货运舱 · 自动化控制</small><h1>失控的机械臂</h1><p>把货箱从 A 点送到 B 点，再让机械臂安全回到待机位。</p></div><span id="robotCounter" class="ch-secondary">程序 0 / 12</span></div>
+<svg id="robotArt" class="robot-art" viewBox="0 0 900 340" role="img" aria-label="沿顶部导轨移动的机械臂、起点货箱和目标货台"><defs><linearGradient id="robotMetal" x2="0" y2="1"><stop stop-color="#91a5af"/><stop offset="1" stop-color="#344b59"/></linearGradient><linearGradient id="robotCargo" x2="0" y2="1"><stop stop-color="#d69a4b"/><stop offset="1" stop-color="#76502b"/></linearGradient></defs>
+<path d="M0 0H900V340H0Z" fill="#0c1923"/><path d="M0 270H900M0 310H900" stroke="#344b56" stroke-width="2"/><g opacity=".18" stroke="#90a4ae" stroke-width="1"><path d="M50 0V270M150 0V270M250 0V270M350 0V270M450 0V270M550 0V270M650 0V270M750 0V270M850 0V270"/><path d="M0 90H900M0 170H900"/></g><path class="robot-rail" d="M80 53H820"/><path class="robot-rail-light" d="M80 43H820"/>
+<g><rect x="90" y="270" width="180" height="24" rx="5" fill="#354956" stroke="#70818a" stroke-width="3"/><rect x="630" y="270" width="180" height="24" rx="5" fill="#354956" stroke="#70818a" stroke-width="3"/><path d="M110 294V318M250 294V318M650 294V318M790 294V318" stroke="#697d87" stroke-width="8"/><text x="180" y="255" text-anchor="middle" fill="#e6c28b" font-size="17" font-weight="700">A / 取货位</text><text x="720" y="255" text-anchor="middle" fill="#8ee7d2" font-size="17" font-weight="700">B / 交付位</text></g>
+<g id="cargoSource"><rect x="151" y="224" width="58" height="45" rx="4" fill="url(#robotCargo)" stroke="#f0c17a" stroke-width="3"/><path d="M180 224V269M151 246H209" stroke="#654624" stroke-width="3"/><text x="180" y="252" fill="#fff0cf" text-anchor="middle" font-size="17" font-weight="800">A</text></g><g id="cargoTarget" style="opacity:0"><rect x="691" y="224" width="58" height="45" rx="4" fill="url(#robotCargo)" stroke="#f0c17a" stroke-width="3"/><path d="M720 224V269M691 246H749" stroke="#654624" stroke-width="3"/><text x="720" y="252" fill="#fff0cf" text-anchor="middle" font-size="17" font-weight="800">B</text></g>
+<g id="robotTrolley"><rect x="150" y="30" width="60" height="34" rx="7" fill="url(#robotMetal)" stroke="#c2d0d4" stroke-width="3"/><circle cx="164" cy="48" r="7" fill="#0c1820" stroke="#d0dadd" stroke-width="2"/><circle cx="196" cy="48" r="7" fill="#0c1820" stroke="#d0dadd" stroke-width="2"/><g id="robotLift"><path d="M180 64V197" stroke="#b8c6cc" stroke-width="13"/><path d="M180 65V196" stroke="#425c69" stroke-width="5"/><rect x="157" y="185" width="46" height="17" rx="5" fill="#637985" stroke="#c0cdd1" stroke-width="2"/><g id="robotGripper"><path class="jaw-left" d="M164 198L153 219L164 224" fill="none" stroke="#e1b76e" stroke-width="9" stroke-linejoin="round"/><path class="jaw-right" d="M196 198L207 219L196 224" fill="none" stroke="#e1b76e" stroke-width="9" stroke-linejoin="round"/><g id="cargoHeld" style="opacity:0"><rect x="151" y="224" width="58" height="45" rx="4" fill="url(#robotCargo)" stroke="#f0c17a" stroke-width="3"/><path d="M180 224V269M151 246H209" stroke="#654624" stroke-width="3"/></g></g></g></g><g opacity=".8"><circle cx="180" cy="53" r="4" fill="#8cf1d8"/><circle cx="720" cy="53" r="4" fill="#8cf1d8"/><path d="M180 80V95M720 80V95" stroke="#8cf1d8" stroke-width="2" stroke-dasharray="4 5"/></g></svg>
+<div class="robot-statuses"><span id="robotArmStatus"></span><span id="robotHeightStatus"></span><span id="robotGripStatus"></span><span id="robotCargoStatus"></span></div></section>
+<section class="robot-console"><div class="robot-panel"><h2>指令库 / COMMAND DECK</h2><div class="robot-command-deck"><button class="robot-command" data-robot-add="GRIP">夹取<span>夹紧货箱</span></button><button class="robot-command" data-robot-add="LIFT">升高<span>抬离平台</span></button><button class="robot-command" data-robot-add="MOVE">平移<span>沿导轨移动</span></button><button class="robot-command" data-robot-add="LOWER">下降<span>放到目标位</span></button><button class="robot-command" data-robot-add="RELEASE">释放<span>松开货箱</span></button><button class="robot-command" data-robot-add="HOME">归位<span>返回待机点</span></button></div><p>点按指令即可加入程序，不需要拖拽。执行到一半也可以撤销，再修改后续指令。</p></div>
+<div class="robot-panel"><h2>控制程序 / SEQUENCE</h2><div id="robotProgram" class="robot-program" aria-label="已编排指令"><span class="robot-empty">点击左侧指令，开始编排。</span></div><p id="robotProgramHelp">每次执行一步，观察机械臂反馈。错误指令会被安全互锁拦截。</p></div></section>
+<div id="robotNotice" class="robot-notice" aria-live="polite">先编排动作顺序。机械臂不会执行违反安全条件的指令。</div><footer class="robot-footer"><button id="robotHint" class="ch-secondary">提示</button><button id="robotUndo" class="ch-secondary">撤销 / 移除</button><button id="robotReset" class="ch-secondary">重置</button><span id="robotProgress" role="status"></span><button id="robotStep" class="ch-primary">执行一步 →</button><button id="robotFinish" class="ch-primary" hidden>返回工作台 →</button></footer></main></section><section id="airScene" class="chapter" hidden aria-label="第二关：沉默的气闸">
 <header class="ch-header"><div><strong>错位电路</strong><small>OFFSET CIRCUIT / 02</small></div><span id="airSave" role="status"></span><button class="ch-secondary" id="airLab">完整工作台 ↗</button></header>
 <main class="ch-grid">
 <section class="air-board"><div class="air-title"><div><small>02 / 黑暗中的空间站</small><h1>沉默的气闸</h1><p>隔离两侧舱室，修复开门联锁，然后安全通过。</p></div><button id="airBack" class="ch-secondary">返回第一关</button></div>
@@ -81,7 +105,7 @@
   <div class="header-right"><div class="live-chip" id="saveStatus" role="status">SYSTEM ONLINE</div><div class="progress"><span>已修复</span><b id="progress">0</b><span>/ 06</span></div></div>
 </header>
 <div class="app-grid">
-  <aside class="rail"><button class="btn ch-entry" id="chapterEntry">进入剧情 · 最后一盏灯</button><button class="btn ch-entry" id="airEntry">继续剧情 · 沉默的气闸</button>
+  <aside class="rail"><button class="btn ch-entry" id="chapterEntry">进入剧情 · 最后一盏灯</button><button class="btn ch-entry" id="airEntry">继续剧情 · 沉默的气闸</button><button class="btn ch-entry" id="robotEntry">继续剧情 · 失控的机械臂</button>
     <div class="tim-entry"><button class="btn primary" id="timOpen">∿ 门延迟实验室 / NEW</button></div><nav class="panel sidebar" id="nav" aria-label="关卡导航"></nav>
     <section class="panel side-card info-card"><h3><span>▤</span>关卡信息</h3><div class="side-meta"><span>当前关卡</span><b id="currentLevel">信号唤醒</b></div><div class="side-meta"><span>实验类型</span><b>组合逻辑诊断</b></div><div class="side-meta"><span>核心目标</span><b>定位错位逻辑门</b></div><div class="side-meta"><span>难度等级</span><b id="sideDifficulty">入门</b></div></section>
     <section class="panel side-card fault-card"><h3><span>⚠</span>故障类型</h3><div class="fault-row"><span class="fault-tag">0</span><div><b>Stuck-at-0</b><small>输出恒定为 0</small></div></div><div class="fault-row"><span class="fault-tag">1</span><div><b>Stuck-at-1</b><small>输出恒定为 1</small></div></div><div class="fault-row"><span class="fault-tag">∿</span><div><b>Inversion</b><small>输出逻辑反相</small></div></div></section>
@@ -389,6 +413,70 @@ const ChapterTwo=(()=>{
  $("airEntry").onclick=open;
  const go=$("chNext").onclick;$("chNext").onclick=()=>{if(!verified||!C.evalCircuit(l,layout,bits).out.every(Boolean))return;go();open();};
  if(resume&&Object.hasOwn(saved,0))open();
- return {open,close};
+ return {open,close,isComplete:()=>state.done};
 })();
+
+// Chapter 03: finite-state command sequence. Every command is an atomic, reversible transition.
+function initialRobot(){return {arm:"source",z:"low",gripper:"open",cargo:"source",done:false};}
+function robotValid(s){
+ if(!s||!["source","target","home"].includes(s.arm)||!["low","high"].includes(s.z)||!["open","closed"].includes(s.gripper)||!["source","gripper","target"].includes(s.cargo)||typeof s.done!=="boolean")return false;
+ if(s.cargo==="source"&&(s.arm!=="source"||s.z!=="low"||s.gripper!=="open"))return false;
+ if(s.cargo==="gripper"&&s.gripper!=="closed")return false;
+ if(s.cargo==="target"&&(s.arm==="source"||s.gripper!=="open"))return false;
+ if(s.arm==="home"&&(s.cargo!=="target"||s.z!=="high"||s.gripper!=="open"))return false;
+ if(s.done&&!(s.arm==="home"&&s.z==="high"&&s.cargo==="target"&&s.gripper==="open"))return false;
+ if(!s.done&&s.arm==="home")return false;
+ return true;
+}
+function robotStep(s,action){
+ const fail=message=>({state:s,changed:false,message});
+ if(!robotValid(s))return fail("机械臂状态异常，请重置本关。");if(s.done)return fail("货箱已送达，任务完成。");const n={...s};
+ if(action==="GRIP"){if(s.arm!=="source"||s.z!=="low"||s.gripper!=="open"||s.cargo!=="source")return fail("夹取互锁：机械臂必须位于 A 点低位，夹爪张开且货箱在位。");n.gripper="closed";n.cargo="gripper";}
+ else if(action==="LIFT"){if(s.z!=="low")return fail("升高互锁：机械臂已经处于高位。");if(!((s.arm==="source"&&s.cargo==="gripper"&&s.gripper==="closed")||(s.arm==="target"&&s.cargo==="target"&&s.gripper==="open")))return fail("升高互锁：先在 A 点夹稳货箱，或在 B 点释放货箱。");n.z="high";}
+ else if(action==="MOVE"){if(s.arm!=="source"||s.z!=="high"||s.cargo!=="gripper"||s.gripper!=="closed")return fail("平移互锁：必须在 A 点夹稳货箱并升至高位，才能横向移动。");n.arm="target";}
+ else if(action==="LOWER"){if(s.arm!=="target"||s.z!=="high"||s.cargo!=="gripper"||s.gripper!=="closed")return fail("下降互锁：机械臂需到达 B 点，并且仍在高位夹持货箱。");n.z="low";}
+ else if(action==="RELEASE"){if(s.arm!=="target"||s.z!=="low"||s.cargo!=="gripper"||s.gripper!=="closed")return fail("释放互锁：货箱必须位于 B 点平台上方的低位。");n.gripper="open";n.cargo="target";}
+ else if(action==="HOME"){if(s.arm!=="target"||s.z!=="high"||s.cargo!=="target"||s.gripper!=="open")return fail("归位互锁：先在 B 点放下货箱、松开夹爪，再升高机械臂。");n.arm="home";n.done=true;}
+ else return fail("未知指令。");
+ if(!robotValid(n))throw Error("robot transition invariant violated");
+ const messages={GRIP:"夹爪已锁定货箱。",LIFT:"货箱已抬离平台。",MOVE:"机械臂已沿导轨到达 B 点。",LOWER:"货箱已下降至目标平台。",RELEASE:"货箱已安全放置，夹爪已松开。",HOME:"机械臂返回待机位。任务完成！"};
+ return {state:n,changed:true,message:messages[action]};
+}
+const ChapterThree=(()=>{
+ const key="offset-robot-v1",scene=$("robotScene"),actions=["GRIP","LIFT","MOVE","LOWER","RELEASE","HOME"],labels={GRIP:"夹取",LIFT:"升高",MOVE:"平移",LOWER:"下降",RELEASE:"释放",HOME:"归位"};
+ let state=initialRobot(),program=[],cursor=0,history=[],active=false,resume=false,warning="",notice="先编排动作顺序。机械臂不会执行违反安全条件的指令。",failedIndex=-1;
+ const clone=x=>JSON.parse(JSON.stringify(x));
+ function validProgram(p){return Array.isArray(p)&&p.length<=12&&p.every(a=>actions.includes(a));}
+ function validSnapshot(x){return x&&robotValid(x.state)&&validProgram(x.program)&&Number.isInteger(x.cursor)&&x.cursor>=0&&x.cursor<=x.program.length;}
+ try{const v=JSON.parse(localStorage.getItem(key)||"null");if(v!==null){if(v.version!==1||!robotValid(v.state)||!validProgram(v.program)||!Number.isInteger(v.cursor)||v.cursor<0||v.cursor>v.program.length||!Array.isArray(v.history)||v.history.length>80||!v.history.every(validSnapshot))throw Error("invalid save");state=v.state;program=v.program;cursor=v.cursor;history=v.history;resume=v.active===true;}}catch{warning="旧机械臂存档异常，已恢复初始状态";}
+ function save(){try{localStorage.setItem(key,JSON.stringify({version:1,state,program,cursor,history,active}));$("robotSave").textContent=warning||"进度已保存";warning="";}catch{$("robotSave").textContent="无法保存 · 本次会话有效";}}
+ function expected(){if(state.cargo==="source")return "夹取";if(state.arm==="source"&&state.cargo==="gripper"&&state.z==="low")return "升高";if(state.arm==="source"&&state.z==="high")return "平移";if(state.arm==="target"&&state.cargo==="gripper"&&state.z==="high")return "下降";if(state.arm==="target"&&state.cargo==="gripper"&&state.z==="low")return "释放";if(state.arm==="target"&&state.cargo==="target"&&state.z==="low")return "升高";if(state.arm==="target"&&state.cargo==="target"&&state.z==="high")return "归位";return "完成";}
+ function display(){
+  $("robotTrolley").style.transform=state.arm==="target"?"translateX(60%)":"translateX(0%)";$("robotLift").style.transform=state.z==="high"?"translateY(-23.5%)":"translateY(0%)";$("robotGripper").classList.toggle("closed",state.gripper==="closed");
+  $("cargoSource").style.opacity=state.cargo==="source"?"1":"0";$("cargoTarget").style.opacity=state.cargo==="target"?"1":"0";$("cargoHeld").style.opacity=state.cargo==="gripper"?"1":"0";
+  const set=(id,text,good)=>{const e=$(id);e.textContent=text;e.classList.toggle("good",!!good);};
+  set("robotArmStatus","位置 · "+({source:"A 点",target:"B 点",home:"待机位"}[state.arm]),state.arm!=="source");set("robotHeightStatus","高度 · "+(state.z==="high"?"高位":"低位"),state.z==="high");set("robotGripStatus","夹爪 · "+(state.gripper==="closed"?"夹紧":"张开"),state.gripper==="closed");set("robotCargoStatus","货箱 · "+({source:"A 点",gripper:"夹持中",target:"B 点"}[state.cargo]),state.cargo==="target");
+  $("robotCounter").textContent="程序 "+cursor+" / "+program.length;
+  $("robotProgram").innerHTML=program.length?program.map((a,i)=>'<button class="robot-step '+(i<cursor?"executed":"")+'" data-robot-step="'+i+'" aria-current="'+(i===cursor)+'" '+(i<cursor?"disabled":"")+'>'+String(i+1).padStart(2,"0")+' · '+labels[a]+(i===failedIndex?" · !":"")+'</button>').join(""):'<span class="robot-empty">点击左侧指令，开始编排。</span>';
+  document.querySelectorAll("[data-robot-step]").forEach(el=>el.onclick=()=>{const i=+el.dataset.robotStep;if(i>=cursor){history.push(snapshot());if(history.length>80)history.shift();program.splice(i,1);failedIndex=-1;notice="已移除未执行指令；可撤销恢复。";save();display();}});
+  $("robotNotice").textContent=notice;$("robotNotice").classList.toggle("done",state.done);$("robotUndo").disabled=!history.length;
+  $("robotReset").disabled=state.arm==="source"&&state.z==="low"&&state.gripper==="open"&&state.cargo==="source"&&!program.length&&!cursor;
+  $("robotStep").disabled=state.done||cursor>=program.length;$("robotFinish").hidden=!state.done;
+  $("robotProgress").textContent=state.done?"货箱已送达 · 机械臂待机":"下一步建议："+expected()+" · 可执行 "+(program.length-cursor)+" 条指令";
+  document.querySelectorAll("[data-robot-add]").forEach(el=>el.disabled=state.done||program.length>=12);
+ }
+ function snapshot(){return {state:clone(state),program:program.slice(),cursor};}
+ function add(action){if(state.done||program.length>=12)return;history.push(snapshot());if(history.length>80)history.shift();program.push(action);failedIndex=-1;notice="已加入「"+labels[action]+"」。可继续编排或执行下一步。";save();display();}
+ function step(){if(cursor>=program.length){notice="程序队列为空。先添加需要的动作。";display();return;}const action=program[cursor],r=robotStep(state,action);if(!r.changed){failedIndex=cursor;notice="安全互锁已拦截「"+labels[action]+"」： "+r.message+" 你可以点选该指令移除，或调整后续顺序。";display();return;}history.push(snapshot());if(history.length>80)history.shift();state=r.state;cursor++;failedIndex=-1;notice=r.message;save();display();}
+ function undo(){if(history.length){const h=history.pop();state=h.state;program=h.program;cursor=h.cursor;failedIndex=-1;notice="已撤销上一步操作。";save();display();return;}notice="当前没有可撤销的操作。";display();}
+ function reset(){history.push(snapshot());if(history.length>80)history.shift();state=initialRobot();program=[];cursor=0;failedIndex=-1;notice="机械臂和程序已重置；可撤销恢复刚才的状态。";save();display();}
+ function open(){if(!ChapterTwo.isComplete()){say("请先完成第二关。","bad");return;}if(!$("chapterScene").hidden)ChapterOne.close();if(!$("airScene").hidden)ChapterTwo.close();active=true;scene.hidden=false;document.body.classList.add("chapter-active");display();save();window.scrollTo(0,0);$("robotStep").focus({preventScroll:true});}
+ function close(){active=false;scene.hidden=true;document.body.classList.remove("chapter-active");save();window.scrollTo(0,0);$("robotEntry").focus({preventScroll:true});}
+ document.querySelectorAll("[data-robot-add]").forEach(el=>el.onclick=()=>add(el.dataset.robotAdd));$("robotStep").onclick=step;$("robotUndo").onclick=undo;$("robotReset").onclick=reset;$("robotHint").onclick=()=>{notice=state.done?"任务已经完成。":"提示：下一步应该是「"+expected()+"」。";display();};
+ $("robotBack").onclick=()=>{close();ChapterTwo.open();};$("robotFinish").onclick=close;$("robotEntry").onclick=open;
+ const previousNext=$("airNext").onclick;$("airNext").onclick=()=>{if(!ChapterTwo.isComplete())return;previousNext();open();};
+ if(resume&&ChapterTwo.isComplete())open();
+ return {open,close,isComplete:()=>state.done};
+})();
+
 </script></body></html>
