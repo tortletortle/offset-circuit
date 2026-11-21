@@ -79,6 +79,6 @@ test('SOS transmission requires all subsystems and locks the completed mission',
  assert.equal(commsValidState(state),true);
  const blocked=commsApply(state,'SET_GATE','AND');
  assert.equal(blocked.changed,false);
- assert.match(blocked.message,/已经送达/);
+ assert.match(blocked.message,/已送达/);
  assert.equal(commsValidState({...commsInitialState(),transmitted:true}),false);
 });
