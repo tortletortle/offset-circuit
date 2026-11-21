@@ -458,7 +458,7 @@ const ChapterThree=(()=>{
   set("robotArmStatus","位置 · "+({source:"A 点",target:"B 点",home:"待机位"}[state.arm]),state.arm!=="source");set("robotHeightStatus","高度 · "+(state.z==="high"?"高位":"低位"),state.z==="high");set("robotGripStatus","夹爪 · "+(state.gripper==="closed"?"夹紧":"张开"),state.gripper==="closed");set("robotCargoStatus","货箱 · "+({source:"A 点",gripper:"夹持中",target:"B 点"}[state.cargo]),state.cargo==="target");
   $("robotCounter").textContent="程序 "+cursor+" / "+program.length;
   $("robotProgram").innerHTML=program.length?program.map((a,i)=>'<button class="robot-step '+(i<cursor?"executed":"")+'" data-robot-step="'+i+'" aria-current="'+(i===cursor)+'" '+(i<cursor?"disabled":"")+'>'+String(i+1).padStart(2,"0")+' · '+labels[a]+(i===failedIndex?" · !":"")+'</button>').join(""):'<span class="robot-empty">点击左侧指令，开始编排。</span>';
-  document.querySelectorAll("[data-robot-step]").forEach(el=>el.onclick=()=>{const i=+el.dataset.robotStep;if(i>=cursor){program.splice(i,1);failedIndex=-1;notice="已移除未执行指令。";save();display();}});
+  document.querySelectorAll("[data-robot-step]").forEach(el=>el.onclick=()=>{const i=+el.dataset.robotStep;if(i>=cursor){history.push(snapshot());if(history.length>80)history.shift();program.splice(i,1);failedIndex=-1;notice="已移除未执行指令；可撤销恢复。";save();display();}});
   $("robotNotice").textContent=notice;$("robotNotice").classList.toggle("done",state.done);$("robotUndo").disabled=!history.length&&cursor>=program.length&&!program.length;
   $("robotReset").disabled=state.arm==="source"&&state.z==="low"&&state.gripper==="open"&&state.cargo==="source"&&!program.length&&!cursor;
   $("robotStep").disabled=state.done||cursor>=program.length;$("robotFinish").hidden=!state.done;
@@ -466,9 +466,9 @@ const ChapterThree=(()=>{
   document.querySelectorAll("[data-robot-add]").forEach(el=>el.disabled=state.done||program.length>=12);
  }
  function snapshot(){return {state:clone(state),program:program.slice(),cursor};}
- function add(action){if(state.done||program.length>=12)return;program.push(action);failedIndex=-1;notice="已加入「"+labels[action]+"」。可继续编排或执行下一步。";save();display();}
+ function add(action){if(state.done||program.length>=12)return;history.push(snapshot());if(history.length>80)history.shift();program.push(action);failedIndex=-1;notice="已加入「"+labels[action]+"」。可继续编排或执行下一步。";save();display();}
  function step(){if(cursor>=program.length){notice="程序队列为空。先添加需要的动作。";display();return;}const action=program[cursor],r=robotStep(state,action);if(!r.changed){failedIndex=cursor;notice="安全互锁已拦截「"+labels[action]+"」： "+r.message+" 你可以点选该指令移除，或调整后续顺序。";display();return;}history.push(snapshot());if(history.length>80)history.shift();state=r.state;cursor++;failedIndex=-1;notice=r.message;save();display();}
- function undo(){if(history.length){const h=history.pop();state=h.state;program=h.program;cursor=h.cursor;failedIndex=-1;notice="已撤销上一步执行或重置。";save();display();return;}if(cursor<program.length){program.splice(cursor,1);failedIndex=-1;notice="已移除当前未执行指令。";save();display();return;}if(program.length){program.pop();notice="已移除末尾指令。";save();display();return;}notice="当前没有可撤销的操作。";display();}
+ function undo(){if(history.length){const h=history.pop();state=h.state;program=h.program;cursor=h.cursor;failedIndex=-1;notice="已撤销上一步操作。";save();display();return;}notice="当前没有可撤销的操作。";display();}
  function reset(){history.push(snapshot());if(history.length>80)history.shift();state=initialRobot();program=[];cursor=0;failedIndex=-1;notice="机械臂和程序已重置；可撤销恢复刚才的状态。";save();display();}
  function open(){if(!ChapterTwo.isComplete()){say("请先完成第二关。","bad");return;}if(!$("chapterScene").hidden)ChapterOne.close();if(!$("airScene").hidden)ChapterTwo.close();active=true;scene.hidden=false;document.body.classList.add("chapter-active");display();save();window.scrollTo(0,0);$("robotStep").focus({preventScroll:true});}
  function close(){active=false;scene.hidden=true;document.body.classList.remove("chapter-active");save();window.scrollTo(0,0);$("robotEntry").focus({preventScroll:true});}
