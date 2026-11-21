@@ -168,7 +168,7 @@ test('timing chapter reproduces the glitch, fixes it and verifies delay robustne
   assert.match(await page.locator('#hazardPulseCount').innerText(),/0 个/);
   await page.locator('#hazardVerify').click();
   await page.locator('#hazardNext').waitFor({state:'visible'});
-  assert.match(await page.locator('#hazardNotice').innerText(),/54\\/54/);
+  assert.ok((await page.locator('#hazardNotice').innerText()).includes('54/54'));
 
   await page.locator('#hazardFix').click();
   await page.locator('#hazardNext').waitFor({state:'hidden'});
