@@ -48,6 +48,21 @@
 .robot-notice{min-height:44px;padding:11px 13px;border-left:3px solid #ffc36c;border-radius:4px;background:#101b25;color:#e8d5aa;font-size:13px}.robot-notice.done{border-color:#78efd4;color:#a8ffe6}.robot-footer{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.robot-footer>span{flex:1;color:#b7c6cc;font-size:12px}.robot-footer .ch-primary{margin-left:auto}
 @media(max-width:730px){.robot-board{padding:10px}.robot-title h1{font-size:21px}.robot-title{gap:8px}.robot-art{height:auto;aspect-ratio:900/340}.robot-console{grid-template-columns:1fr;gap:9px}.robot-panel{padding:11px}.robot-command-deck{grid-template-columns:repeat(3,minmax(0,1fr))}.robot-statuses{grid-template-columns:repeat(2,minmax(0,1fr))}.robot-footer>span{flex:1 0 100%;order:-1}}
 @media(prefers-reduced-motion:reduce){#robotTrolley,#robotLift,#robotGripper .jaw-left,#robotGripper .jaw-right,#cargoSource,#cargoTarget,#cargoHeld{transition:none}}
+
+#hazardScene[hidden]{display:none!important}
+.hazard-board{border:1px solid #425664;border-radius:15px;padding:16px;background:linear-gradient(155deg,#233743,#111e29 58%,#09131c);box-shadow:0 15px 40px #0006;min-width:0}
+.hazard-title{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:12px}.hazard-title h1{font-size:26px;margin:4px 0}.hazard-title p{font-size:13px;color:#bdcbd1;margin:0}.hazard-title small{font:700 10px ui-monospace,monospace;letter-spacing:.12em;color:#ffc36c}
+.hazard-lamp-row{display:flex;align-items:center;gap:14px;padding:12px;border:1px solid #4a5d67;border-radius:10px;background:#0d1b25}.hazard-lamp{width:54px;height:54px;flex:none;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff5d0,#e6b85c 45%,#5b4726 75%);box-shadow:0 0 20px #f5c56c88}.hazard-lamp.fault{animation:hazard-flicker .7s steps(2,end) infinite}.hazard-lamp.stable{background:radial-gradient(circle at 35% 30%,#e1fff6,#6de4c3 45%,#205c51 75%);box-shadow:0 0 22px #5df0cf88}
+@keyframes hazard-flicker{0%,100%{opacity:1}45%{opacity:.18}70%{opacity:.8}}
+.hazard-lamp-copy strong{display:block;font-size:15px}.hazard-lamp-copy span{display:block;font-size:12px;color:#b6c7ce;margin-top:3px}
+.hazard-wave{display:block;width:100%;height:auto;margin-top:12px;border:1px solid #435762;border-radius:9px;background:#08141d}.hazard-grid{stroke:#29404c;stroke-width:1}.hazard-label{fill:#c9d9df;font-size:13px;font-weight:700}.hazard-tick{fill:#8fa6b1;font-size:11px}.hazard-trace{fill:none;stroke:#76f0d2;stroke-width:3;stroke-linejoin:round;stroke-linecap:round}.hazard-trace.output{stroke:#ffc36c}.hazard-readout{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.hazard-readout span{padding:7px 10px;border:1px solid #4b5e68;border-radius:7px;background:#101c25;color:#c1d1d7;font-size:12px}
+.hazard-controls{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}.hazard-panel{padding:14px;border:1px solid #455762;border-radius:12px;background:linear-gradient(145deg,#22313c,#111c24);min-width:0}.hazard-panel h2{font-size:15px;margin:0 0 9px}.hazard-panel p{font-size:12px;color:#bdcbd1;margin:8px 0 0}
+.hazard-action{min-height:48px;padding:10px 14px;border:1px solid #637783;border-radius:8px;background:#14232d;color:#e8f0f2;font-weight:700}.hazard-action:hover{border-color:#82e8d3}.hazard-action[aria-pressed=true]{border-color:#78e7cc;color:#9ff5de;background:#12332f}
+.hazard-facts{display:flex;gap:8px;flex-wrap:wrap}.hazard-facts span{padding:6px 9px;border:1px solid #52636c;border-radius:7px;background:#101b24;color:#c1d0d6;font-size:12px}
+.hazard-notice{min-height:44px;padding:11px 13px;border-left:3px solid #ffc36c;border-radius:4px;background:#101b25;color:#e8d5aa;font-size:13px}.hazard-notice.done{border-color:#78efd4;color:#a8ffe6}
+.hazard-footer{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.hazard-footer>span{flex:1;color:#b7c6cc;font-size:12px}.hazard-footer .ch-primary{margin-left:auto}
+@media(max-width:730px){.hazard-board{padding:10px}.hazard-title h1{font-size:21px}.hazard-title{gap:8px}.hazard-controls{grid-template-columns:1fr;gap:9px}.hazard-panel{padding:11px}.hazard-footer>span{flex:1 0 100%;order:-1}}
+@media(prefers-reduced-motion:reduce){.hazard-lamp.fault{animation:none}}
 </style></head><body><section id="chapterScene" class="chapter" hidden aria-label="第一关：最后一盏灯">
   <header class="ch-header"><div><strong>错位电路</strong><small>OFFSET CIRCUIT / 01</small></div><span id="chSave" role="status">离线模式</span><button id="chLab" class="ch-secondary">完整工作台 ↗</button></header>
   <main class="ch-grid">
@@ -75,6 +90,21 @@
   </main>
 </section>
 
+<section id="hazardScene" class="chapter" hidden aria-label="第四关：消失的一纳秒">
+<header class="ch-header"><div><strong>错位电路</strong><small>OFFSET CIRCUIT / 04</small></div><span id="hazardSave" role="status"></span><button id="hazardBack" class="ch-secondary">返回机械臂</button></header>
+<main class="ch-grid"><section class="hazard-board">
+<div class="hazard-title"><div><small>04 / 供电控制 · 时序故障</small><h1>消失的一纳秒</h1><p>切换输入时，照明母线会瞬间掉电。找出故障并让输出在整个过渡期间保持为 1。</p></div><span id="hazardCounter" class="ch-secondary">时序诊断</span></div>
+<div class="hazard-lamp-row"><div id="hazardLamp" class="hazard-lamp fault" aria-hidden="true"></div><div class="hazard-lamp-copy"><strong id="hazardLampState">输出出现瞬态闪断</strong><span id="hazardResult">正在捕获输出波形…</span></div></div>
+<svg id="hazardWave" class="hazard-wave" viewBox="0 0 820 210" role="img" aria-label="输入 A 和输出 Y 的时序波形"></svg>
+<div class="hazard-readout"><span id="hazardPulseCount">毛刺：待检测</span><span id="hazardDirectionReadout">A：1 → 0</span><span id="hazardRedundancy">BC 冗余通路：未安装</span></div>
+</section>
+<section class="hazard-controls">
+<div class="hazard-panel"><h2>输入工况 / TEST VECTOR</h2><div class="hazard-facts"><span>A：可切换</span><span>B：1</span><span>C：1</span><span>目标输出 Y：始终为 1</span></div><p>两条逻辑路径的传播延迟不同。改变 A 时，检查输出是否在路径交接期间短暂跌落。</p><button id="hazardDirection" class="hazard-action">当前方向 A：1 → 0（点击反向）</button><button id="hazardRun" class="hazard-action">重新运行波形</button></div>
+<div class="hazard-panel"><h2>修复方案 / CONSENSUS PATH</h2><p>寻找一条在 A 改变时仍然成立的冗余逻辑通路。</p><button id="hazardFix" class="hazard-action" aria-pressed="false">安装 BC 保持通路</button><p id="hazardFormula">当前：Y = AB + A̅C</p><button id="hazardVerify" class="hazard-action">验证两个方向与延迟扰动</button></div>
+</section>
+<div id="hazardNotice" class="hazard-notice" aria-live="polite">先观察原始电路的输出波形，再尝试修复。</div>
+<footer class="hazard-footer"><button id="hazardHint" class="ch-secondary">提示</button><button id="hazardUndo" class="ch-secondary">撤销</button><button id="hazardReset" class="ch-secondary">重置</button><span id="hazardProgress" role="status"></span><button id="hazardNext" class="ch-primary" hidden>返回工作台 →</button></footer>
+</main></section>
 <section id="robotScene" class="chapter" hidden aria-label="第三关：失控的机械臂">
 <header class="ch-header"><div><strong>错位电路</strong><small>OFFSET CIRCUIT / 03</small></div><span id="robotSave" role="status"></span><button id="robotBack" class="ch-secondary">返回气闸</button></header>
 <main class="ch-grid"><section class="robot-board"><div class="robot-title"><div><small>03 / 货运舱 · 自动化控制</small><h1>失控的机械臂</h1><p>把货箱从 A 点送到 B 点，再让机械臂安全回到待机位。</p></div><span id="robotCounter" class="ch-secondary">程序 0 / 12</span></div>
@@ -105,7 +135,7 @@
   <div class="header-right"><div class="live-chip" id="saveStatus" role="status">SYSTEM ONLINE</div><div class="progress"><span>已修复</span><b id="progress">0</b><span>/ 06</span></div></div>
 </header>
 <div class="app-grid">
-  <aside class="rail"><button class="btn ch-entry" id="chapterEntry">进入剧情 · 最后一盏灯</button><button class="btn ch-entry" id="airEntry">继续剧情 · 沉默的气闸</button><button class="btn ch-entry" id="robotEntry">继续剧情 · 失控的机械臂</button>
+  <aside class="rail"><button class="btn ch-entry" id="chapterEntry">进入剧情 · 最后一盏灯</button><button class="btn ch-entry" id="airEntry">继续剧情 · 沉默的气闸</button><button class="btn ch-entry" id="robotEntry">继续剧情 · 失控的机械臂</button><button class="btn ch-entry" id="hazardEntry">继续剧情 · 消失的一纳秒</button>
     <div class="tim-entry"><button class="btn primary" id="timOpen">∿ 门延迟实验室 / NEW</button></div><nav class="panel sidebar" id="nav" aria-label="关卡导航"></nav>
     <section class="panel side-card info-card"><h3><span>▤</span>关卡信息</h3><div class="side-meta"><span>当前关卡</span><b id="currentLevel">信号唤醒</b></div><div class="side-meta"><span>实验类型</span><b>组合逻辑诊断</b></div><div class="side-meta"><span>核心目标</span><b>定位错位逻辑门</b></div><div class="side-meta"><span>难度等级</span><b id="sideDifficulty">入门</b></div></section>
     <section class="panel side-card fault-card"><h3><span>⚠</span>故障类型</h3><div class="fault-row"><span class="fault-tag">0</span><div><b>Stuck-at-0</b><small>输出恒定为 0</small></div></div><div class="fault-row"><span class="fault-tag">1</span><div><b>Stuck-at-1</b><small>输出恒定为 1</small></div></div><div class="fault-row"><span class="fault-tag">∿</span><div><b>Inversion</b><small>输出逻辑反相</small></div></div></section>
@@ -477,6 +507,57 @@ const ChapterThree=(()=>{
  const previousNext=$("airNext").onclick;$("airNext").onclick=()=>{if(!ChapterTwo.isComplete())return;previousNext();open();};
  if(resume&&ChapterTwo.isComplete())open();
  return {open,close,isComplete:()=>state.done};
+})();
+
+
+// Chapter 04: use the existing event-driven timing engine; no decorative/fake waveform.
+const ChapterFour=(()=>{
+ const key="offset-hazard-v1",scene=$("hazardScene");let state={consensus:false,from:1,observedHazard:false,verified:false},history=[],active=false,resume=false,warning="",last=null,notice="先观察原始电路的输出波形，再尝试修复。";
+ const clone=x=>JSON.parse(JSON.stringify(x));
+ function validState(s){return s&&typeof s.consensus==="boolean"&&(s.from===0||s.from===1)&&typeof s.observedHazard==="boolean"&&typeof s.verified==="boolean"&&(!s.verified||(s.consensus&&s.observedHazard));}
+ try{const v=JSON.parse(localStorage.getItem(key)||"null");if(v!==null){if(v.version!==1||!validState(v.state)||!Array.isArray(v.history)||v.history.length>80||!v.history.every(validState))throw Error("invalid save");state=v.state;history=v.history;resume=v.active===true;}}catch{warning="旧时序存档异常，已恢复初始状态";}
+ function save(){try{localStorage.setItem(key,JSON.stringify({version:1,state,history,active}));$("hazardSave").textContent=warning||"进度已保存";warning="";}catch{$("hazardSave").textContent="无法保存 · 本次会话有效";}}
+ function snapshot(){history.push(clone(state));if(history.length>80)history.shift();}
+ function draw(result,pulses){
+  const W=820,L=70,R=25,T=35,row=62,H=190,x=t=>L+(W-L-R)*t/result.horizon,py=(y,v)=>y+(v?0:25);let svg="";
+  for(let t=0;t<=result.horizon;t+=2){svg+='<line x1="'+x(t)+'" x2="'+x(t)+'" y1="20" y2="170" class="hazard-grid"/><text x="'+x(t)+'" y="188" text-anchor="middle" class="hazard-tick">'+t+'</text>';}
+  for(const p of pulses)svg+='<rect x="'+x(p.start)+'" y="22" width="'+Math.max(1,x(p.end)-x(p.start))+'" height="142" fill="#ffbd43" opacity=".15"/>';
+  [["A",result.traces.A,T,""],["Y",result.traces.Y,T+row,"output"]].forEach(([label,trace,y,cls])=>{let d="M "+x(0)+" "+py(y,trace[0][1]);for(const [t,v] of trace.slice(1))d+=" H "+x(t)+" V "+py(y,v);d+=" H "+x(result.horizon);svg+='<text x="18" y="'+(y+16)+'" class="hazard-label">'+label+'</text><text x="48" y="'+(y+4)+'" class="hazard-tick">1</text><text x="48" y="'+(y+29)+'" class="hazard-tick">0</text><path d="'+d+'" class="hazard-trace '+cls+'"/>';});
+  $("hazardWave").setAttribute("viewBox","0 0 "+W+" "+H);$("hazardWave").innerHTML=svg;
+ }
+ function run(record=true){
+  const c=Timing.circuit("static1",[3,2,4],state.consensus,state.from,1),r=Timing.simulate({...c,mode:"transport"}),p=Timing.pulses(r.traces.Y,r.horizon);last={result:r,pulses:p};
+  if(record&&!state.consensus&&p.length)state.observedHazard=true;
+  draw(r,p);$("hazardLamp").classList.toggle("fault",p.length>0);$("hazardLamp").classList.toggle("stable",p.length===0);
+  $("hazardLampState").textContent=p.length?"输出出现瞬态闪断":"输出保持稳定";
+  $("hazardResult").textContent=p.length?"捕获 "+p.length+" 个低脉冲 · "+p.map(x=>x.width+" ns").join(" / "):"整个输入过渡期间均保持高电平";
+  $("hazardPulseCount").textContent=p.length?"毛刺："+p.length+" 个":"毛刺：0 个";
+  $("hazardDirectionReadout").textContent="A："+(state.from?"1 → 0":"0 → 1");
+  $("hazardRedundancy").textContent="BC 冗余通路："+(state.consensus?"已安装":"未安装");
+  $("hazardFix").setAttribute("aria-pressed",String(state.consensus));$("hazardFix").textContent=state.consensus?"已安装 BC 保持通路 · 点击移除":"安装 BC 保持通路";
+  $("hazardDirection").textContent="当前方向 A："+(state.from?"1 → 0":"0 → 1")+"（点击反向）";
+  $("hazardFormula").textContent=state.consensus?"当前：Y = AB + A̅C + BC":"当前：Y = AB + A̅C";
+  $("hazardVerify").disabled=!state.consensus||!state.observedHazard||state.verified;
+  $("hazardNext").hidden=!state.verified;
+  $("hazardProgress").textContent=state.verified?"双向时序验证通过":"目标：消除毛刺，并通过双向延迟扰动验证";
+  $("hazardNotice").textContent=notice;$("hazardNotice").classList.toggle("done",state.verified);
+  $("hazardUndo").disabled=!history.length;
+  $("hazardReset").disabled=!state.consensus&&!state.from&&!state.observedHazard&&!state.verified;
+  save();
+ }
+ function open(){if(!ChapterThree.isComplete()){say("请先完成第三关。","bad");return;}if(!$("chapterScene").hidden)ChapterOne.close();if(!$("robotScene").hidden)ChapterThree.close();active=true;scene.hidden=false;document.body.classList.add("chapter-active");notice=state.verified?"时序修复已验收。":"观察波形中的短暂低脉冲。";run(true);window.scrollTo(0,0);$("hazardRun").focus({preventScroll:true});}
+ function close(){active=false;scene.hidden=true;document.body.classList.remove("chapter-active");save();window.scrollTo(0,0);$("hazardEntry").focus({preventScroll:true});}
+ $("hazardRun").onclick=()=>{notice="已重新运行事件驱动仿真。";run(true);};
+ $("hazardDirection").onclick=()=>{snapshot();state.from=1-state.from;state.verified=false;notice="输入方向已切换，重新观察输出波形。";run(true);};
+ $("hazardFix").onclick=()=>{snapshot();state.consensus=!state.consensus;state.verified=false;notice=state.consensus?"已添加 BC 共识项，重新运行并验证。":"已移除冗余通路，输出可能再次出现毛刺。";run(true);};
+ $("hazardVerify").onclick=()=>{if(!state.observedHazard){notice="先在原始电路中复现一次瞬态闪断。";run(false);return;}if(!state.consensus){notice="修复未安装：需要一条在 A 切换时持续成立的通路。";run(false);return;}const robust=Timing.robust("static1",[3,2,4],true,"transport",1);state.verified=robust.failures===0;notice=state.verified?"通过："+(robust.cases-robust.failures)+"/"+robust.cases+" 组延迟扰动均无毛刺。":"仍有时序风险："+robust.failures+"/"+robust.cases+" 组出现毛刺。";run(false);};
+ $("hazardHint").onclick=()=>{notice="提示：A 从 1 变为 0 时，AB 路径先失效，A̅C 路径稍后才生效。考虑加入不依赖 A 的 BC 项。";run(false);};
+ $("hazardUndo").onclick=()=>{if(!history.length)return;state=history.pop();state.verified=state.verified===true;notice="已撤销上一步修复或方向调整。";run(false);};
+ $("hazardReset").onclick=()=>{snapshot();state={consensus:false,from:1,observedHazard:false,verified:false};notice="已恢复原始时序电路；重新运行以复现故障。";run(false);};
+ $("hazardBack").onclick=()=>{close();ChapterThree.open();};$("hazardNext").onclick=close;$("hazardEntry").onclick=open;
+ const previousFinish=$("robotFinish").onclick;$("robotFinish").onclick=()=>{if(!ChapterThree.isComplete())return;previousFinish();open();};
+ if(resume&&ChapterThree.isComplete())open();
+ return {open,close,isComplete:()=>state.verified};
 })();
 
 </script></body></html>

@@ -147,3 +147,107 @@ test('robot arm command sequence enforces safety, supports undo and resumes',asy
   assert.deepEqual(errors,[]);
  } finally {await cleanup(env);}
 });
+
+
+test('timing chapter reproduces the glitch, fixes it and verifies delay robustness',async()=>{
+ const env=await launchPage(()=>{
+  localStorage.setItem('offset-v1','{"0":1}');
+  localStorage.setItem('offset-airlock-v1',JSON.stringify({version:1,state:{inner:false,outer:true,low:true,gate:'AND',done:true},undo:[],active:false}));
+  localStorage.setItem('offset-robot-v1',JSON.stringify({version:1,state:{arm:'home',z:'high',gripper:'open',cargo:'target',done:true},program:['GRIP','LIFT','MOVE','LOWER','RELEASE','LIFT','HOME'],cursor:7,history:[],active:false}));
+ });
+ try {
+  const {page,errors}=env;
+  await page.locator('#chapterScene:not([hidden])').waitFor();
+  await page.locator('#chLab').click();
+  await page.locator('#hazardEntry').click();
+  await page.locator('#hazardScene:not([hidden])').waitFor();
+  assert.match(await page.locator('#hazardResult').innerText(),/5 ns/);
+  assert.match(await page.locator('#hazardPulseCount').innerText(),/1 个/);
+
+  await page.locator('#hazardFix').click();
+  assert.match(await page.locator('#hazardPulseCount').innerText(),/0 个/);
+  await page.locator('#hazardVerify').click();
+  await page.locator('#hazardNext').waitFor({state:'visible'});
+  assert.ok((await page.locator('#hazardNotice').innerText()).includes('54/54'));
+
+  await page.locator('#hazardFix').click();
+  await page.locator('#hazardNext').waitFor({state:'hidden'});
+  await page.locator('#hazardUndo').click();
+  await page.locator('#hazardNext').waitFor({state:'visible'});
+
+  await page.reload({waitUntil:'load'});
+  await page.locator('#hazardScene:not([hidden])').waitFor();
+  await page.locator('#hazardNext').waitFor({state:'visible'});
+  await page.setViewportSize({width:390,height:844});
+  const dimensions=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));
+  assert.ok(dimensions.scroll<=dimensions.width,'mobile page must not overflow horizontally: '+JSON.stringify(dimensions));
+  assert.deepEqual(errors,[]);
+ } finally {await cleanup(env);}
+});
+
+
+test('first chapter solves its real truth table and transitions into the airlock',async()=>{
+ const env=await launchPage(null);
+ try {
+  const {page,errors}=env;
+  await page.locator('#chapterScene:not([hidden])').waitFor();
+  await page.setViewportSize({width:390,height:844});
+  const dimensions=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));
+  assert.ok(dimensions.scroll<=dimensions.width,'chapter one must fit mobile viewport: '+JSON.stringify(dimensions));
+
+  await page.locator('#chGate0').click();
+  await page.locator('#chGate1').click();
+  assert.match(await page.locator('#chControllerState').innerText(),/已修复/);
+  await page.locator('#chPowerA').click();
+  await page.locator('#chNext').waitFor({state:'visible'});
+  assert.match(await page.locator('#chDoorState').innerText(),/通道已打开/);
+  await page.locator('#chNext').click();
+  await page.locator('#airScene:not([hidden])').waitFor();
+  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('offset-v1')||'{}'));
+  assert.ok(Object.hasOwn(saved,0),'chapter one completion must persist its unlock');
+  assert.deepEqual(errors,[]);
+ } finally {await cleanup(env);}
+});
+
+
+test('complete campaign flows from chapter one through chapter four without seeded progress',async()=>{
+ const env=await launchPage(null);
+ try {
+  const {page,errors}=env;
+  await page.locator('#chapterScene:not([hidden])').waitFor();
+  await page.locator('#chGate0').click();
+  await page.locator('#chGate1').click();
+  await page.locator('#chPowerA').click();
+  await page.locator('#chNext').waitFor({state:'visible'});
+  await page.locator('#chNext').click();
+  await page.locator('#airScene:not([hidden])').waitFor();
+
+  await page.locator('#airInner').click();
+  await page.locator('#airOuter').click();
+  assert.match(await page.locator('#airNotice').innerText(),/安全制动/);
+  await page.locator('#airPump').click();
+  await page.locator('#airOuter').click();
+  assert.match(await page.locator('#airNotice').innerText(),/自检发现联锁/);
+  await page.locator('[data-air-gate="AND"]').click();
+  await page.locator('#airOuter').click();
+  await page.locator('#airNext').waitFor({state:'visible'});
+  await page.locator('#airNext').click();
+  await page.locator('#robotScene:not([hidden])').waitFor();
+
+  for(const action of ['GRIP','LIFT','MOVE','LOWER','RELEASE','LIFT','HOME'])await page.locator('[data-robot-add="'+action+'"]').click();
+  for(let i=0;i<7;i++)await page.locator('#robotStep').click();
+  await page.locator('#robotFinish').waitFor({state:'visible'});
+  await page.locator('#robotFinish').click();
+  await page.locator('#hazardScene:not([hidden])').waitFor();
+
+  assert.match(await page.locator('#hazardResult').innerText(),/5 ns/);
+  await page.locator('#hazardFix').click();
+  await page.locator('#hazardVerify').click();
+  await page.locator('#hazardNext').waitFor({state:'visible'});
+
+  await page.reload({waitUntil:'load'});
+  await page.locator('#hazardScene:not([hidden])').waitFor();
+  await page.locator('#hazardNext').waitFor({state:'visible'});
+  assert.deepEqual(errors,[]);
+ } finally {await cleanup(env);}
+});
