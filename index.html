@@ -105,7 +105,7 @@
 .comms-wave-wrap{overflow:hidden;border:1px solid #314b58;border-radius:8px;background:#0a1720}.comms-wave{display:block;width:100%;height:auto}.comms-wave text{fill:#92aab5;font:11px ui-monospace,monospace}.comms-wave .grid{stroke:#263d48;stroke-width:1}.comms-wave .trace-a{fill:none;stroke:#f0c57d;stroke-width:3}.comms-wave .trace-y{fill:none;stroke:#71e8d0;stroke-width:3}.comms-wave .pulse{fill:#ffb65f;opacity:.18}
 .comms-ready{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:10px 0}.comms-ready-item{padding:8px 5px;border:1px solid #3c5662;border-radius:8px;background:#0c1b24;text-align:center}.comms-ready-item small{display:block;color:#9eb2ba;font-size:10px}.comms-ready-item b{display:block;margin-top:4px;color:#ffc77f;font-size:11px}.comms-ready-item.done b{color:#85f0d9}
 .comms-transmit{padding:15px;border:1px solid #4a6570;border-radius:13px;background:linear-gradient(120deg,#1a343e,#10212b);margin-top:12px}
-.comms-transmit h2{margin:0 0 5px;font-size:17px}.comms-transmit p{margin:0;color:#b9cbd1;font-size:12px;line-height:1.6}.comms-transmit-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px}.comms-transmit-button{min-height:48px;padding:11px 19px;border:1px solid #db9c4f;border-radius:9px;background:linear-gradient(135deg,#704820,#3e2b1a);color:#ffe0ad;font-weight:850;letter-spacing:.06em}.comms-transmit-button:disabled{opacity:.35;cursor:not-allowed}.comms-sos{flex:1;min-width:160px;color:#7ef0d7;font:800 20px ui-monospace,monospace;letter-spacing:.16em}.comms-notice{min-height:46px;margin-top:11px;padding:11px 13px;border-left:3px solid #d5a25e;border-radius:5px;background:#111e27;color:#e7d7ba;font-size:13px;line-height:1.55}.comms-notice.done{border-color:#68e5c9;color:#a9f7e7}
+.comms-transmit h2{margin:0 0 5px;font-size:17px}.comms-transmit p{margin:0;color:#b9cbd1;font-size:12px;line-height:1.6}.comms-transmit-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:12px}.comms-transmit-button{min-height:48px;padding:11px 19px;border:1px solid #db9c4f;border-radius:9px;background:linear-gradient(135deg,#704820,#3e2b1a);color:#ffe0ad;font-weight:850;letter-spacing:.06em}.comms-transmit-button:disabled{opacity:.35;cursor:not-allowed}.comms-ack-button{min-height:48px;padding:11px 16px;border:1px solid #5dcab3;border-radius:9px;background:#143b37;color:#a8ffea;font-weight:850}.comms-ack-button[hidden]{display:none!important}.comms-scene.acknowledged .comms-beam{opacity:.8;stroke-dasharray:none;animation:none}.comms-sos{flex:1;min-width:160px;color:#7ef0d7;font:800 20px ui-monospace,monospace;letter-spacing:.16em}.comms-notice{min-height:46px;margin-top:11px;padding:11px 13px;border-left:3px solid #d5a25e;border-radius:5px;background:#111e27;color:#e7d7ba;font-size:13px;line-height:1.55}.comms-notice.done{border-color:#68e5c9;color:#a9f7e7}
 .comms-footer{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:11px}.comms-footer>span{flex:1;color:#b7c9cf;font-size:12px}.comms-footer .ch-primary{margin-left:auto}
 @media(max-width:730px){.comms-hero-head{padding:12px 12px 7px;gap:8px}.comms-hero-head h1{font-size:21px}.comms-hero-head p{font-size:11px}.comms-hero-status{font-size:9px;padding:6px 8px}.comms-art{min-height:150px}.comms-scene-caption{left:8px;bottom:7px;font-size:9px;padding:6px 7px}.comms-stage-grid{grid-template-columns:1fr;gap:9px}.comms-stage{padding:11px}.comms-progress-list{gap:5px}.comms-progress-item{font-size:10px;padding:6px}.comms-ready{gap:5px}.comms-ready-item{padding:7px 3px}.comms-transmit{padding:12px}.comms-transmit-row{align-items:stretch}.comms-transmit-button{width:100%}.comms-sos{font-size:17px;text-align:center}.comms-footer>span{flex:1 0 100%;order:-1}}
 @media(prefers-reduced-motion:reduce){.comms-scene.transmitting .comms-beam{animation:none}.comms-beam{transition:none}}
@@ -162,7 +162,7 @@
 <text id="commsSignalText" x="650" y="48" fill="#a8c0ca" font-size="13" font-family="monospace" text-anchor="middle">NO CARRIER</text>
 <g transform="translate(40 290)"><rect x="0" y="-24" width="180" height="34" rx="7" fill="#091a24" stroke="#54717d"/><circle cx="15" cy="-7" r="4" fill="#75e8d1"/><text id="commsAntennaStatus" x="28" y="-3" fill="#c9d9dd" font-size="12">ARRAY · STOWED</text></g>
 </svg>
-<div class="comms-scene-caption"><b>GROUND STATION</b><span>·</span><span id="commsWindow">接收窗口剩余 01:42</span></div>
+<div class="comms-scene-caption"><b>GROUND STATION</b><span>·</span><span id="commsWindow">地面站窗口 · WAITING</span></div>
 </div>
 </section>
 <div class="comms-stage-grid">
@@ -184,7 +184,7 @@
 <div class="comms-stage-head"><span class="comms-stage-num">03</span><h2>安全联锁与天线部署 / INTERLOCK</h2><span>REDUNDANT SENSORS</span></div>
 <p>气闸必须保持密封，舱压双通道必须可信。复核第五关修复结果后，才能按状态机展开并锁定天线。</p>
 <div class="comms-progress-list"><div class="comms-progress-item" id="commsAirStatus"><i>·</i>气闸安全联锁</div><div class="comms-progress-item" id="commsSensorStatus"><i>·</i>压力双通道</div><div class="comms-progress-item" id="commsArmInterlock"><i>·</i>机械臂避让</div><div class="comms-progress-item" id="commsPowerInterlock"><i>·</i>能源母线</div></div>
-<div class="comms-button-row" style="margin-top:10px"><button id="commsSensorCheck" class="comms-action primary">复核双通道传感器</button></div>
+<div class="comms-button-row" style="margin-top:10px"><button id="commsAirCheck" class="comms-action">复核气闸联锁</button><button id="commsSensorCheck" class="comms-action primary">复核双通道传感器</button></div>
 <div class="comms-button-row" style="margin-top:9px"><button class="comms-action" data-comms-antenna="UNLOCK">解锁</button><button class="comms-action" data-comms-antenna="DEPLOY">展开</button><button class="comms-action" data-comms-antenna="ALIGN">对准</button><button class="comms-action" data-comms-antenna="LATCH">锁定</button></div>
 <div id="commsAntennaStatusText" class="comms-stage-result">等待安全联锁确认。</div>
 </section>
@@ -198,8 +198,8 @@
 </div>
 <section class="comms-transmit">
 <h2>05 / 最终发射 · DEEP SPACE SOS</h2><p>能源母线、机械臂避让、双通道传感器、天线锁定与时序鲁棒性全部通过后，才允许打开发射机。地面站必须返回 ACK。</p>
-<div class="comms-ready"><div class="comms-ready-item" id="commsReadyPower"><small>POWER</small><b>未就绪</b></div><div class="comms-ready-item" id="commsReadyArm"><small>ARM</small><b>未就绪</b></div><div class="comms-ready-item" id="commsReadySensors"><small>SENSORS</small><b>未就绪</b></div><div class="comms-ready-item" id="commsReadyAntenna"><small>ANTENNA</small><b>未就绪</b></div><div class="comms-ready-item" id="commsReadyTiming"><small>TIMING</small><b>未就绪</b></div><div class="comms-ready-item" id="commsReadyAck"><small>GROUND ACK</small><b>等待发射</b></div></div>
-<div class="comms-transmit-row"><button id="commsTransmit" class="comms-transmit-button" disabled>发送最后的 SOS</button><div id="commsSos" class="comms-sos">··· ——— ···</div></div>
+<div class="comms-ready"><div class="comms-ready-item" id="commsReadyPower"><small>POWER</small><b>未就绪</b></div><div class="comms-ready-item" id="commsReadyArm"><small>ARM</small><b>未就绪</b></div><div class="comms-ready-item" id="commsReadyAirlock"><small>AIRLOCK</small><b>未复核</b></div><div class="comms-ready-item" id="commsReadySensors"><small>SENSORS</small><b>未就绪</b></div><div class="comms-ready-item" id="commsReadyAntenna"><small>ANTENNA</small><b>未就绪</b></div><div class="comms-ready-item" id="commsReadyTiming"><small>TIMING</small><b>未就绪</b></div><div class="comms-ready-item" id="commsReadyAck"><small>GROUND ACK</small><b>等待发射</b></div></div>
+<div class="comms-transmit-row"><button id="commsTransmit" class="comms-transmit-button" disabled>发送最后的 SOS</button><button id="commsAck" class="comms-ack-button" hidden>等待地面站 ACK</button><div id="commsSos" class="comms-sos">··· ——— ···</div></div>
 </section>
 <div id="commsNotice" class="comms-notice" aria-live="polite">先修复能源母线。提示：母线必须通过 00、01、10、11 四组输入。</div>
 <footer class="comms-footer"><button id="commsHint" class="ch-secondary">提示</button><button id="commsUndo" class="ch-secondary">撤销</button><button id="commsReset" class="ch-secondary">重置任务</button><span id="commsProgress" role="status"></span><button id="commsNext" class="ch-primary" hidden>任务完成 · 返回工作台 →</button></footer>
@@ -722,43 +722,50 @@ const ChapterFive=(()=>{
  $("sensorHint").onclick=()=>{const hints=["高压时参考值为 1，低压时参考值为 0。记录两种工况才能看出传感器是否跟随变化。","比较每个通道的高压/低压记录。健康传感器应当与参考值同步翻转。","异常通道是 C。隔离 C 后，让 A、B 两路同时参与一致性判断。"];notice=state.verified?"已经恢复双通道可信输出。":hints[Math.min(hint++,2)];render();};
  $("sensorBack").onclick=()=>{close();ChapterFour.open();};$("sensorNext").onclick=close;$("sensorEntry").onclick=open;if(resume&&ChapterFour.isComplete())open();return {open,close,isComplete:()=>state.verified};
 })();
-function commsInitialState(){return {gate:"AND",powerVerified:false,armStep:0,sensorChecked:false,antennaStep:0,observedHazard:false,consensus:false,timingVerified:false,transmitted:false};}
+function commsInitialState(){return {gate:"AND",powerVerified:false,armStep:0,airlockChecked:false,sensorChecked:false,antennaStep:0,observedHazard:false,observedPulseNs:0,consensus:false,timingVerified:false,timingCases:0,timingFailures:0,transmitted:false,ackReceived:false};}
 function commsGateOutput(gate,a,b){if(gate==="AND")return a&b;if(gate==="OR")return a|b;if(gate==="XOR")return a^b;return null;}
 function commsPowerCases(gate){return [{a:0,b:0,expected:0},{a:0,b:1,expected:1},{a:1,b:0,expected:1},{a:1,b:1,expected:1}].map(x=>({...x,actual:commsGateOutput(gate,x.a,x.b)}));}
 function commsValidState(s){
- if(!s||!["AND","OR","XOR"].includes(s.gate)||typeof s.powerVerified!=="boolean"||!Number.isInteger(s.armStep)||s.armStep<0||s.armStep>3||typeof s.sensorChecked!=="boolean"||!Number.isInteger(s.antennaStep)||s.antennaStep<0||s.antennaStep>4||typeof s.observedHazard!=="boolean"||typeof s.consensus!=="boolean"||typeof s.timingVerified!=="boolean"||typeof s.transmitted!=="boolean")return false;
+ if(!s||!["AND","OR","XOR"].includes(s.gate)||typeof s.powerVerified!=="boolean"||!Number.isInteger(s.armStep)||s.armStep<0||s.armStep>3||typeof s.airlockChecked!=="boolean"||typeof s.sensorChecked!=="boolean"||!Number.isInteger(s.antennaStep)||s.antennaStep<0||s.antennaStep>4||typeof s.observedHazard!=="boolean"||!Number.isFinite(s.observedPulseNs)||s.observedPulseNs<0||typeof s.consensus!=="boolean"||typeof s.timingVerified!=="boolean"||!Number.isInteger(s.timingCases)||s.timingCases<0||s.timingCases>54||!Number.isInteger(s.timingFailures)||s.timingFailures<0||s.timingFailures>54||typeof s.transmitted!=="boolean"||typeof s.ackReceived!=="boolean")return false;
  if(s.powerVerified&&(s.gate!=="OR"||commsPowerCases(s.gate).some(x=>x.actual!==x.expected)))return false;
  if(s.armStep>0&&!s.powerVerified)return false;
- if(s.sensorChecked&&!(s.powerVerified&&s.armStep===3))return false;
- if(s.antennaStep>0&&!(s.powerVerified&&s.armStep===3&&s.sensorChecked))return false;
- if(s.observedHazard&&s.antennaStep!==4)return false;
+ if(s.airlockChecked&&!(s.powerVerified&&s.armStep===3))return false;
+ if(s.sensorChecked&&!(s.airlockChecked&&s.powerVerified&&s.armStep===3))return false;
+ if(s.antennaStep>0&&!(s.airlockChecked&&s.sensorChecked&&s.powerVerified&&s.armStep===3))return false;
+ if(s.observedHazard&&!(s.antennaStep===4&&s.observedPulseNs>0))return false;
+ if(!s.observedHazard&&s.observedPulseNs!==0)return false;
  if(s.consensus&&!s.observedHazard)return false;
- if(s.timingVerified&&!(s.consensus&&s.observedHazard&&s.antennaStep===4))return false;
- if(s.transmitted&&!(s.powerVerified&&s.armStep===3&&s.sensorChecked&&s.antennaStep===4&&s.timingVerified))return false;
+ if(s.timingVerified&&!(s.consensus&&s.observedHazard&&s.antennaStep===4&&s.timingCases===54&&s.timingFailures===0))return false;
+ if(!s.timingVerified&&(s.timingCases!==0||s.timingFailures!==0))return false;
+ if(s.transmitted&&!(s.powerVerified&&s.armStep===3&&s.airlockChecked&&s.sensorChecked&&s.antennaStep===4&&s.timingVerified))return false;
+ if(s.ackReceived&&!s.transmitted)return false;
  return true;
 }
-function commsApply(s,action,value){
+function commsApply(s,action,value,prerequisites){
  const fail=message=>({state:s,changed:false,message});
+ const deps=prerequisites||{};
  if(!commsValidState(s))return fail("最终任务状态异常，请重置本关。");
- if(s.transmitted)return fail("求救信号已送达。重置后可以重新执行任务。");
+ if(s.ackReceived)return fail("地面站已经确认收到 SOS。重置后可以重新执行任务。");
+ if(s.transmitted&&action!=="ACK")return fail("SOS 已发射，正在等待地面站 ACK。");
  const n={...s};
  if(action==="SET_GATE"){if(!["AND","OR","XOR"].includes(value))return fail("无效的逻辑门。");if(s.powerVerified)return fail("能源母线已锁定，不能再更改逻辑门。");n.gate=value;return {state:n,changed:true,message:"母线逻辑门已切换为 "+value+"。"};}
  if(action==="TEST_POWER"){const bad=commsPowerCases(s.gate).filter(x=>x.actual!==x.expected);if(bad.length)return fail("母线验收失败："+bad.map(x=>""+x.a+x.b+" 应为 "+x.expected+"，实际为 "+x.actual).join("；")+"。");n.powerVerified=true;return {state:n,changed:true,message:"四组真值测试全部通过。任意单路供电均可维持母线，双路断电时输出为 0。"};}
  if(action==="ARM_RAISE"){if(!s.powerVerified)return fail("主母线未恢复，机械臂驱动器没有供电。");if(s.armStep!==0)return fail("当前状态不允许抬升；检查机械臂状态机。");n.armStep=1;return {state:n,changed:true,message:"机械臂已抬升至安全高度。"};}
  if(action==="ARM_RETRACT"){if(s.armStep!==1)return fail("收回被拒绝：必须先将机械臂抬升至安全高度。");n.armStep=2;return {state:n,changed:true,message:"机械臂已退出天线展开路径。"};}
  if(action==="ARM_LOCK"){if(s.armStep!==2)return fail("锁止被拒绝：机械臂必须先抬升并完全收回。");n.armStep=3;return {state:n,changed:true,message:"机械臂已归位并锁止，天线通道清空。"};}
- if(action==="SENSOR_CHECK"){if(!s.powerVerified||s.armStep!==3)return fail("安全复核条件不足：先恢复母线并锁止机械臂。");n.sensorChecked=true;return {state:n,changed:true,message:"双通道自检通过：A/B 两路一致，压力许可有效。"};}
- if(action==="ANTENNA_UNLOCK"){if(!s.powerVerified||s.armStep!==3||!s.sensorChecked)return fail("天线解锁被安全互锁拒绝：能源、机械臂和压力双通道必须全部就绪。");if(s.antennaStep!==0)return fail("天线当前不处于收纳状态。");n.antennaStep=1;return {state:n,changed:true,message:"天线锁扣已解除。"};}
+ if(action==="AIRLOCK_CHECK"){if(!s.powerVerified||s.armStep!==3)return fail("气闸复核条件不足：先恢复能源并锁止机械臂。");if(deps.airlockComplete!==true)return fail("第二关气闸安全联锁尚未完成，不能签署复核。");n.airlockChecked=true;return {state:n,changed:true,message:"气闸安全联锁复核通过：内外门互锁状态已确认。"};}
+ if(action==="SENSOR_CHECK"){if(!s.powerVerified||s.armStep!==3||!s.airlockChecked)return fail("压力复核条件不足：先恢复能源、锁止机械臂并完成气闸复核。");if(deps.sensorComplete!==true)return fail("第五关双通道传感器尚未完成修复，不能签署复核。");n.sensorChecked=true;return {state:n,changed:true,message:"双通道自检通过：第五关修复的 A/B 两路一致，压力许可有效。"};}
+ if(action==="ANTENNA_UNLOCK"){if(!s.powerVerified||s.armStep!==3||!s.airlockChecked||!s.sensorChecked)return fail("天线解锁被安全互锁拒绝：能源、机械臂、气闸和压力双通道必须全部就绪。");if(s.antennaStep!==0)return fail("天线当前不处于收纳状态。");n.antennaStep=1;return {state:n,changed:true,message:"天线锁扣已解除。"};}
  if(action==="ANTENNA_DEPLOY"){if(s.antennaStep!==1)return fail("展开被拒绝：必须先解除天线锁扣。");n.antennaStep=2;return {state:n,changed:true,message:"天线反射面已展开。"};}
  if(action==="ANTENNA_ALIGN"){if(s.antennaStep!==2)return fail("对准被拒绝：天线必须先完全展开。");n.antennaStep=3;return {state:n,changed:true,message:"天线已指向地面站方位。"};}
  if(action==="ANTENNA_LATCH"){if(s.antennaStep!==3)return fail("锁定被拒绝：必须先完成方位对准。");n.antennaStep=4;return {state:n,changed:true,message:"天线方位锁定。现在可以检查通信握手时序。"};}
- if(action==="TIMING_OBSERVED"){if(s.antennaStep!==4)return fail("天线尚未锁定，不能运行最终通信握手。");if(s.observedHazard)return fail("原始握手毛刺已经记录。");n.observedHazard=true;return {state:n,changed:true,message:"已记录原始握手中的瞬态低脉冲。"};}
+ if(action==="TIMING_OBSERVED"){if(s.antennaStep!==4)return fail("天线尚未锁定，不能运行最终通信握手。");if(s.observedHazard)return fail("原始握手毛刺已经记录。");if(!Number.isFinite(value)||value<=0||value>100)return fail("未提供有效的毛刺宽度测量值。");n.observedHazard=true;n.observedPulseNs=Math.round(value*100)/100;return {state:n,changed:true,message:"已记录原始握手中的 "+n.observedPulseNs+" ns 瞬态低脉冲。"};}
  if(action==="TIMING_FIX"){if(!s.observedHazard)return fail("先运行原始握手并观察瞬态毛刺。");if(s.consensus)return fail("BC 共识通路已经安装。");n.consensus=true;return {state:n,changed:true,message:"BC 共识通路已接入。继续验证传播延迟扰动。"};}
- if(action==="TIMING_VERIFIED"){if(!s.observedHazard||!s.consensus)return fail("先复现毛刺并安装 BC 共识通路。");n.timingVerified=true;return {state:n,changed:true,message:"时序验收通过：54 组传播延迟扰动均未出现输出毛刺。"};}
- if(action==="TRANSMIT"){if(!(s.powerVerified&&s.armStep===3&&s.sensorChecked&&s.antennaStep===4&&s.timingVerified))return fail("发射联锁未满足：能源、机械臂、双通道、天线和时序必须全部通过。");n.transmitted=true;return {state:n,changed:true,message:"SOS 已发射。地面站返回 ACK，空间站求救成功。"};}
+ if(action==="TIMING_VERIFIED"){if(!s.observedHazard||!s.consensus)return fail("先复现毛刺并安装 BC 共识通路。");if(!value||value.cases!==54||value.failures!==0)return fail("时序验收未通过：必须完成 54 组扰动且失败数为 0。");n.timingVerified=true;n.timingCases=value.cases;n.timingFailures=value.failures;return {state:n,changed:true,message:"时序验收通过：54 组传播延迟扰动均未出现输出毛刺。"};}
+ if(action==="TRANSMIT"){if(!(s.powerVerified&&s.armStep===3&&s.airlockChecked&&s.sensorChecked&&s.antennaStep===4&&s.timingVerified))return fail("发射联锁未满足：能源、机械臂、气闸、双通道、天线和时序必须全部通过。");if(deps.airlockComplete!==true||deps.sensorComplete!==true)return fail("上游安全子系统状态已变化，必须重新完成前置关卡。");n.transmitted=true;return {state:n,changed:true,message:"SOS 已发射。信号已抵达地面站，正在等待 ACK。"};}
+ if(action==="ACK"){if(!s.transmitted)return fail("尚未发射 SOS，地面站没有可确认的信号。");n.ackReceived=true;return {state:n,changed:true,message:"地面站 ACK 已收到。空间站求救成功。"};}
  return fail("未知的最终任务操作。");
-}
-const ChapterSix=(()=>{
+}const ChapterSix=(()=>{
  const key="offset-comms-v1",scene=$("commsScene");let state=commsInitialState(),history=[],active=false,resume=false,warning="",hint=0,notice="先修复能源母线。提示：母线必须通过 00、01、10、11 四组输入。";
  const clone=x=>JSON.parse(JSON.stringify(x));
  try{const v=JSON.parse(localStorage.getItem(key)||"null");if(v!==null){if(v.version!==1||!commsValidState(v.state)||!Array.isArray(v.history)||v.history.length>100||!v.history.every(commsValidState))throw Error("invalid save");state=v.state;history=v.history;resume=v.active===true;}}catch{warning="旧最终任务存档异常，已恢复初始状态";}
