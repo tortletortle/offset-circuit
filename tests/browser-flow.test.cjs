@@ -109,14 +109,17 @@ test('robot arm command sequence enforces safety, supports undo and resumes',asy
   await page.locator('#robotEntry').click();
   await page.locator('#robotScene:not([hidden])').waitFor();
 
-  await page.locator('[data-robot-add="MOVE"]').click();
-  await page.locator('#robotStep').click();
-  assert.match(await page.locator('#robotNotice').innerText(),/平移互锁/);
-  await page.locator('[data-robot-step="0"]').click();
-
   const route=['GRIP','LIFT','MOVE','LOWER','RELEASE','LIFT','HOME'];
-  for(const action of route)await page.locator('[data-robot-add="'+action+'"]').click();
-  assert.equal(await page.locator('#robotCounter').innerText(),'程序 0 / 7');
+  assert.match(await page.locator('#robotTutorialProgress').innerText(),/01 \/ 07/);
+  assert.match(await page.locator('#robotTutorialTitle').innerText(),/夹取货箱/);
+  assert.equal(await page.locator('[data-robot-add]').count(),0,'permanent command buttons must be absent');
+  await page.locator('[data-robot-hotspot="MOVE"]').evaluate(el=>el.dispatchEvent(new MouseEvent('click',{bubbles:true})));
+  assert.equal(await page.locator('#robotCounter').innerText(),'程序 0 / 7','inactive hotspots must not add commands');
+  for(const [index,action] of route.entries()){
+   await page.locator('[data-robot-hotspot="'+action+'"]').click();
+   assert.equal(await page.locator('#robotCounter').innerText(),'程序 '+(index+1)+' / 7');
+  }
+  assert.match(await page.locator('#robotTutorialProgress').innerText(),/07 \/ 07/);
   const startX=await page.locator('#robotTrolley').evaluate(el=>el.getBoundingClientRect().x);
   const startY=await page.locator('#robotGripper').evaluate(el=>el.getBoundingClientRect().y);
   await page.locator('#robotStep').click(); // grip
@@ -236,7 +239,7 @@ test('complete campaign flows from chapter one through final SOS without seeded 
   await page.locator('#airNext').click();
   await page.locator('#robotScene:not([hidden])').waitFor();
 
-  for(const action of ['GRIP','LIFT','MOVE','LOWER','RELEASE','LIFT','HOME'])await page.locator('[data-robot-add="'+action+'"]').click();
+  for(const action of ['GRIP','LIFT','MOVE','LOWER','RELEASE','LIFT','HOME'])await page.locator('[data-robot-hotspot="'+action+'"]').click();
   for(let i=0;i<7;i++)await page.locator('#robotStep').click();
   await page.locator('#robotFinish').waitFor({state:'visible'});
   await page.locator('#robotFinish').click();
