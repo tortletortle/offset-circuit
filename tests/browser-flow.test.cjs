@@ -147,3 +147,40 @@ test('robot arm command sequence enforces safety, supports undo and resumes',asy
   assert.deepEqual(errors,[]);
  } finally {await cleanup(env);}
 });
+
+
+test('timing chapter reproduces the glitch, fixes it and verifies delay robustness',async()=>{
+ const env=await launchPage(()=>{
+  localStorage.setItem('offset-v1','{"0":1}');
+  localStorage.setItem('offset-airlock-v1',JSON.stringify({version:1,state:{inner:false,outer:true,low:true,gate:'AND',done:true},undo:[],active:false}));
+  localStorage.setItem('offset-robot-v1',JSON.stringify({version:1,state:{arm:'home',z:'high',gripper:'open',cargo:'target',done:true},program:['GRIP','LIFT','MOVE','LOWER','RELEASE','LIFT','HOME'],cursor:7,history:[],active:false}));
+ });
+ try {
+  const {page,errors}=env;
+  await page.locator('#chapterScene:not([hidden])').waitFor();
+  await page.locator('#chLab').click();
+  await page.locator('#hazardEntry').click();
+  await page.locator('#hazardScene:not([hidden])').waitFor();
+  assert.match(await page.locator('#hazardResult').innerText(),/5 ns/);
+  assert.match(await page.locator('#hazardPulseCount').innerText(),/1 个/);
+
+  await page.locator('#hazardFix').click();
+  assert.match(await page.locator('#hazardPulseCount').innerText(),/0 个/);
+  await page.locator('#hazardVerify').click();
+  await page.locator('#hazardNext').waitFor({state:'visible'});
+  assert.match(await page.locator('#hazardNotice').innerText(),/54\\/54/);
+
+  await page.locator('#hazardFix').click();
+  await page.locator('#hazardNext').waitFor({state:'hidden'});
+  await page.locator('#hazardUndo').click();
+  await page.locator('#hazardNext').waitFor({state:'visible'});
+
+  await page.reload({waitUntil:'load'});
+  await page.locator('#hazardScene:not([hidden])').waitFor();
+  await page.locator('#hazardNext').waitFor({state:'visible'});
+  await page.setViewportSize({width:390,height:844});
+  const dimensions=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));
+  assert.ok(dimensions.scroll<=dimensions.width,'mobile page must not overflow horizontally: '+JSON.stringify(dimensions));
+  assert.deepEqual(errors,[]);
+ } finally {await cleanup(env);}
+});
