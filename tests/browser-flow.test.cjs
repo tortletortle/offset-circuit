@@ -303,6 +303,39 @@ test('three-backup chapter calibrates, isolates the faulty sensor, saves and res
   await page.setViewportSize({width:390,height:844});
   const dimensions=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));
   assert.ok(dimensions.scroll<=dimensions.width,'chapter five must fit mobile viewport: '+JSON.stringify(dimensions));
+
+  // The sixth chapter is reached only after the fifth chapter is complete.
+  await page.locator('#sensorNext').click();
+  await page.locator('#commsScene:not([hidden])').waitFor();
+  await page.locator('#commsPowerTest').click();
+  assert.match(await page.locator('#commsPowerStatus').innerText(),/不符/);
+  await page.locator('[data-comms-gate="XOR"]').click();
+  await page.locator('#commsPowerTest').click();
+  assert.match(await page.locator('#commsPowerStatus').innerText(),/不符/);
+  await page.locator('[data-comms-gate="OR"]').click();
+  await page.locator('#commsPowerTest').click();
+  assert.match(await page.locator('#commsPowerStatus').innerText(),/四组真值全部通过/);
+
+  for(const action of ['RAISE','RETRACT','LOCK'])await page.locator('[data-comms-arm="'+action+'"]').click();
+  await page.locator('#commsSensorCheck').click();
+  for(const action of ['UNLOCK','DEPLOY','ALIGN','LATCH'])await page.locator('[data-comms-antenna="'+action+'"]').click();
+  await page.locator('#commsObserve').click();
+  assert.match(await page.locator('#commsTimingStatus').innerText(),/5 ns/);
+  await page.locator('#commsFix').click();
+  await page.locator('#commsVerifyTiming').click();
+  assert.match(await page.locator('#commsTimingStatus').innerText(),/54\/54/);
+  await page.locator('#commsTransmit').click();
+  await page.locator('#commsNext').waitFor({state:'visible'});
+  assert.match(await page.locator('#commsHeroStatus').innerText(),/ACK RECEIVED/);
+
+  await page.locator('#commsUndo').click();
+  await page.locator('#commsNext').waitFor({state:'hidden'});
+  await page.locator('#commsTransmit').click();
+  await page.reload({waitUntil:'load'});
+  await page.locator('#commsScene:not([hidden])').waitFor();
+  await page.locator('#commsNext').waitFor({state:'visible'});
+  const finalDimensions=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));
+  assert.ok(finalDimensions.scroll<=finalDimensions.width,'chapter six must fit mobile viewport: '+JSON.stringify(finalDimensions));
   assert.deepEqual(errors,[]);
  } finally {await cleanup(env);}
 });
