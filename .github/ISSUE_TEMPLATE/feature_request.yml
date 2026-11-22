@@ -1,0 +1,42 @@
+name: Feature request
+description: Suggest a change that improves the learning or gameplay experience.
+title: "[Feature] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe the player problem first. A proposal is more useful when it explains who benefits and how success could be observed.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem or friction did you encounter?
+      placeholder: "When I ..., it is difficult to ..."
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would you change?
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: How should we know the change helped?
+      description: For example, fewer misunderstood steps, better completion, or a clearer logic explanation.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Related area
+      options:
+        - Campaign / story
+        - Digital logic learning
+        - Workbench / experiments
+        - Visual design
+        - Mobile usability
+        - Accessibility
+        - Other
+    validations:
+      required: true
