@@ -1,0 +1,81 @@
+name: Bug report
+description: Report a reproducible problem in the game.
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please search existing issues first. Do not include passwords, API keys, private files or personal data in screenshots.
+  - type: input
+    id: version
+    attributes:
+      label: Game version or commit
+      description: For example, V0.8.7 or a full commit SHA.
+      placeholder: "V0.8.7"
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Device, OS and browser
+      placeholder: "Android 16, Chrome 142, 390 × 844"
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where did it happen?
+      options:
+        - First Light
+        - Silent Airlock
+        - Runaway Manipulator
+        - The Missing Nanosecond
+        - Triple Backup
+        - The Last Distress Call
+        - Logic workbench / experiments
+        - Save / resume
+        - Layout / accessibility
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Impact
+      options:
+        - Blocker — cannot continue
+        - Major — important function is broken
+        - Minor — workaround exists
+        - Cosmetic — visual or wording issue
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: List the smallest sequence that reproduces the issue.
+      placeholder: |
+        1. Open the game
+        2. Enter chapter ...
+        3. Click ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected result
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual result
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Screenshots, recording or console errors
+      description: Attach only evidence that does not expose private information.
+    validations:
+      required: false
