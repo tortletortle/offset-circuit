@@ -95,3 +95,14 @@ The runtime game is a single HTML file. `package.json` has one pinned developmen
 Suggested GitHub Topics: `logic-puzzle`, `digital-logic`, `browser-game`, `educational-game`, `javascript`, `circuit`.
 
 Do not claim user counts, ratings, Stars, real-world control accuracy or hardware-level validation without evidence.
+
+
+## 2026-11-22 candidate refresh
+
+- Release branch HEAD: `04ca94303149c4b4ad16c77384cdd32d3455141a`. Since the gameplay snapshot `1dc0a94`, subsequent commits add documentation, the screenshot workflow, a manual playtest protocol and structured issue forms; the game source and test suite are unchanged.
+- Fresh GitHub Actions run `44982071995` tested the current HEAD on Ubuntu 24.04 / Node 22 / Chromium. Result: **31 passed, 0 failed, 0 skipped** (job `137084530090`). The log lists all 31 named tests.
+- Fresh preview run `44982070136` completed successfully and uploaded `offset-circuit-release-preview` (artifact `14738460741`). It captured the workbench, robot cargo bay and 390 px mobile layout from the current candidate. The mobile capture was visually inspected again.
+- `docs/PLAYTEST_PROTOCOL.md` now defines the real-device and first-time-player acceptance process. Bug-report and feature-request issue forms are included.
+- PR #4 is now the consolidated release-candidate PR against `main`; it remains a draft. Main has not been changed and repository visibility remains private.
+
+The automated evidence is strong enough to continue release preparation, but it does not clear the legal, full-history security, real-device or human-playtest blockers above.
