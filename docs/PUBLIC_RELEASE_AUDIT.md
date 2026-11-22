@@ -106,3 +106,11 @@ Do not claim user counts, ratings, Stars, real-world control accuracy or hardwar
 - PR #4 is now the consolidated release-candidate PR against `main`; it remains a draft. Main has not been changed and repository visibility remains private.
 
 The automated evidence is strong enough to continue release preparation, but it does not clear the legal, full-history security, real-device or human-playtest blockers above.
+
+
+## Final candidate check — 2026-11-22
+
+- Release branch content before this audit-only update: `7ec8a8d26196f9477e449e2b69bdcd0ca0fd1c50`.
+- Latest full quality run `44982182510` on that candidate completed successfully: **31 tests passed, 0 failed, 0 skipped** (job `137084871803`).
+- Latest visual capture run `44982179211` completed successfully and uploaded artifact `offset-circuit-release-preview` (artifact `14738580183`).
+- The only change after that tested candidate is this audit document update; no game source, test or dependency files changed.
