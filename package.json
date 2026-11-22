@@ -1,0 +1,15 @@
+{
+  "name": "offset-circuit",
+  "version": "0.8.7",
+  "private": true,
+  "description": "Offline-first logic-circuit puzzle game",
+  "scripts": {
+    "test": "node --test tests/*.test.cjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "playwright": "1.56.1"
+  }
+}

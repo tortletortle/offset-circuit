@@ -1,0 +1,35 @@
+name: Capture release candidate preview
+
+on:
+  push:
+    branches:
+      - "release/open-source-preparation"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  capture:
+    name: Render real game screenshots
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out release candidate
+        uses: actions/checkout@v5
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - name: Install pinned browser dependency
+        run: npm install --no-audit --no-fund
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Render workbench and chapter screenshots
+        run: node scripts/capture-visual-preview.cjs
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: offset-circuit-release-preview
+          path: artifacts/*.png
+          if-no-files-found: error
+          retention-days: 7
